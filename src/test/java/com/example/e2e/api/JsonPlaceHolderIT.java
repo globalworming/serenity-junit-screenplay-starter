@@ -1,12 +1,12 @@
 package com.example.e2e.api;
 
+import com.example.screenplay.action.GetAListOfAllPosts;
 import com.example.screenplay.action.UploadNewPost;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Get;
 import org.apache.http.HttpStatus;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class JsonPlaceHolderIT {
 
   @Test
   public void  thereShouldBeMoreThan99Posts() {
-    author.attemptsTo(Get.resource("/posts"));
+    author.attemptsTo(new GetAListOfAllPosts());
     author.should(seeThatResponse("a lot of posts are returned", it -> it
         .statusCode(SC_OK)
         .body("size()", greaterThan(99)))
