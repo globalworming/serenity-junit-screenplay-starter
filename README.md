@@ -1,26 +1,20 @@
-# Serenity JUnit Starter project
-
-
-This is the simplest possible build script setup for Serenity BDD using Java. 
-
-This is a very minimal sample project using JUnit and Serenity BDD in Java. 
-You can use this project as a quick starting point for your own projects.
+# Serenity JUnit Screenplay Starter project
+*no cucumbers where harmed during development*
+  
+This is a minimalistic example using Serenity BDD with the screenplay patter but without Cucumber. It shows how actors with different abilities can work on different interfaces in isolation or in collaboration. 
 
 ## Get the code
 
 Git:
 
-    git clone https://github.com/serenity-bdd/serenity-junit-starter.git
-    cd serenity-junit-starter
-
-
-Or simply [download a zip](https://github.com/serenity-bdd/serenity-junit-starter/archive/master.zip) file.
+    git git@github.com:globalworming/serenity-junit-screenplay-starter.git
+    cd serenity-junit-screenplay-starter
 
 ## Use Maven
 
 Open a command window and run:
 
-    mvn clean verify
+    mvn verify
 
 ## Use Gradle
 
@@ -33,3 +27,6 @@ Open a command window and run:
 
 Both of the commands provided above will produce a Serenity test report in the `target/site/serenity` directory. Go take a look!
 
+# Need help?
+
+Create an [Issue](https://github.com/globalworming/serenity-junit-screenplay-starter/issues) or join the [gitter chat](https://gitter.im/serenity-bdd/serenity-core)  
