@@ -1,4 +1,4 @@
-package com.example.screenplay;
+package com.example.screenplay.page;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
