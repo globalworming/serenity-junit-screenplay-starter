@@ -8,7 +8,7 @@ public class LookUpAllUnsuccessfulOutcomes implements Performable {
   @Override
   public <T extends Actor> void performAs(T t) {
     t.attemptsTo(Click.on(".ToggleSideMenu"));
-    t.attemptsTo(Click.on(".trace-errors"));
+    t.attemptsTo(Click.on(".traceErrors"));
 
   }
 }
