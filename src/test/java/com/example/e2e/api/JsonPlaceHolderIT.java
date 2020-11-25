@@ -6,6 +6,7 @@ import com.example.screenplay.question.NumberOfReturnedPosts;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
+import net.thucydides.core.annotations.Narrative;
 import org.apache.http.HttpStatus;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 
 @RunWith(SerenityRunner.class)
+@Narrative(title = "title for json placeholder tests", text = "FIXME description")
 public class JsonPlaceHolderIT {
 
   private static Actor author;

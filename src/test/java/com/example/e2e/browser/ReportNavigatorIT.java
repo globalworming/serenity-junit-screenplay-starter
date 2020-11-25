@@ -18,7 +18,7 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SerenityRunner.class)
-@Narrative(text = "This describes our behavior regarding the browser")
+@Narrative(text = "describes the report behavior")
 public class ReportNavigatorIT {
 
   @Managed(driver = "chrome")
