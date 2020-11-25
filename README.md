@@ -7,7 +7,7 @@ This is a minimalistic example using Serenity BDD with the screenplay patter but
 
 Git:
 
-    git git@github.com:globalworming/serenity-junit-screenplay-starter.git
+    git clone git@github.com:globalworming/serenity-junit-screenplay-starter.git
     cd serenity-junit-screenplay-starter
 
 ## Use Maven
