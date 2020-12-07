@@ -8,6 +8,8 @@ import net.thucydides.core.annotations.Step;
 
 import java.util.NoSuchElementException;
 
+import static net.serenitybdd.screenplay.Tasks.instrumented;
+
 public class ProvideInfrastructure implements Performable {
   private final String name;
 
@@ -16,7 +18,6 @@ public class ProvideInfrastructure implements Performable {
   }
 
   public static ProvideInfrastructure forDeveloper(String name) {
-
     return instrumented(ProvideInfrastructure.class, name);
   }
 
