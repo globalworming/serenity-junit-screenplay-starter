@@ -17,8 +17,7 @@ public class ProvideInfrastructure implements Performable {
 
   public static ProvideInfrastructure forDeveloper(String name) {
 
-    return new ProvideInfrastructure(name);
-    //return instrumented(ProvideInfrastructure.class, name);
+    return instrumented(ProvideInfrastructure.class, name);
   }
 
   @Override
