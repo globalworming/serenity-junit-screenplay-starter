@@ -10,7 +10,8 @@
     <logger name="root" level="INFO"/>
     <logger name="net.serenitybdd" level="INFO"/>
     <logger name="net.thucydides" level="INFO"/>
-    <logger name="org.apache.http.wire" level="INFO"/>
+    <logger name="org.apache.http" level="INFO"/>
+    <logger name="org.apache.hc" level="INFO"/>
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
