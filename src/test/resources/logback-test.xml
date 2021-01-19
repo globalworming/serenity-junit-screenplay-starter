@@ -13,7 +13,7 @@
     <logger name="org.apache.http" level="INFO"/>
     <logger name="org.apache.hc" level="INFO"/>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 
