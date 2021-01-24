@@ -6,33 +6,35 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.NoMatchingAbilityException;
 import net.serenitybdd.screenplay.RefersToActor;
 
-public class ObserveTheGame implements Ability, RefersToActor {
+public class ManageGames implements Ability, RefersToActor {
   private final GameAdminService gameAdminService;
   private Actor actor;
 
-  private ObserveTheGame(GameAdminService gameAdminService) {
+  private ManageGames(GameAdminService gameAdminService) {
     this.gameAdminService = gameAdminService;
   }
 
-  public static ObserveTheGame through(GameAdminService gameAdminService) {
-    return new ObserveTheGame(gameAdminService);
+  public static ManageGames through(GameAdminService gameAdminService) {
+    return new ManageGames(gameAdminService);
   }
 
-  public static ObserveTheGame as(Actor actor) {
-    if (actor.abilityTo(ObserveTheGame.class) == null) throw new NoMatchingAbilityException(actor.getName());
-    return actor.abilityTo(ObserveTheGame.class).asActor(actor);
+  public static ManageGames as(Actor actor) {
+    if (actor.abilityTo(ManageGames.class) == null) {
+      throw new NoMatchingAbilityException(actor.getName());
+    }
+    return actor.abilityTo(ManageGames.class).asActor(actor);
   }
 
 
   @Override
-  public ObserveTheGame asActor(Actor actor) {
+  public ManageGames asActor(Actor actor) {
     this.actor = actor;
     return this;
   }
 
   @Override
   public String toString() {
-    return "Observe the game";
+    return getClass().getSimpleName();
   }
 
   public GameAdminService getService() {

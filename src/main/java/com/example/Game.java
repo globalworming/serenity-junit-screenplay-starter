@@ -1,23 +1,20 @@
 package com.example;
 
-import java.util.ArrayList;
+import lombok.Builder;
+import lombok.Getter;
+
 import java.util.List;
 
+@Builder
+@Getter
 public class Game {
-  private static Game instance;
-  private final List<Player> players = new ArrayList<>();
-
-  static Game getInstance() {
-    if (instance == null) instance = new Game();
-    return instance;
-  }
+  private final List<Player> players;
+  private final String name;
 
   void add(String player) {
-    if (players.size() >= 2) throw new UnsupportedOperationException("only two players allowed");
+    if (players.size() >= 2) {
+      throw new UnsupportedOperationException("only two players allowed");
+    }
     players.add(new Player(player));
-  }
-
-  public List<Player> getPlayers() {
-    return players;
   }
 }

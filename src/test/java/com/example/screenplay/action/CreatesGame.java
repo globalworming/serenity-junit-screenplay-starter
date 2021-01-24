@@ -6,15 +6,11 @@ import com.example.screenplay.actor.Memory;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 
-public class JoinsAGame implements Performable {
+public class CreatesGame implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
     PlayerService service = PlayAGame.as(actor).getService();
     String gameName = actor.recall(Memory.GAME_NAME);
-    try {
-      service.joinGame(actor.getName(), gameName);
-    } catch (UnsupportedOperationException e) {
-      actor.remember(Memory.EXCEPTION, e.getMessage());
-    }
+    service.createGame(gameName);
   }
 }

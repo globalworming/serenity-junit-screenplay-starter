@@ -19,7 +19,9 @@ public class PlayAGame implements Ability, RefersToActor {
   }
 
   public static PlayAGame as(Actor actor) {
-    if (actor.abilityTo(PlayAGame.class) == null) throw new NoMatchingAbilityException(actor.getName());
+    if (actor.abilityTo(PlayAGame.class) == null) {
+      throw new NoMatchingAbilityException(actor.getName());
+    }
     return actor.abilityTo(PlayAGame.class).asActor(actor);
   }
 
