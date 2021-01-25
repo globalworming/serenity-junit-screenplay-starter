@@ -11,4 +11,12 @@ public class PlayerService {
   public void createGame(String gameName) {
     lobbyService.createGame(gameName);
   }
+
+  public String getWinner(String gameName) {
+    return lobbyService.getGame(gameName).getWinner().getName();
+  }
+
+  public void pickAction(String gameName, String player, Action action) {
+    lobbyService.getGame(gameName).pickAction(player, action);
+  }
 }

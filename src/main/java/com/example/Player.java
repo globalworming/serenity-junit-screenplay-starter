@@ -1,5 +1,8 @@
 package com.example;
 
+import lombok.Getter;
+
+@Getter
 public class Player {
   private final String name;
 

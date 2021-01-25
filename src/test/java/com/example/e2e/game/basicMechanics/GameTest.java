@@ -11,12 +11,12 @@ import com.example.screenplay.action.SetupGame;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.question.GameIsCreated;
 import com.example.screenplay.question.PlayersPlaying;
+import com.example.screenplay.question.TheWinnerIs;
 import com.example.screenplay.question.TheyArentAllowedToJoin;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.Cast;
 import net.thucydides.core.annotations.Narrative;
-import net.thucydides.core.annotations.Pending;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,19 +63,19 @@ public class GameTest {
 
   @Test
   public void whenThreePlayersWantToPlayAGame() {
-    admin.attemptsTo(SetupGame.forPlayers(Arrays.asList(lizzy, alex)));
+    lizzy.attemptsTo(new CreatesGame());
+    players.getActors().forEach(it -> it.attemptsTo(new JoinsAGame()));
     ruby.attemptsTo(new JoinsAGame());
     ruby.should(seeThat(new TheyArentAllowedToJoin()));
   }
 
   @Test
-  @Pending
   public void whenPlayersPlayTheFirstRoundAndAWinnerIsDeclared() {
-    players.getActors().forEach(it -> it.attemptsTo(new JoinsAGame()));
+    admin.attemptsTo(SetupGame.forPlayers(Arrays.asList(lizzy, alex)));
     lizzy.attemptsTo(PicksAction.stone());
-    alex.attemptsTo(PicksAction.scissors());
-    lizzy.should(seeThat("the winner", actor -> lizzy.getName(), is(lizzy.getName())));
-    alex.should(seeThat("the winner", actor -> lizzy.getName(), is(lizzy.getName())));
+    alex.attemptsTo(PicksAction.paper());
+    lizzy.should(seeThat(new TheWinnerIs(), is(alex.getName())));
+    alex.should(seeThat(new TheWinnerIs(), is(alex.getName())));
 
   }
 }
