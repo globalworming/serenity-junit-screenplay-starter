@@ -1,21 +1,21 @@
 package com.example.screenplay.ability;
 
-import com.example.GameAdminService;
+import com.example.GameService;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.NoMatchingAbilityException;
 import net.serenitybdd.screenplay.RefersToActor;
 
 public class ManageGames implements Ability, RefersToActor {
-  private final GameAdminService gameAdminService;
+  private final GameService gameService;
   private Actor actor;
 
-  private ManageGames(GameAdminService gameAdminService) {
-    this.gameAdminService = gameAdminService;
+  private ManageGames(GameService gameService) {
+    this.gameService = gameService;
   }
 
-  public static ManageGames through(GameAdminService gameAdminService) {
-    return new ManageGames(gameAdminService);
+  public static ManageGames through(GameService gameService) {
+    return new ManageGames(gameService);
   }
 
   public static ManageGames as(Actor actor) {
@@ -37,7 +37,7 @@ public class ManageGames implements Ability, RefersToActor {
     return getClass().getSimpleName();
   }
 
-  public GameAdminService getService() {
-    return gameAdminService;
+  public GameService getService() {
+    return gameService;
   }
 }
