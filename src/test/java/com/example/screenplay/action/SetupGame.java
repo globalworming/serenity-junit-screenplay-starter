@@ -12,7 +12,7 @@ import static net.serenitybdd.screenplay.Tasks.instrumented;
 public class SetupGame implements Performable {
   private final List<Actor> players;
 
-  public SetupGame(List<Actor> players) {
+  SetupGame(List<Actor> players) {
     this.players = players;
   }
 
@@ -25,7 +25,6 @@ public class SetupGame implements Performable {
   public <T extends Actor> void performAs(T actor) {
     actor.attemptsTo(new CreatesGame());
     String gameName = actor.recall(Memory.GAME_NAME);
-    players.forEach(player -> actor.attemptsTo(AddPlayer.withId(player.getName()).to(gameName)));
-
+    players.forEach(player -> actor.attemptsTo(AddsPlayer.withId(player.getName()).to(gameName)));
   }
 }

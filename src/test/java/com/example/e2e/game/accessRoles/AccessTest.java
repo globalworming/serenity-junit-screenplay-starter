@@ -1,9 +1,9 @@
 package com.example.e2e.game.accessRoles;
 
-
 import com.example.E2eBase;
 import com.example.screenplay.action.CreatesGame;
 import com.example.screenplay.action.JoinsAGame;
+import com.example.screenplay.action.RemovesPlayer;
 import com.example.screenplay.action.SetupGame;
 import com.example.screenplay.question.PlayersPlaying;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -27,6 +27,9 @@ public class AccessTest extends E2eBase {
   public void whenAdminRemovesPlayersOthersCanJoin() {
     admin.attemptsTo(SetupGame.forPlayers(players.getActors()));
     lizzy.should(seeThat(new PlayersPlaying(), hasSize(2)));
-    //admin.attemptsTo(DeletePlayer.named(alex).from(gameName));
+    admin.attemptsTo(RemovesPlayer.called(alex.getName()));
+    lizzy.should(seeThat(new PlayersPlaying(), hasSize(1)));
+    ruby.attemptsTo(new JoinsAGame());
+    lizzy.should(seeThat(new PlayersPlaying(), hasSize(2)));
   }
 }

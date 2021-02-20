@@ -29,9 +29,7 @@ public class GameService {
   }
 
   public void createGame(String gameName) {
-    createGame(Game.builder()
-        .name(gameName)
-        .players(new ArrayList<>()).build());
+    createGame(Game.builder().name(gameName).players(new ArrayList<>()).build());
   }
 
   public String getWinner(String gameName) {
@@ -40,5 +38,9 @@ public class GameService {
 
   public void addPlayer(String name, String gameName) {
     getGame(gameName).add(name);
+  }
+
+  public void remove(String gameName, String playerName) {
+    getGame(gameName).getPlayers().removeIf(player -> playerName.equals(player.getName()));
   }
 }
