@@ -6,6 +6,7 @@ import com.example.screenplay.action.JoinsAGame;
 import com.example.screenplay.action.RemovesPlayer;
 import com.example.screenplay.action.SetupGame;
 import com.example.screenplay.question.PlayersPlaying;
+import com.example.screenplay.question.TheyFailWhen;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,5 +32,11 @@ public class AccessTest extends E2eBase {
     lizzy.should(seeThat(new PlayersPlaying(), hasSize(1)));
     ruby.attemptsTo(new JoinsAGame());
     lizzy.should(seeThat(new PlayersPlaying(), hasSize(2)));
+  }
+
+  @Test
+  public void playersCantRemoveOthers() {
+    admin.attemptsTo(SetupGame.forPlayers(players.getActors()));
+    lizzy.should(seeThat(TheyFailWhen.perform(RemovesPlayer.called(alex.getName()))));
   }
 }
