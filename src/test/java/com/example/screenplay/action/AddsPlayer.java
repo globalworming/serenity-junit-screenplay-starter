@@ -1,7 +1,7 @@
 package com.example.screenplay.action;
 
-import com.example.GameService;
 import com.example.screenplay.ability.ManageGames;
+import com.example.service.GameService;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.thucydides.core.annotations.Step;
@@ -30,7 +30,7 @@ public class AddsPlayer implements Performable {
   @Override
   @Step("{0} adds player #name to game")
   public <T extends Actor> void performAs(T actor) {
-    GameService service = ManageGames.as(actor).getService();
+    GameService service = ManageGames.as(actor);
     service.addPlayer(name, gameName);
   }
 

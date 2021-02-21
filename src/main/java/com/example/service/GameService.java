@@ -1,18 +1,23 @@
-package com.example;
+package com.example.service;
+
+import com.example.error.UnauthorizedException;
+import com.example.model.Game;
+import com.example.model.Role;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.example.model.Role.ADMIN;
+
 public class GameService {
-  private static GameService instance;
+  private static final GameService instance = new GameService();
+  private final AuthenticateService authenticateService = AuthenticateService.getInstance();
 
   private final Map<String, Game> gameNameToGame = new HashMap<>();
 
   static GameService getInstance() {
-    if (instance == null) {
-      instance = new GameService();
-    }
     return instance;
   }
 
@@ -40,7 +45,15 @@ public class GameService {
     getGame(gameName).add(name);
   }
 
-  public void remove(String gameName, String playerName) {
+  public void remove(String accessToken, String gameName, String playerName) {
+    checkPermissions(accessToken, ADMIN);
     getGame(gameName).getPlayers().removeIf(player -> playerName.equals(player.getName()));
+  }
+
+  private void checkPermissions(String accessToken, Role role) {
+    List<Role> currentRoles = authenticateService.getCurrentRoles(accessToken);
+    if (!currentRoles.contains(role)) {
+      throw new UnauthorizedException();
+    }
   }
 }

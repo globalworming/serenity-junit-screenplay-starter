@@ -1,4 +1,4 @@
-package com.example;
+package com.example.model;
 
 import lombok.Getter;
 
@@ -6,7 +6,7 @@ import lombok.Getter;
 public class Player {
   private final String name;
 
-  public Player(String name) {
+  Player(String name) {
     this.name = name;
   }
 }

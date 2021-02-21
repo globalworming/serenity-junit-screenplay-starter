@@ -1,11 +1,13 @@
 package com.example.screenplay.action;
 
-import com.example.GameService;
 import com.example.screenplay.ability.ManageGames;
+import com.example.screenplay.actor.Memory;
+import com.example.service.GameService;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.thucydides.core.annotations.Step;
 
+import static com.example.screenplay.actor.Memory.EXCEPTION;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class RemovesPlayerCalled implements Performable {
@@ -23,10 +25,15 @@ public class RemovesPlayerCalled implements Performable {
   }
 
   @Override
-  @Step("{0} deletes player #playerName from game")
+  @Step("{0} removes player #playerName from game")
   public <T extends Actor> void performAs(T actor) {
-    GameService service = ManageGames.as(actor).getService();
-    service.remove(gameName, playerName);
+    GameService service = ManageGames.as(actor);
+    String accessToken = actor.recall(Memory.ACCESS_TOKEN);
+    try {
+      service.remove(accessToken, gameName, playerName);
+    } catch (Exception e) {
+      actor.remember(EXCEPTION, e);
+    }
   }
 
   Performable from(String gameName) {

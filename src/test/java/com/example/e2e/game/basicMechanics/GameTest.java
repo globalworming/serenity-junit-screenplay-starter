@@ -1,6 +1,5 @@
 package com.example.e2e.game.basicMechanics;
 
-import com.example.E2eBase;
 import com.example.screenplay.action.CreatesGame;
 import com.example.screenplay.action.JoinsAGame;
 import com.example.screenplay.action.PicksAction;
@@ -9,6 +8,7 @@ import com.example.screenplay.question.GameIsCreated;
 import com.example.screenplay.question.PlayersPlaying;
 import com.example.screenplay.question.TheWinnerIs;
 import com.example.screenplay.question.TheyArentAllowedToJoin;
+import com.example.service.E2eBase;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Narrative;
 import org.junit.Test;
@@ -21,7 +21,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 @RunWith(SerenityRunner.class)
-@Narrative(text = {"As a product owner, I want to develop a game!", "Well, glad that you ask. I imagine a multiplayer online game where two people choose actions in distinct rounds.", "When every player has picked an action, one is declared winner based on certain rules."})
+@Narrative(
+    text = {
+      "As a product owner, I want to develop a game!",
+      "Well, glad that you ask. I imagine a multiplayer online game where two people choose actions in distinct rounds.",
+      "When every player has picked an action, one is declared winner based on certain rules."
+    })
 public class GameTest extends E2eBase {
 
   @Test
@@ -48,6 +53,5 @@ public class GameTest extends E2eBase {
     alex.attemptsTo(PicksAction.paper());
     lizzy.should(seeThat(new TheWinnerIs(), is(alex.getName())));
     alex.should(seeThat(new TheWinnerIs(), is(alex.getName())));
-
   }
 }

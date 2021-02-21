@@ -1,6 +1,6 @@
 package com.example.screenplay.action;
 
-import com.example.Action;
+import com.example.model.Action;
 import com.example.screenplay.ability.PlayAGame;
 import com.example.screenplay.actor.Memory;
 import net.serenitybdd.screenplay.Actor;
@@ -16,7 +16,6 @@ public class PicksAction implements Performable {
   public PicksAction(Action action) {
     this.action = action;
   }
-
 
   public static PicksAction stone() {
     return getInstrumented(Action.STONE);
@@ -38,6 +37,6 @@ public class PicksAction implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
     String gameName = actor.recall(Memory.GAME_NAME);
-    PlayAGame.as(actor).getService().pickAction(gameName, actor.getName(), action);
+    PlayAGame.as(actor).pickAction(gameName, actor.getName(), action);
   }
 }

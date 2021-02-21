@@ -1,12 +1,12 @@
 package com.example.e2e.game.accessRoles;
 
-import com.example.E2eBase;
 import com.example.screenplay.action.CreatesGame;
 import com.example.screenplay.action.JoinsAGame;
 import com.example.screenplay.action.RemovesPlayer;
 import com.example.screenplay.action.SetupGame;
 import com.example.screenplay.question.PlayersPlaying;
 import com.example.screenplay.question.TheyFailWhen;
+import com.example.service.E2eBase;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;

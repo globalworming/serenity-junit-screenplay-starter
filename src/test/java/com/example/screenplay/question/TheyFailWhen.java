@@ -1,10 +1,14 @@
 package com.example.screenplay.question;
 
+import com.example.screenplay.actor.Memory;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.questions.Remembered;
 
-import static org.junit.Assert.assertThrows;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 public class TheyFailWhen extends QuestionWithDefaultSubject<Boolean> {
   private final Performable performable;
@@ -20,7 +24,8 @@ public class TheyFailWhen extends QuestionWithDefaultSubject<Boolean> {
 
   @Override
   public Boolean answeredBy(Actor actor) {
-    assertThrows(Exception.class, () -> actor.attemptsTo(performable));
+    actor.attemptsTo(performable);
+    actor.should(seeThat(Remembered.valueOf(Memory.EXCEPTION), not(nullValue())));
     return true;
   }
 }

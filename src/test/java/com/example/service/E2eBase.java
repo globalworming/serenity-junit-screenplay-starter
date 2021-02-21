@@ -1,4 +1,4 @@
-package com.example;
+package com.example.service;
 
 import com.example.screenplay.ability.ManageGames;
 import com.example.screenplay.ability.PlayAGame;
@@ -15,9 +15,8 @@ public class E2eBase {
   private final PlayService playService = new PlayService();
 
   protected final Actor admin = new Actor("Admin");
-  protected final Cast players = Cast.whereEveryoneCan(
-      PlayAGame.through(playService),
-      ManageGames.through(gameService));
+  protected final Cast players =
+      Cast.whereEveryoneCan(PlayAGame.through(playService), ManageGames.through(gameService));
   protected final Actor lizzy = players.actorNamed("Lizzy");
   protected final Actor alex = players.actorNamed("Alex");
   protected final Actor ruby = new Actor("Ruby");
@@ -25,12 +24,14 @@ public class E2eBase {
   @Before
   public void setUp() {
     admin.can(ManageGames.through(gameService));
+    admin.remember(Memory.ACCESS_TOKEN, "adminAccessToken");
     ruby.can(PlayAGame.through(playService));
     ruby.can(ManageGames.through(gameService));
     String gameName = UUID.randomUUID().toString();
     Arrays.asList(admin, lizzy, ruby, alex)
-        .forEach(player -> {
-          player.remember(Memory.GAME_NAME, gameName);
-        });
+        .forEach(
+            player -> {
+              player.remember(Memory.GAME_NAME, gameName);
+            });
   }
 }
