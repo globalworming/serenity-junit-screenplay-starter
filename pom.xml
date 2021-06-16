@@ -46,7 +46,17 @@
             <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
+      <dependency>
+        <groupId>com.mailosaur</groupId>
+        <artifactId>mailosaur-java</artifactId>
+        <version>7.3.1</version>
+      </dependency>
 
+      <dependency>
+        <groupId>com.github.javafaker</groupId>
+        <artifactId>javafaker</artifactId>
+        <version>1.0.2</version>
+      </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
