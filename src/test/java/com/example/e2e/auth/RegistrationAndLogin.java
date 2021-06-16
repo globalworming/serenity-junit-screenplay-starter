@@ -7,6 +7,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -19,12 +20,18 @@ public class RegistrationAndLogin {
   @Managed(driver = "chrome")
   private WebDriver aBrowser;
 
-  @Test
-  public void registerSomeUser() {
-    Actor tester = new Actor("tester");
+  Actor tester;
+
+  @Before
+  public void setUp() {
+    tester = new Actor("tester");
     tester.can(BrowseTheWeb.with(aBrowser));
     tester.remember(Memory.USERNAME, "test2");
     tester.remember(Memory.PASSWORD, "asdasdasd");
+  }
+
+  @Test
+  public void registerSomeUser() {
     tester.attemptsTo(new RegisterAccount());
     tester.should(seeThat(new TheyCanLogIn()));
   }
