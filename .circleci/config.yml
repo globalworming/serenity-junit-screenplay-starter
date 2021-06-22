@@ -1,0 +1,51 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2.1
+jobs:
+  integrationTest:
+    docker:
+      - image: circleci/openjdk:8u171-jdk-browsers
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - m2-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - m2-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-{{ checksum "pom.xml" }}
+
+      #- run:
+      #    name: Download Selenium
+      #    command: |
+      #      curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      #
+      #- run:
+      #    name: Start Selenium
+      #    command: |
+      #      mkdir selenium-log
+      #      java -jar selenium-server-standalone-3.5.3.jar -log selenium-log/selenium.log
+      #    background: true
+
+      # run tests!
+      - run: mvn clean verify -DMAILOSAUR_API_KEY=${MAILOSAUR_API_KEY}
+
+      - slack/status:
+          fail_only: true
+          mentions: 'globalworming'
+          failure_message: ""
+          webhook: https://hooks.slack.com/services/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
+
+orbs:
+  slack: circleci/slack@3.4.2

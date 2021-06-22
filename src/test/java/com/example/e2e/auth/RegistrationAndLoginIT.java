@@ -1,5 +1,6 @@
 package com.example.e2e.auth;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.not;
 
 import com.example.screenplay.actor.ActorPropertiesFactory;
@@ -11,6 +12,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.util.EnvironmentVariables;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.text.IsBlankString;
 import org.junit.Assume;
 import org.junit.Before;
@@ -32,9 +34,10 @@ public class RegistrationAndLoginIT {
   public void setUp() {
     user = new Actor("normal user");
     user.can(BrowseTheWeb.with(aBrowser));
-    String apiKey = environmentVariables.getProperty("mailosaur.api.key");
+    String apiKey = environmentVariables.getProperty("MAILOSAUR_API_KEY");
     Assume.assumeThat(apiKey, not(IsBlankString.blankOrNullString()));
-    user.can(ReceiveEmails.with(new MailosaurClient("qWEcUNZEMsqWkyNV")));
+    user.should(seeThat("api key", a -> apiKey, CoreMatchers.is("qWEcUNZEMsqWkyNV")));
+    user.can(ReceiveEmails.with(new MailosaurClient(apiKey)));
     user.remember(Memory.USERNAME, ActorPropertiesFactory.getUniqueUsername());
     user.remember(Memory.PASSWORD, "asdasdasd");
     user.remember(Memory.EMAIL_ADDRESS, ActorPropertiesFactory.randomUniqueEmailAddress());
