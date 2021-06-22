@@ -39,7 +39,14 @@ jobs:
       #    background: true
 
       # run tests!
-      - run: mvn clean verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
+      - run: mvn verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
+
+      - store_test_results:
+          path: target/failsafe-reports
+
+      - store_artifacts:
+          path: target/site/serenity
+          destination: serenity
 
       - slack/status:
           fail_only: true
