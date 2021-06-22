@@ -15,9 +15,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - m2-{{ checksum "pom.xml" }}
+            - m2--{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
-            - m2-
+            - m2--
 
       #- run: mvn dependency:go-offline
 
@@ -39,7 +39,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: m2-{{ checksum "pom.xml" }}
+          key: m2--{{ checksum "pom.xml" }}
 
 
       - store_test_results:
@@ -48,6 +48,10 @@ jobs:
       - store_artifacts:
           path: target/site/serenity
           destination: serenity
+
+      - aws-s3/copy:
+          from: target/site/serenity
+          to: 's3://serenity-bdd-report'
 
       - slack/status:
           fail_only: false
@@ -62,3 +66,4 @@ workflows:
 
 orbs:
   slack: circleci/slack@3.4.2
+  aws-s3: circleci/aws-s3@2.0.0
