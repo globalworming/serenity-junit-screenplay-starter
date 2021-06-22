@@ -3,6 +3,7 @@ package com.example.e2e.auth;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.not;
 
+import com.example.screenplay.action.RegisterAccount;
 import com.example.screenplay.actor.ActorPropertiesFactory;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.actor.ReceiveEmails;
@@ -45,7 +46,7 @@ public class RegistrationAndLoginIT {
 
   @Test
   public void registerSomeUser() {
-    // user.attemptsTo(new RegisterAccount());
+    user.attemptsTo(new RegisterAccount());
     // user.should(seeThat(new TheyAreLoggedIn()));
   }
 }

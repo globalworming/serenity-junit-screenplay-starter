@@ -39,13 +39,13 @@ jobs:
       #    background: true
 
       # run tests!
-      - run: mvn clean verify -DMAILOSAUR_API_KEY=${MAILOSAUR_API_KEY}
+      - run: mvn clean verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
 
       - slack/status:
           fail_only: true
           mentions: 'globalworming'
           failure_message: ""
-          webhook: https://hooks.slack.com/services/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
+          webhook: $SLACK
 
 workflows:
   test:
