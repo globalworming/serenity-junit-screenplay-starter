@@ -19,12 +19,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - m2-
 
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: m2-{{ checksum "pom.xml" }}
+      #- run: mvn dependency:go-offline
 
       #- run:
       #    name: Download Selenium
@@ -39,7 +34,13 @@ jobs:
       #    background: true
 
       # run tests!
-      - run: mvn -o verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
+      - run: mvn verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-{{ checksum "pom.xml" }}
+
 
       - store_test_results:
           path: target/failsafe-reports
