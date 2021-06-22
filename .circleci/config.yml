@@ -51,7 +51,7 @@ jobs:
       - slack/status:
           fail_only: false
           mentions: 'globalworming'
-          failure_message: ""
+          failure_message: "failure, check latest report at:"
           webhook: $SLACK
 
 workflows:
