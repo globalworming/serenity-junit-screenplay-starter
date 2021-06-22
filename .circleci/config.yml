@@ -47,5 +47,10 @@ jobs:
           failure_message: ""
           webhook: https://hooks.slack.com/services/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
 
+workflows:
+  test:
+    jobs:
+      - integrationTest
+
 orbs:
   slack: circleci/slack@3.4.2
