@@ -28,6 +28,14 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
+      - store_test_results:
+        path: /target
+
+      - store_artifacts:
+          path: /target/site/serenity
+          destination: serenity
+
+
 
       #- slack/status:
       #    fail_only: true
