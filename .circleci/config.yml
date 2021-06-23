@@ -50,7 +50,7 @@ jobs:
           destination: serenity
 
       - aws-s3/copy:
-          arguments: --recursive
+          arguments: "--recursive --acl public-read-write"
           from: target/site/serenity
           to: 's3://serenity-bdd-report'
 
