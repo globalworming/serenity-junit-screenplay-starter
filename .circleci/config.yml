@@ -29,10 +29,10 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - store_test_results:
-          path: /target
+          path: target
 
       - store_artifacts:
-          path: /target/site/serenity
+          path: target/site/serenity
           destination: serenity
 
 
