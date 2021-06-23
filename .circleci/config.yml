@@ -31,20 +31,23 @@ jobs:
       - store_test_results:
           path: target
 
-      - store_artifacts:
-          path: target/site/serenity
-          destination: serenity
+      - aws-s3/copy:
+          arguments: '--recursive --acl public-read-write'
+          from: target/site/serenity
+          to: 's3://webinar-serenity-report'
 
 
+      - slack/status:
+          fail_only: false
+          mentions: 'globalworming'
+          failure_message: "see latest report: https://webinar-serenity-report.s3.eu-west-1.amazonaws.com/index.html"
+          webhook: $SLACK
 
-      #- slack/status:
-      #    fail_only: true
-      #    mentions: 'globalworming,Matthias Hilscher'
-      #    failure_message: "check https://onlinetermine.zollsoft.de/patientenTermine.php?uniqueident=606038492079e"
-      #    webhook:
+
 
 orbs:
   slack: circleci/slack@3.4.2
+  aws-s3: circleci/aws-s3@2.0.0
 
 workflows:
   version: 2
