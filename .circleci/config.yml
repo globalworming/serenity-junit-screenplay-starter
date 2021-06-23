@@ -13,23 +13,21 @@ jobs:
     steps:
       - checkout
 
-        # Download and cache dependencies
-        #- restore_cache:
-        #    keys:
-        #      - v1-dependencies-{{ checksum "pom.xml" }}
-        #      # fallback to using the latest cache if no exact match is found
-        #      - v1-dependencies-
-        #
-        #- run: mvn dependency:go-offline
-        #
-        #- save_cache:
-        #    paths:
-        #      - ~/.m2
-        #    key: v1-dependencies-{{ checksum "pom.xml" }}
-
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       # run tests!
-      - run: mvn verify
+      - run: mvn verify -DMAILOSAUR_API_KEY=$MAILOSAUR_API_KEY
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
 
       #- slack/status:
       #    fail_only: true
