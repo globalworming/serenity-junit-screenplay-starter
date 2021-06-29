@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo sh(returnStdout: true, script: 'env')
                 sh 'mvn clean verify'
             }
 
