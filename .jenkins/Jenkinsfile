@@ -2,15 +2,15 @@ pipeline {
     agent {
         any {
             image 'jogendrajangid/jenkins-slave-chrome-headlesss'
-            args '-v /root/.m2:/root/.m2'
         }
     }
     stages {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh 'find / | grep maven'
-                sh 'mvn clean verify'
+                 withMaven {
+                      sh "mvn clean verify"
+                 }
             }
 
              post { always {
