@@ -1,14 +1,15 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven3.8.1'
+    agent {
+        docker {
+            image 'markhobson/maven-chrome'
+        }
     }
 
     stages {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
+                sh "mvn clean verify # -Dproperties=`pwd`/serenity.remote.properties"
             }
 
              post { always {
