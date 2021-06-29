@@ -1,7 +1,7 @@
 pipeline {
     agent {
         any {
-            image 'jogendrajangid/jenkins-slave-chrome-headlesss'
+            image 'markhobson/maven-chrome'
         }
     }
     stages {
