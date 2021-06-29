@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo sh(returnStdout: true, script: 'env')
                 sh "wget http://google.com"
-                sh "wget http://localhost:4444/wd/hub"
+                sh "wget http://0.0.0.0:4444/wd/hub"
                 sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
