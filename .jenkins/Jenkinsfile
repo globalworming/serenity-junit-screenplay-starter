@@ -1,7 +1,7 @@
 pipeline {
     agent {
         any {
-            image 'circleci/openjdk:8u171-jdk-browsers'
+            image 'markhobson/maven-chrome'
             args '-v /root/.m2:/root/.m2'
         }
     }
