@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh 'ls /opt'
+                sh 'find / | grep maven'
                 sh 'mvn clean verify'
             }
 
