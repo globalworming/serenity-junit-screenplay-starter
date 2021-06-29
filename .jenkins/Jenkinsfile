@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker {
+        any {
             image 'circleci/openjdk:8u171-jdk-browsers'
             args '-v /root/.m2:/root/.m2'
         }
