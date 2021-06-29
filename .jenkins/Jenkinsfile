@@ -10,7 +10,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh "wget http://0.0.0.0:4444/wd/hub"
                 sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
