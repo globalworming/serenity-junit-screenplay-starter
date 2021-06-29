@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
+                sh "docker run --rm -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210618"
                 sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
