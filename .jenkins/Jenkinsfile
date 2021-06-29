@@ -1,7 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'markhobson/maven-chrome:jdk-8'
+            image 'maven:3.8.1-openjdk-8'
+
         }
     }
 
@@ -9,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh "mvn clean verify # -Dproperties=`pwd`/serenity.remote.properties"
+                sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
              post { always {
