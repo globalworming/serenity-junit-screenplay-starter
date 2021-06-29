@@ -1,9 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'markhobson/maven-chrome'
-        }
+    agent any
+    tools {
+        maven 'maven3.8.1'
     }
+
     stages {
         stage('Build') {
             steps {
