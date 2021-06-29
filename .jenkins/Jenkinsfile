@@ -5,17 +5,13 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
         }
     }
-    tools {
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
-    }
 
     stages {
         stage('Build') {
             steps {
-                def dockerHome = tool 'docker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
                 echo sh(returnStdout: true, script: 'env')
-                sh "docker run --rm -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210618"
+                sh "wget http://google.com"
+                sh "wget http://localhost:4444/wd/hub"
                 sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
