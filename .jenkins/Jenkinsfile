@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh "mvn clean verify"
+                sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
             }
 
              post { always {
