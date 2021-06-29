@@ -1,7 +1,7 @@
 pipeline {
     agent {
         any {
-            image 'docker pull jogendrajangid/jenkins-slave-chrome-headlesss'
+            image 'jogendrajangid/jenkins-slave-chrome-headlesss'
             args '-v /root/.m2:/root/.m2'
         }
     }
