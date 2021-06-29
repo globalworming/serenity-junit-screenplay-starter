@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
+                sh 'ls /opt'
                 sh 'mvn clean verify'
             }
 
