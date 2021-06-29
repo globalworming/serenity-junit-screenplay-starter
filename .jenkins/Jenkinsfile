@@ -1,7 +1,7 @@
 pipeline {
     agent {
         any {
-            image 'markhobson/maven-chrome'
+            image 'docker pull jogendrajangid/jenkins-slave-chrome-headlesss'
             args '-v /root/.m2:/root/.m2'
         }
     }
