@@ -1,0 +1,35 @@
+pipeline {
+    agent {
+        docker {
+            image 'circleci/openjdk:8u171-jdk-browsers'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean verify'
+            }
+
+             post { always {
+                junit  testResults: 'target/failsafe-reports/**/*.xml', keepLongStdio: true
+
+                publishHTML(target: [
+                        reportName : 'Serenity',
+                        reportDir:   'target/site/serenity',
+                        reportFiles: 'index.html',
+                        keepAll:     true,
+                        alwaysLinkToLastBuild: true,
+                        allowMissing: false
+                ])
+
+                emailext mimeType: 'text/html',
+                        body: '${JELLY_SCRIPT, template="html"}',
+                        attachLog: true, attachmentsPattern: '**/serenity-summary.html',
+                        to: 'notify@example.com',
+                        subject: "Build: ${currentBuild.currentResult}"
+             } }
+        }
+
+    }
+}
