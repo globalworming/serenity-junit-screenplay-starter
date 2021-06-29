@@ -1,7 +1,7 @@
 pipeline {
     agent {
-        any {
-            image 'maven:3.8.1-adoptopenjdk-11'
+        docker {
+            image 'markhobson/maven-chrome'
         }
     }
     stages {
