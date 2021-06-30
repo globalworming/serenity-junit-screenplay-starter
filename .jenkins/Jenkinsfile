@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('e2e') {
         steps {
-            sh "mvn clean verify -DMAILOSAUR_API_KEY=fixme"
+            sh "mvn clean verify -DMAILOSAUR_API_KEY=fixme -Dproperties=`pwd`/serenity.remote.properties"
         }
     }
   }
