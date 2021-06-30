@@ -25,7 +25,11 @@ pipeline {
                                       allowMissing: false
                ])
 
-               s3Upload acl:'PublicRead', file:'target/site/serenity/serenity-summary.html', bucket:'serenity-bdd-report', path: '/'
+               emailext mimeType: 'text/html',
+                   body: '${JELLY_SCRIPT, template="html"}',
+                   attachLog: true, attachmentsPattern: '**/serenity-summary.html',
+                   to: 'notify@example.com',
+                   subject: "Build: ${currentBuild.currentResult}"
             }
         }
     }
