@@ -14,17 +14,18 @@ pipeline {
 
         post {
             always {
-                junit testResults: 'target/failsafe-reports/**/*.xml'
+               junit testResults: 'target/failsafe-reports/**/*.xml'
 
-                 publishHTML(target: [
-                                        reportName : 'Serenity',
-                                        reportDir:   'target/site/serenity',
-                                        reportFiles: 'index.html',
-                                        keepAll:     true,
-                                        alwaysLinkToLastBuild: true,
-                                        allowMissing: false
-                 ])
-                 s3Upload(acl: 'PublicRead', file:'target/site/serenity/serenity-summary.html', bucket:'serenity-bdd-report')
+               publishHTML(target: [
+                                      reportName : 'Serenity',
+                                      reportDir:   'target/site/serenity',
+                                      reportFiles: 'index.html',
+                                      keepAll:     true,
+                                      alwaysLinkToLastBuild: true,
+                                      allowMissing: false
+               ])
+
+               s3Upload acl:'PublicRead', file:'target/site/serenity/serenity-summary.html', bucket:'serenity-bdd-report', path: '/'
             }
         }
     }
