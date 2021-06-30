@@ -11,6 +11,24 @@ pipeline {
         steps {
             sh "mvn clean verify -DMAILOSAUR_API_KEY=fixme -Dproperties=`pwd`/serenity.remote.properties"
         }
+
+        post {
+            always {
+                junit testResults: 'target/failsafe-reports/**/*.xml'
+
+                 publishHTML(target: [
+                                        reportName : 'Serenity',
+                                        reportDir:   'target/site/serenity',
+                                        reportFiles: 'index.html',
+                                        keepAll:     true,
+                                        alwaysLinkToLastBuild: true,
+                                        allowMissing: false
+                 ])
+            }
+        }
     }
+
+
+
   }
 }
