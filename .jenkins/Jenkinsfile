@@ -2,13 +2,14 @@ pipeline {
   agent {
       docker {
           image 'maven:3.8.1-openjdk-8'
+          args '-v $HOME/.m2:/root/.m2'
       }
   }
 
   stages {
     stage('e2e') {
         steps {
-            sh "mvn clean verify"
+            sh "mvn clean verify -DMAILOSAUR_API_KEY=fixme"
         }
     }
   }
