@@ -24,7 +24,7 @@ pipeline {
                                         alwaysLinkToLastBuild: true,
                                         allowMissing: false
                  ])
-                s3Upload acl: 'PublicRead', bucket: 's3://serenity-bdd-report', file: 'target/site/serenity/serenity-summary.html'
+                 s3Upload(acl: 'PublicRead', file:'target/site/serenity/serenity-summary.html', bucket:'serenity-bdd-report')
             }
         }
     }
