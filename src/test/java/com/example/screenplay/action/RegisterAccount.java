@@ -11,7 +11,7 @@ public class RegisterAccount implements Performable {
     actor.attemptsTo(new OpenHomePage());
     actor.attemptsTo(Click.on("//div[contains(text(), 'CREATE ACCOUNT')]"));
     actor.attemptsTo(new FillRegistrationForm());
-    // actor.attemptsTo(new SubmitRegistrationForm());
-    // actor.attemptsTo(new ConfirmEmailAddress());
+    actor.attemptsTo(new SubmitRegistrationForm());
+    actor.attemptsTo(new ConfirmEmailAddress());
   }
 }

@@ -6,7 +6,6 @@ import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.targets.Target;
 
 public class LogIn implements Performable {
-
   @Override
   public <T extends Actor> void performAs(T actor) {
     actor.attemptsTo(new OpenHomePage());

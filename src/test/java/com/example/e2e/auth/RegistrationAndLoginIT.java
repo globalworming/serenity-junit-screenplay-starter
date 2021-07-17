@@ -1,13 +1,10 @@
 package com.example.e2e.auth;
 
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.text.IsBlankString.blankOrNullString;
-
 import com.example.screenplay.action.RegisterAccount;
 import com.example.screenplay.actor.ActorPropertiesFactory;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.actor.ReceiveEmails;
+import com.example.screenplay.question.TheyAreLoggedIn;
 import com.mailosaur.MailosaurClient;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -19,15 +16,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.text.IsBlankString.blankOrNullString;
+
 @RunWith(SerenityRunner.class)
 public class RegistrationAndLoginIT {
 
+  EnvironmentVariables environmentVariables;
+  Actor user;
   @Managed(driver = "chrome")
   private WebDriver aBrowser;
-
-  EnvironmentVariables environmentVariables;
-
-  Actor user;
 
   @Before
   public void setUp() {
@@ -44,6 +43,6 @@ public class RegistrationAndLoginIT {
   @Test
   public void registerSomeUser() {
     user.attemptsTo(new RegisterAccount());
-    // user.should(seeThat(new TheyAreLoggedIn()));
+    user.should(seeThat(new TheyAreLoggedIn()));
   }
 }
