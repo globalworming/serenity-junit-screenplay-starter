@@ -1,7 +1,7 @@
 # Serenity JUnit Screenplay Starter project
 *no cucumbers where harmed during development*
   
-This is a minimalistic example using Serenity BDD with the screenplay patter but without Cucumber. It shows how actors with different abilities can work on different interfaces in isolation or in collaboration. 
+This is a minimalistic com.example using Serenity BDD with the screenplay patter but without Cucumber. It shows how actors with different abilities can work on different interfaces in isolation or in collaboration. 
 
 ## Get the code
 
@@ -15,12 +15,6 @@ Git:
 Open a command window and run:
 
     mvn verify
-
-## Use Gradle
-
-Open a command window and run:
-
-    gradlew test 
 
 
 ## Viewing the reports
