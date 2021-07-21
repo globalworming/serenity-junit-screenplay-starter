@@ -1,0 +1,37 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.8.1-openjdk-8'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo sh(returnStdout: true, script: 'env')
+                sh "mvn clean verify -Dproperties=`pwd`/serenity.remote.properties"
+            }
+
+             post { always {
+                junit  testResults: 'target/failsafe-reports/**/*.xml', keepLongStdio: true
+
+                publishHTML(target: [
+                        reportName : 'Serenity',
+                        reportDir:   'target/site/serenity',
+                        reportFiles: 'index.html',
+                        keepAll:     true,
+                        alwaysLinkToLastBuild: true,
+                        allowMissing: false
+                ])
+
+                emailext mimeType: 'text/html',
+                        body: '${JELLY_SCRIPT, template="html"}',
+                        attachLog: true, attachmentsPattern: '**/serenity-summary.html',
+                        to: 'notify@example.com',
+                        subject: "Build: ${currentBuild.currentResult}"
+             } }
+        }
+
+    }
+}

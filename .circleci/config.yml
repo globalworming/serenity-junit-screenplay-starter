@@ -1,0 +1,55 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2.1
+jobs:
+  integrationtest:
+    docker:
+      - image: circleci/openjdk:8u171-jdk-browsers
+    working_directory: ~/repo
+
+
+    steps:
+      - checkout
+
+      # Download cached dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: mvn verify
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - store_test_results:
+          path: target
+
+      # host latest report in AWS S3
+      - aws-s3/copy:
+          arguments: '--recursive --acl public-read-write'
+          from: target/site/serenity
+          to: 's3://${your-s3-bucket}'
+
+      # notify via slack
+      - slack/status:
+          fail_only: false
+          failure_message: "see latest report: ${your-s3-bucket}/index.html"
+          webhook: $SLACK_HOOK
+
+
+
+orbs:
+  slack: circleci/slack@3.4.2
+  aws-s3: circleci/aws-s3@2.0.0
+
+workflows:
+  version: 2
+  integrationtest:
+    jobs:
+      - integrationtest
