@@ -2,7 +2,7 @@ run image comparison actions once with `ashot.image.comparison.create.snapshots=
 
 this creates snapshots in your `target/test-classes/com/example/screenplay/action/image/snapshots`
 
-move snapshots contents to `scr/test/resources/com/example/screenplay/action/image/snapshots
+move snapshots contents to `scr/test/resources/com/example/screenplay/action/image/snapshots`
 
 set `ashot.image.comparison.create.snapshots=false` to compare to the snapshots
 
