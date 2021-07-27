@@ -16,11 +16,6 @@ Open a command window and run:
 
     mvn verify
 
-## Use Gradle
-
-Open a command window and run:
-
-    gradlew test 
 
 
 ## Viewing the reports
