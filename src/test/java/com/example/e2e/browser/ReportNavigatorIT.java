@@ -20,7 +20,7 @@ class ReportNavigatorIT {
 
   @Test
   void whenTracingErrors() {
-    Actor tester = cast.actorNamed("tester");
+    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
     tester.attemptsTo(new AccessTheLatestReport());
     tester.attemptsTo(new LookUpAllUnsuccessfulOutcomes());
     tester.should(eventually(seeThat(new CountQuestion(new OutcomesShown()), is(9))));
