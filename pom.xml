@@ -10,7 +10,7 @@
     <name>Sample Serenity BDD project using JUnit and Screenplay, no cucumber, no step libraries</name>
 
     <properties>
-        <serenity.version>2.3.12</serenity.version>
+        <serenity.version>2.6.0</serenity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
@@ -71,6 +71,11 @@
             <version>2.3.8</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -106,11 +111,11 @@
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>${serenity.version}</version>
                 <dependencies>
-                    <dependency>
+                    <!--dependency>
                         <groupId>net.serenity-bdd</groupId>
                         <artifactId>serenity-navigator-report</artifactId>
                         <version>${serenity.version}</version>
-                    </dependency>
+                    </dependency-->
                     <dependency>
                         <groupId>net.serenity-bdd</groupId>
                         <artifactId>serenity-single-page-report</artifactId>
