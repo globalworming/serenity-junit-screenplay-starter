@@ -1,31 +1,27 @@
 package starter;
 
 import lombok.Getter;
-
-import java.util.function.Consumer;
-import java.util.function.Function;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Neuron {
 
-  private Function<Double, Double> sigmoidFunction = (inputValue) -> {
-    throw new RuntimeException("todo, return something betrween 0 and 1");
-  };
 
-  private Double strength = Double.valueOf(1d);
-
-  private Consumer<Integer> input = (it) -> {
+  private Double weight = 1d;
+  private SigmoidFunction sigmoidFunction = it -> {
     throw new RuntimeException("todo");
   };
-  private int inputValue;
 
-  public void accept(int inputValue) {
-    input.accept(inputValue);
-    Double weightedInputValue = applyStrenght(this.inputValue);
-    Double valueBetweenZeroAndOne = sigmoidFunction.apply(weightedInputValue);
+
+  public void accept(int it) {
+    Double weightedInputValue = applyWeight(it);
+    Double valueBetweenZeroAndOne = getSigmoidFunction().apply(weightedInputValue);
+
   }
 
-  public Double applyStrenght(int input) {
-    throw new RuntimeException("todo");
+  double applyWeight(int input) {
+    return input * weight;
+
   }
 }
