@@ -14,7 +14,7 @@ import starter.Neuron;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
-@Narrative(text = "product that tells blind people the color of something")
+@Narrative(text = "product that tells blind people the color of something. we want to train a neural net to do that")
 @RunWith(SerenityRunner.class)
 public class NeuralNetIT {
 
