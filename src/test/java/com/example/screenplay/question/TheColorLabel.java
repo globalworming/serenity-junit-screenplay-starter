@@ -1,19 +1,23 @@
 package com.example.screenplay.question;
 
 import com.example.screenplay.ability.AskNeuralNetwork;
+import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import starter.NeuralNetwork;
 
-public class TheColor implements Question<String> {
+@RequiredArgsConstructor
+public class TheColorLabel implements Question<String> {
 
-  public static TheColor of(int i) {
-    return new TheColor();
+  private final int color;
+
+  public static TheColorLabel of(int i) {
+    return new TheColorLabel(i);
   }
 
   @Override
   public String answeredBy(Actor actor) {
     NeuralNetwork network = AskNeuralNetwork.as(actor);
-    return "fixme";
+    return network.infer(color).getLabel();
   }
 }

@@ -56,8 +56,6 @@ public class NeuronTest {
 
   @Test
   public void whenAcceptingAnInputItsWeightedAndConvertedByTheSigmoidFunctionAndSentToTheOutput() {
-    val actor = Actor.named("tester");
-
     Neuron neuron = new Neuron();
     // actor can spy on neuron
     SigmoidFunction mockSigmoidFunction = mock(SigmoidFunction.class);

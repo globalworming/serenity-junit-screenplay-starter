@@ -1,11 +1,13 @@
-package com.example.screenplay;
+package starter;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
-public class ColorSet {
-  double color;
+public class InferenceResult {
+
   String label;
+  private double confidence;
+
 }

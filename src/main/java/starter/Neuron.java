@@ -12,7 +12,7 @@ public class Neuron implements DoubleConsumer {
 
 
   private final Sigmoid sigmoid = new Sigmoid();
-  private Double weight = 1d;
+  private Double weight = 0d;
   private SigmoidFunction sigmoidFunction = sigmoid::value;
   private DoubleConsumer outputConsumer;
 
@@ -27,5 +27,9 @@ public class Neuron implements DoubleConsumer {
   double applyWeight(double input) {
     return input * weight;
 
+  }
+
+  public void increaseWeight() {
+    weight = (1 + weight) / 2;
   }
 }
