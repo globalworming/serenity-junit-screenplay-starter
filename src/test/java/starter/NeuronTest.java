@@ -100,6 +100,5 @@ public class NeuronTest {
     assertThat(output, CoreMatchers.notNullValue());
     Matcher<Double> isValueBetweenZeroAndOne = IsCloseTo.closeTo(0.5, 0.4999);
     assertThat(output.get(), isValueBetweenZeroAndOne);
-
   }
 }
