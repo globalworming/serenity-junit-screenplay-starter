@@ -1,4 +1,4 @@
-package starter;
+package com.example.neuralnet.domain;
 
 import java.util.function.Function;
 

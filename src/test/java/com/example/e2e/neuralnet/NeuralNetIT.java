@@ -1,5 +1,7 @@
 package com.example.e2e.neuralnet;
 
+import com.example.neuralnet.domain.NeuralNetwork;
+import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ColorSet;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import com.example.screenplay.action.TrainNeuralNet;
@@ -13,8 +15,6 @@ import net.thucydides.core.annotations.Narrative;
 import org.hamcrest.core.StringEndsWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import starter.NeuralNetwork;
-import starter.Neuron;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;

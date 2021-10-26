@@ -1,8 +1,8 @@
 package com.example.screenplay.ability;
 
+import com.example.neuralnet.domain.NeuralNetwork;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
-import starter.NeuralNetwork;
 
 public class AskNeuralNetwork implements Ability {
   private final NeuralNetwork neuralNetwork;

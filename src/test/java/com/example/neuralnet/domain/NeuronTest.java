@@ -1,4 +1,4 @@
-package starter;
+package com.example.neuralnet.domain;
 
 import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
