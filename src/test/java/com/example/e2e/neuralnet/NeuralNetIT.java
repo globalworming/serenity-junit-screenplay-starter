@@ -1,7 +1,6 @@
 package com.example.e2e.neuralnet;
 
-import com.example.neuralnet.domain.NeuralNetwork;
-import com.example.neuralnet.domain.Neuron;
+import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ColorSet;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import com.example.screenplay.action.TrainNeuralNet;
@@ -30,7 +29,7 @@ public class NeuralNetIT {
 
   @Test
   public void actorCanAskNeuralNet() {
-    actor.can(AskNeuralNetwork.forColor(new NeuralNetwork(new Neuron())));
+    actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
     actor.should(seeThat(TheColorLabel.of(0x00), StringEndsWith.endsWith("black")));
     //actor.should(seeThat(TheColorLabel.of(0xFF), is("white")));
     //actor.should(seeThat(TheColorLabel.of(0xA0), is("gray")));
@@ -44,7 +43,7 @@ public class NeuralNetIT {
         ColorSet.builder().color(0.9).label("black").build(),
         ColorSet.builder().color(0.8).label("black").build());
 
-    actor.can(AskNeuralNetwork.forColor(new NeuralNetwork(new Neuron())));
+    actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
     double beforeTraining = actor.asksFor(TheConfidence.of(thisIsVeryBlack));
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheConfidence.of(thisIsVeryBlack));

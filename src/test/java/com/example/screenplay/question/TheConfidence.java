@@ -1,6 +1,6 @@
 package com.example.screenplay.question;
 
-import com.example.neuralnet.domain.NeuralNetwork;
+import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;

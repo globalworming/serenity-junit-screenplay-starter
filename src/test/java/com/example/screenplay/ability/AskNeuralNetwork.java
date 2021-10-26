@@ -1,6 +1,6 @@
 package com.example.screenplay.ability;
 
-import com.example.neuralnet.domain.NeuralNetwork;
+import com.example.neuralnet.component.NeuralNetwork;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
 
