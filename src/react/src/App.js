@@ -36,11 +36,19 @@ const ColorPicker = () => {
   }
 
   let colorToString = "#" + color.toString(16);
+
+  const onClick = () => () => {
+    fetch('/train?label=black');
+    fetch('/infer?color=' + approximateBlackness(color), {mode: 'no-cors'})
+        .then(response => response.json())
+        .then(data => setResult(data['inferenceResults']));
+  }
+
   return <>
     <HexColorPicker color={colorToString} onChange={updateColor}/>
     <p>
       <span>{JSON.stringify(result[0], null, 2)}</span>
-      <Button onClick={() => fetch('/train?label=black')}>reward for black</Button>
+      <Button onClick={onClick()}>reward for black</Button>
     </p>
   </>;
 };

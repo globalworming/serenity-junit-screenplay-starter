@@ -30,6 +30,6 @@ public class Neuron implements DoubleConsumer {
   }
 
   public void increaseWeight() {
-    weight = (1 + weight) / 2;
+    weight += 0.1;
   }
 }

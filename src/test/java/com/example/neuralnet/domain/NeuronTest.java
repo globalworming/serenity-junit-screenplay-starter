@@ -6,6 +6,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.thucydides.core.annotations.Narrative;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +46,22 @@ public class NeuronTest {
     val neuron = new Neuron();
     val actor = Actor.named("tester");
     actor.should(seeThat("a neuron has an input weight", (a) -> neuron.getWeight() != null));
+  }
+
+  @Test
+  public void increasingWeight() {
+    val neuron = new Neuron();
+    val actor = Actor.named("tester");
+
+    for (int i = 0; i < 1000; i++) {
+      neuron.increaseWeight();
+
+    }
+    actor.should(seeThat("the weigh gets very heigh", (a) -> {
+      assertThat(neuron.getWeight(), Matchers.greaterThan(10.0));
+      return true;
+    }));
+
   }
 
   @Test
