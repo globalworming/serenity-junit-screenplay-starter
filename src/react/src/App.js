@@ -42,10 +42,11 @@ const ColorPicker = () => {
         .then(data => setResults(data['inferenceResults']));
   }
 
+  let byConfidenceDec = (a, b) => b.confidence - a.confidence;
   return <>
     <HslColorPicker color={hsl} onChange={updateHsl}/>
     <dl>
-      {results.map((result) => <React.Fragment key={result.label}>
+      {results.sort(byConfidenceDec).map((result) => <React.Fragment key={result.label}>
             <dt>{result.label}</dt>
             <dd>
               {result.confidence}
@@ -54,6 +55,5 @@ const ColorPicker = () => {
       )}
     </dl>
     <Button onClick={onClick()}>reward for black</Button>
-  </>
-      ;
+  </>;
 };
