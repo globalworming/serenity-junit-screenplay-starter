@@ -28,8 +28,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SerenityRunner.class)
 public class NeuralNetIT {
 
+  private final double BLACK = .0;
   Actor actor = Actor.named("tester");
-
 
   @Test
   public void actorCanAskNeuralNet() {
@@ -41,31 +41,29 @@ public class NeuralNetIT {
 
   @Test
   public void actorTrainsNeuralNet() {
-    double thisIsVeryBlack = 1;
     val trainingData = Arrays.asList(
-        ColorSet.builder().color(thisIsVeryBlack).label("black").build(),
+        ColorSet.builder().color(BLACK).label("black").build(),
         ColorSet.builder().color(0.9).label("black").build(),
         ColorSet.builder().color(0.8).label("black").build());
 
     actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
-    double beforeTraining = actor.asksFor(TheConfidence.of(thisIsVeryBlack));
+    double beforeTraining = actor.asksFor(TheConfidence.of(BLACK));
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
-    double afterTraining = actor.asksFor(TheConfidence.of(thisIsVeryBlack));
+    double afterTraining = actor.asksFor(TheConfidence.of(BLACK));
     assertThat(beforeTraining, not(is(afterTraining)));
   }
 
   @Test
   public void whenTrainingOnSpecificOutputTheConfidenceGetsVeryHigh() {
-    double thisIsVeryBlack = 1;
     List<ColorSet> trainingData = new ArrayList<>();
     for (int i = 0; i < 10000; i++) {
-      trainingData.add(ColorSet.builder().color(thisIsVeryBlack).label("black").build());
+      trainingData.add(ColorSet.builder().color(BLACK).label("black").build());
     }
 
     actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
 
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
-    double afterTraining = actor.asksFor(TheConfidence.of(thisIsVeryBlack));
+    double afterTraining = actor.asksFor(TheConfidence.of(BLACK));
     assertThat(afterTraining, IsCloseTo.closeTo(1., 0.1));
 
   }

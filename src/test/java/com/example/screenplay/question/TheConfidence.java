@@ -18,6 +18,6 @@ public class TheConfidence implements Question<Double> {
   @Override
   public Double answeredBy(Actor actor) {
     NeuralNetwork network = AskNeuralNetwork.as(actor);
-    return network.infer(color).getConfidence();
+    return network.infer((int) color).getConfidence();
   }
 }

@@ -12,10 +12,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class NeuralNetwork {
   private final Neuron blackDetectingNeuron = new Neuron();
 
-  public InferenceResult infer(double color) {
+  public InferenceResult infer(double lightness) {
     AtomicReference<Double> result = new AtomicReference<>(.0);
     blackDetectingNeuron.setOutputConsumer(result::set);
-    blackDetectingNeuron.accept(color);
+    double blackness = 1d - lightness;
+    blackDetectingNeuron.accept(blackness);
     return InferenceResult.builder().label("black").confidence(result.get()).build();
   }
 

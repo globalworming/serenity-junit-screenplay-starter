@@ -16,8 +16,8 @@ public class NeuralNetController {
   private final NeuralNetwork neuralNetwork;
 
   @GetMapping("/infer")
-  InferenceResults infer(@RequestParam Double color) {
-    return InferenceResults.builder().inferenceResults(Collections.singletonList(neuralNetwork.infer(color))).build();
+  InferenceResults infer(@RequestParam int h, @RequestParam int s, @RequestParam int l) {
+    return InferenceResults.builder().inferenceResults(Collections.singletonList(neuralNetwork.infer(0.01d * l))).build();
   }
 
   @GetMapping("/train")
