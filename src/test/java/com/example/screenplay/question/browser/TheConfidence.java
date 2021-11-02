@@ -1,4 +1,4 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.browser;
 
 import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ability.AskNeuralNetwork;

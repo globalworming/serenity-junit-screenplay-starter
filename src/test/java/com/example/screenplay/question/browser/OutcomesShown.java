@@ -1,5 +1,6 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.browser;
 
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.targets.Target;

@@ -1,11 +1,11 @@
-package com.example.e2e.neuralnet;
+package com.example.e2e.integration;
 
 import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ColorSet;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import com.example.screenplay.action.TrainNeuralNet;
-import com.example.screenplay.question.TheColorLabel;
-import com.example.screenplay.question.TheConfidence;
+import com.example.screenplay.question.integration.TheConfidence;
+import com.example.screenplay.question.integration.TheMostLikelyLabel;
 import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -34,9 +34,9 @@ public class NeuralNetIT {
   @Test
   public void actorCanAskNeuralNet() {
     actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
-    actor.should(seeThat(TheColorLabel.of(0x00), StringEndsWith.endsWith("black")));
-    //actor.should(seeThat(TheColorLabel.of(0xFF), is("white")));
-    //actor.should(seeThat(TheColorLabel.of(0xA0), is("gray")));
+    actor.should(seeThat(TheMostLikelyLabel.of(0x00), StringEndsWith.endsWith("black")));
+    //actor.should(seeThat(TheMostLikelyLabel.of(0xFF), is("white")));
+    //actor.should(seeThat(TheMostLikelyLabel.of(0xA0), is("gray")));
   }
 
   @Test

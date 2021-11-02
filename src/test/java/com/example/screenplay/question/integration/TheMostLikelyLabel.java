@@ -1,4 +1,4 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.integration;
 
 import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ability.AskNeuralNetwork;
@@ -7,12 +7,12 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
 @RequiredArgsConstructor
-public class TheColorLabel implements Question<String> {
+public class TheMostLikelyLabel implements Question<String> {
 
   private final int color;
 
-  public static TheColorLabel of(int i) {
-    return new TheColorLabel(i);
+  public static TheMostLikelyLabel of(int i) {
+    return new TheMostLikelyLabel(i);
   }
 
   @Override

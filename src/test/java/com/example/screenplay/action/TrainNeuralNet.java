@@ -2,7 +2,7 @@ package com.example.screenplay.action;
 
 import com.example.screenplay.ColorSet;
 import com.example.screenplay.ability.AskNeuralNetwork;
-import com.example.screenplay.question.TheConfidence;
+import com.example.screenplay.question.integration.TheConfidence;
 import lombok.AllArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
