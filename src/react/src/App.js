@@ -28,12 +28,9 @@ const ColorPicker = () => {
     fetch('/infer?' +
         buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
-        .then(data => setResults(data['inferenceResults']));
+        .then(data => data['inferenceResults'])
+        .then(results => setResults(results));
   }, [hsl, setResults]);
-
-  const updateHsl = (hsl) => {
-    setHsl(hsl)
-  }
 
   const onClick = () => () => {
     fetch('/train?label=black');
@@ -42,18 +39,34 @@ const ColorPicker = () => {
         .then(data => setResults(data['inferenceResults']));
   }
 
-  let byConfidenceDec = (a, b) => b.confidence - a.confidence;
+
   return <>
-    <HslColorPicker color={hsl} onChange={updateHsl}/>
-    <dl>
+    <HslColorPicker
+        className={'e2e-pick-color'}
+        color={hsl}
+        onChange={(hsl) => {
+          setHsl(hsl)
+        }}/>
+    <ShowInferenceResultsByConfidence
+        results={results}/>
+    <Button
+        custom-attribute="some-value"
+        onClick={onClick()}>
+      reward for black
+    </Button>
+  </>;
+};
+
+
+const byConfidenceDec = (a, b) => b.confidence - a.confidence;
+
+const ShowInferenceResultsByConfidence = ({results}) =>
+    <dl className={"e2e-inference-results"}>
       {results.sort(byConfidenceDec).map((result) => <React.Fragment key={result.label}>
             <dt>{result.label}</dt>
-            <dd>
+            <dd className={'e2e-inference-confidence e2e-inference-confidence-for-label-' + result.label}>
               {result.confidence}
             </dd>
           </React.Fragment>
       )}
-    </dl>
-    <Button onClick={onClick()}>reward for black</Button>
-  </>;
-};
+    </dl>;
