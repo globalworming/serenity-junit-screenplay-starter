@@ -21,7 +21,7 @@ function buildQueryPart({h, s, l}) {
 }
 
 const ColorPicker = () => {
-  const [hsl, setHsl] = useState({h: 0xFF, s: 0x00, l: 0x00});
+  const [hsl, setHsl] = useState({h: 177, s: 33, l: 33});
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -41,6 +41,10 @@ const ColorPicker = () => {
 
 
   return <>
+    <Button
+        className={'e2e-do-set-color-000000'}
+        onClick={() => setHsl({h: 0, s: 0, l: 0})}
+    >#000000</Button>
     <HslColorPicker
         className={'e2e-pick-color'}
         color={hsl}
