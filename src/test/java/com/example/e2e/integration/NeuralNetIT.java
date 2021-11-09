@@ -1,11 +1,12 @@
 package com.example.e2e.integration;
 
 import com.example.neuralnet.component.NeuralNetwork;
-import com.example.screenplay.ColorSet;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import com.example.screenplay.action.TrainNeuralNet;
 import com.example.screenplay.question.integration.TheConfidence;
 import com.example.screenplay.question.integration.TheMostLikelyLabel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -24,7 +25,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Narrative(text = "product that tells blind people the color of something. we want to train a neural net to do that")
+@Narrative(
+    text =
+        "product that tells blind people the color of something. we want to train a neural net to do that")
 @RunWith(SerenityRunner.class)
 public class NeuralNetIT {
 
@@ -35,16 +38,17 @@ public class NeuralNetIT {
   public void actorCanAskNeuralNet() {
     actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
     actor.should(seeThat(TheMostLikelyLabel.of(0x00), StringEndsWith.endsWith("black")));
-    //actor.should(seeThat(TheMostLikelyLabel.of(0xFF), is("white")));
-    //actor.should(seeThat(TheMostLikelyLabel.of(0xA0), is("gray")));
+    // actor.should(seeThat(TheMostLikelyLabel.of(0xFF), is("white")));
+    // actor.should(seeThat(TheMostLikelyLabel.of(0xA0), is("gray")));
   }
 
   @Test
   public void actorTrainsNeuralNet() {
-    val trainingData = Arrays.asList(
-        ColorSet.builder().color(BLACK).label("black").build(),
-        ColorSet.builder().color(0.9).label("black").build(),
-        ColorSet.builder().color(0.8).label("black").build());
+    val trainingData =
+        Arrays.asList(
+            ColorSet.builder().color(BLACK).label("black").build(),
+            ColorSet.builder().color(0.9).label("black").build(),
+            ColorSet.builder().color(0.8).label("black").build());
 
     actor.can(AskNeuralNetwork.forColor(new NeuralNetwork()));
     double beforeTraining = actor.asksFor(TheConfidence.of(BLACK));
@@ -65,6 +69,12 @@ public class NeuralNetIT {
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheConfidence.of(BLACK));
     assertThat(afterTraining, IsCloseTo.closeTo(1., 0.1));
+  }
 
+  @Builder
+  @Getter
+  public static class ColorSet {
+    double color;
+    String label;
   }
 }

@@ -32,8 +32,8 @@ const ColorPicker = () => {
         .then(results => setResults(results));
   }, [hsl, setResults]);
 
-  const onClick = () => () => {
-    fetch('/train?label=black');
+  const onClick = (label) => () => {
+    fetch('/train?label=' + label);
     fetch('/infer?' + buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
         .then(data => setResults(data['inferenceResults']));
@@ -54,8 +54,8 @@ const ColorPicker = () => {
     <ShowInferenceResultsByConfidence
         results={results}/>
     <Button
-        custom-attribute="some-value"
-        onClick={onClick()}>
+        className={'e2e-do-reward-label-black'}
+        onClick={onClick('black')}>
       reward for black
     </Button>
   </>;

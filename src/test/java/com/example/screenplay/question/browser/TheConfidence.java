@@ -1,23 +1,25 @@
 package com.example.screenplay.question.browser;
 
-import com.example.neuralnet.component.NeuralNetwork;
-import com.example.screenplay.ability.AskNeuralNetwork;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.targets.Target;
 
 @RequiredArgsConstructor
 public class TheConfidence implements Question<Double> {
 
-  private final double color;
+  private final String color;
 
-  public static TheConfidence of(double i) {
-    return new TheConfidence(i);
+  public static TheConfidence of(String color) {
+    return new TheConfidence(color);
   }
 
   @Override
   public Double answeredBy(Actor actor) {
-    NeuralNetwork network = AskNeuralNetwork.as(actor);
-    return network.infer((int) color).getConfidence();
+    Target confidence =
+        Target.the("confidence of color being " + color)
+            .locatedBy(".e2e-inference-confidence-for-label-" + color);
+    String text = confidence.resolveFor(actor).getText();
+    return Double.valueOf(text);
   }
 }

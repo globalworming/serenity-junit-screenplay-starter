@@ -1,6 +1,6 @@
 package com.example.screenplay.action;
 
-import com.example.screenplay.ColorSet;
+import com.example.e2e.integration.NeuralNetIT;
 import com.example.screenplay.ability.AskNeuralNetwork;
 import com.example.screenplay.question.integration.TheConfidence;
 import lombok.AllArgsConstructor;
@@ -14,19 +14,20 @@ import static net.serenitybdd.screenplay.Tasks.instrumented;
 @AllArgsConstructor
 public class TrainNeuralNet implements Performable {
 
-  private final List<ColorSet> trainingData;
+  private final List<NeuralNetIT.ColorSet> trainingData;
 
-  public static Performable onDataSet(List<ColorSet> trainingData) {
+  public static Performable onDataSet(List<NeuralNetIT.ColorSet> trainingData) {
     return instrumented(TrainNeuralNet.class, trainingData);
   }
 
   @Override
   public <T extends Actor> void performAs(T actor) {
-    trainingData.forEach(it -> {
-      double confidence = actor.asksFor(TheConfidence.of(it.getColor()));
-      if (confidence < .99) {
-        AskNeuralNetwork.as(actor).increaseTheWeight();
-      }
-    });
+    trainingData.forEach(
+        it -> {
+          double confidence = actor.asksFor(TheConfidence.of(it.getColor()));
+          if (confidence < .99) {
+            AskNeuralNetwork.as(actor).increaseTheWeight();
+          }
+        });
   }
 }
