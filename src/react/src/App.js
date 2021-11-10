@@ -21,7 +21,7 @@ function buildQueryPart({h, s, l}) {
 }
 
 const ColorPicker = () => {
-  const [hsl, setHsl] = useState({h: 0xFF, s: 0x00, l: 0x00});
+  const [hsl, setHsl] = useState({h: 177, s: 33, l: 33});
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const ShowInferenceResultsByConfidence = ({results}) =>
       {results.sort(byConfidenceDec).map((result) => <React.Fragment key={result.label}>
             <dt>{result.label}</dt>
             <dd className={'e2e-inference-confidence e2e-inference-confidence-for-label-' + result.label}>
-              {result.confidence}
+              {result.confidence.toFixed(2)}
             </dd>
           </React.Fragment>
       )}
