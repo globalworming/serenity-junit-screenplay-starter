@@ -41,6 +41,8 @@ const ColorPicker = () => {
 
 
   return <>
+    <Button className="e2e-do-set-color-000000"
+            onClick={() => setHsl({h: 0, s: 0, l: 0})}>#000000</Button>
     <HslColorPicker
         className={'e2e-pick-color'}
         color={hsl}
@@ -63,7 +65,7 @@ const byConfidenceDec = (a, b) => b.confidence - a.confidence;
 const ShowInferenceResultsByConfidence = ({results}) =>
     <dl className={"e2e-inference-results"}>
       {results.sort(byConfidenceDec).map((result) => <React.Fragment key={result.label}>
-            <dt>{result.label}</dt>
+            <dt className={'e2e-show-confidence-label'}>{result.label}</dt>
             <dd className={'e2e-inference-confidence e2e-inference-confidence-for-label-' + result.label}>
               {result.confidence.toFixed(2)}
             </dd>

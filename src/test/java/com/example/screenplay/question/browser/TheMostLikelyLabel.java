@@ -12,15 +12,22 @@ public class TheMostLikelyLabel implements Question<String> {
 
   private final String s;
 
-  public static TheMostLikelyLabel of(String s) {
+  public static TheMostLikelyLabel of(String color) {
+
+    String s = color;
+    if (s.startsWith("#")) {
+      s = s.substring(1);
+    }
     return new TheMostLikelyLabel(s);
   }
 
   @Override
   public String answeredBy(Actor actor) {
-    actor.attemptsTo(Open.url("http://localhost:3030"));
-    actor.attemptsTo(Click.on("button"));
-    Target.the("most likely label").locatedBy("something");
-    return null;
+    actor.attemptsTo(Open.url("http://localhost:3000"));
+    actor.attemptsTo(Click.on(".e2e-do-set-color-" + s));
+    return Target.the("most likely label")
+        .locatedBy(".e2e-show-confidence-label")
+        .resolveFor(actor)
+        .getText();
   }
 }
