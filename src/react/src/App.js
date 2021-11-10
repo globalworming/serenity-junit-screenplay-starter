@@ -52,7 +52,7 @@ const ColorPicker = () => {
     <ShowInferenceResultsByConfidence
         results={results}/>
     <Button
-        custom-attribute="some-value"
+        className={'e2e-do-reward-for-black'}
         onClick={onClick()}>
       reward for black
     </Button>

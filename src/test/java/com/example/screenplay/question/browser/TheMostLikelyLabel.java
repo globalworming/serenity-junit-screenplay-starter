@@ -1,10 +1,9 @@
 package com.example.screenplay.question.browser;
 
+import com.example.screenplay.action.browser.SelectColor;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.targets.Target;
 
 @RequiredArgsConstructor
@@ -13,7 +12,6 @@ public class TheMostLikelyLabel implements Question<String> {
   private final String s;
 
   public static TheMostLikelyLabel of(String color) {
-
     String s = color;
     if (s.startsWith("#")) {
       s = s.substring(1);
@@ -23,8 +21,7 @@ public class TheMostLikelyLabel implements Question<String> {
 
   @Override
   public String answeredBy(Actor actor) {
-    actor.attemptsTo(Open.url("http://localhost:3000"));
-    actor.attemptsTo(Click.on(".e2e-do-set-color-" + s));
+    actor.attemptsTo(SelectColor.withValue(s));
     return Target.the("most likely label")
         .locatedBy(".e2e-show-confidence-label")
         .resolveFor(actor)
