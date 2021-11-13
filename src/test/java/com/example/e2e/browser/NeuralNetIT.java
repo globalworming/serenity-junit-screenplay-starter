@@ -52,7 +52,6 @@ public class NeuralNetIT {
   @Test
   public void actorTrainsNeuralNet() {
     val trainingData = List.of(ColorSet.builder().color("#000000").label("black").build());
-
     double beforeTraining = actor.asksFor(TheConfidence.of("black"));
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheConfidence.of("black"));

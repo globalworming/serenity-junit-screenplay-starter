@@ -40,15 +40,19 @@ const ColorPicker = () => {
   }
 
 
-  return <>
+  const colorPicker = () => <div className={'e2e-pick-color'}>
     <Button className="e2e-do-set-color-000000"
             onClick={() => setHsl({h: 0, s: 0, l: 0})}>#000000</Button>
     <HslColorPicker
-        className={'e2e-pick-color'}
+
         color={hsl}
         onChange={(hsl) => {
           setHsl(hsl)
         }}/>
+  </div>;
+
+  return <>
+    {colorPicker()}
     <ShowInferenceResultsByConfidence
         results={results}/>
     <Button
