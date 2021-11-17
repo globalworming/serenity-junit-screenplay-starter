@@ -1,7 +1,7 @@
 package com.example.screenplay.question.integration;
 
 import com.example.neuralnet.component.NeuralNetwork;
-import com.example.screenplay.ability.AskNeuralNetwork;
+import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
@@ -17,7 +17,7 @@ public class TheConfidence implements Question<Double> {
 
   @Override
   public Double answeredBy(Actor actor) {
-    NeuralNetwork network = AskNeuralNetwork.as(actor);
+    NeuralNetwork network = AskAndTrainNeuralNetwork.as(actor);
     return network.infer((int) color).getConfidence();
   }
 }
