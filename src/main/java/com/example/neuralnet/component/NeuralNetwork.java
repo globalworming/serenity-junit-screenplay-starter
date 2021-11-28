@@ -1,22 +1,29 @@
 package com.example.neuralnet.component;
 
 import com.example.neuralnet.domain.InferenceResult;
-import com.example.neuralnet.domain.Neuron;
+import com.example.neuralnet.domain.LabeledNeuron;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class NeuralNetwork {
-  private final Neuron blackDetectingNeuron = new Neuron();
-  private final Neuron whiteDetectingNeuron = new Neuron();
-  private final Neuron grayDetectingNeuron = new Neuron();
+  private final LabeledNeuron blackDetectingNeuron = new LabeledNeuron("black");
+  private final LabeledNeuron whiteDetectingNeuron = new LabeledNeuron("white");
+  private final LabeledNeuron grayDetectingNeuron = new LabeledNeuron("gray");
 
-  public List<InferenceResult> infer(HslColor hslColor) {
+  private final Map<String, LabeledNeuron> label2labeledNeuron =
+      List.of(blackDetectingNeuron, whiteDetectingNeuron, grayDetectingNeuron).stream()
+          .collect(Collectors.toMap(LabeledNeuron::getLabel, Function.identity()));
+
+  public synchronized List<InferenceResult> infer(HslColor hslColor) {
     List<InferenceResult> inferenceResults = new ArrayList<>();
     blackDetectingNeuron.setOutputConsumer(
         (confidence) ->
@@ -41,7 +48,7 @@ public class NeuralNetwork {
     return inferenceResults;
   }
 
-  public void increaseTheWeight() {
-    blackDetectingNeuron.increaseWeight();
+  public void reward(String label) {
+    label2labeledNeuron.get(label).increaseWeight();
   }
 }

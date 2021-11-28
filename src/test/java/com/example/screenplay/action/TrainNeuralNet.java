@@ -23,6 +23,6 @@ public class TrainNeuralNet implements Performable {
   @Override
   @Step("{0} trains neural net on dataset: #trainingData")
   public <T extends Actor> void performAs(T actor) {
-    trainingData.forEach(it -> AskAndTrainNeuralNetwork.as(actor).increaseTheWeight());
+    trainingData.forEach(it -> AskAndTrainNeuralNetwork.as(actor).reward(it.getLabel()));
   }
 }

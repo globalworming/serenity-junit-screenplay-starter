@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const ShowInferenceResultsByConfidence = ({results}) =>
+const ShowInferenceResults = ({results}) =>
     <dl className={"e2e-inference-results"}>
       {results.map((result) => <React.Fragment key={result.label}>
             <dt className={'e2e-show-confidence-label'}>{result.label}</dt>
@@ -12,4 +12,4 @@ const ShowInferenceResultsByConfidence = ({results}) =>
       )}
     </dl>;
 
-export default ShowInferenceResultsByConfidence
+export default ShowInferenceResults

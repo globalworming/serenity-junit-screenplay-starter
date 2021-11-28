@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ColorPicker from "./ColorPicker";
-import ShowInferenceResultsByConfidence from "./ShowInferenceResultsByConfidence";
+import ShowInferenceResults from "./ShowInferenceResults";
 import TrainingInterface from "./TrainingInterface";
 
 function buildQueryPart({h, s, l}) {
@@ -18,17 +18,17 @@ const NeuralNetInterface = () => {
         .then(results => setResults(results));
   }, [hsl, setResults]);
 
-  const onClick = () => () => {
-    fetch('/train?label=black');
+  const onClick = (l) => {
+    fetch('/train?label=' + l);
     fetch('/infer?' + buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
         .then(data => setResults(data));
-  }
-  console.log("results", results)
+  };
+  console.log("results", results);
   return <>
     <ColorPicker setHsl={setHsl} currentColor={hsl}/>
-    <ShowInferenceResultsByConfidence results={results}/>
-    <TrainingInterface onClick={onClick}/>
+    <ShowInferenceResults results={results}/>
+    <TrainingInterface onClick={onClick} results={results}/>
 
   </>;
 };

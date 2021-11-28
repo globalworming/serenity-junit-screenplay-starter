@@ -23,6 +23,6 @@ public class NeuralNetController {
 
   @GetMapping("/train")
   void train(@RequestParam String label) {
-    neuralNetwork.increaseTheWeight();
+    neuralNetwork.reward(label);
   }
 }
