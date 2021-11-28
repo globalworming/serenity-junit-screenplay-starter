@@ -15,7 +15,6 @@ const NeuralNetInterface = () => {
     fetch('/infer?' +
         buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
-        .then(data => data['inferenceResults'])
         .then(results => setResults(results));
   }, [hsl, setResults]);
 
@@ -23,9 +22,9 @@ const NeuralNetInterface = () => {
     fetch('/train?label=black');
     fetch('/infer?' + buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
-        .then(data => setResults(data['inferenceResults']));
+        .then(data => setResults(data));
   }
-
+  console.log("results", results)
   return <>
     <ColorPicker setHsl={setHsl} currentColor={hsl}/>
     <ShowInferenceResultsByConfidence results={results}/>

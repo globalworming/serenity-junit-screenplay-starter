@@ -2,26 +2,23 @@ package com.example.screenplay.question.integration;
 
 import com.example.neuralnet.component.HslColor;
 import com.example.neuralnet.component.NeuralNetwork;
-import com.example.neuralnet.domain.InferenceResult;
 import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
-import com.example.screenplay.question.QuestionWithDefaultSubject;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
-
-import java.util.List;
+import net.serenitybdd.screenplay.Question;
 
 @RequiredArgsConstructor
-public class TheInferenceResult extends QuestionWithDefaultSubject<List<InferenceResult>> {
+public class TheHighestConfidence implements Question<Double> {
 
   private final HslColor hslColor;
 
-  public static TheInferenceResult forInput(HslColor hslColor) {
-    return new TheInferenceResult(hslColor);
+  public static TheHighestConfidence of(HslColor hslColor) {
+    return new TheHighestConfidence(hslColor);
   }
 
   @Override
-  public List<InferenceResult> answeredBy(Actor actor) {
+  public Double answeredBy(Actor actor) {
     NeuralNetwork network = AskAndTrainNeuralNetwork.as(actor);
-    return network.infer(hslColor);
+    return network.infer(hslColor).get(0).getConfidence();
   }
 }
