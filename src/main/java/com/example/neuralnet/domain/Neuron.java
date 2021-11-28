@@ -10,12 +10,10 @@ import java.util.function.DoubleConsumer;
 @Setter
 public class Neuron implements DoubleConsumer {
 
-
   private final Sigmoid sigmoid = new Sigmoid();
   private Double weight = 0d;
   private SigmoidFunction sigmoidFunction = sigmoid::value;
-  private DoubleConsumer outputConsumer;
-
+  private DoubleConsumer outputConsumer = (it) -> {};
 
   @Override
   public void accept(double it) {
@@ -24,9 +22,8 @@ public class Neuron implements DoubleConsumer {
     outputConsumer.accept(valueBetweenZeroAndOne);
   }
 
-  double applyWeight(double input) {
+  public double applyWeight(double input) {
     return input * weight;
-
   }
 
   public void increaseWeight() {
