@@ -10,17 +10,21 @@ Git:
     git git@github.com:globalworming/serenity-junit-screenplay-starter.git
     cd serenity-junit-screenplay-starter
 
-## Use Maven
+
+## Use Maven to run all tests
 
 Open a command window and run:
 
     mvn verify
 
+## But there are some tests failing?!
+
+Some tests depend on a local react app `npm --prefix ./src/react run start` and a local spring boot application `mvn spring-boot:run`
 
 
 ## Viewing the reports
 
-Both of the commands provided above will produce a Serenity test report in the `target/site/serenity` directory. Go take a look!
+Running `mvn verify` will produce a Serenity test report in the `target/site/serenity` directory. Go take a look!
 
 # Need help?
 
