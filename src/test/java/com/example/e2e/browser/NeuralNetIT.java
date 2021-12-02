@@ -1,7 +1,7 @@
 package com.example.e2e.browser;
 
 import com.example.screenplay.action.browser.TrainNeuralNet;
-import com.example.screenplay.domain.ColorSet;
+import com.example.screenplay.domain.LabeledColor;
 import com.example.screenplay.question.browser.TheConfidence;
 import com.example.screenplay.question.browser.TheMostLikelyLabel;
 import com.example.screenplay.question.browser.TheMostLikelyLabelIsOnTop;
@@ -51,7 +51,8 @@ public class NeuralNetIT {
 
   @Test
   public void actorTrainsNeuralNet() {
-    val trainingData = List.of(ColorSet.builder().color("#000000").label("black").build());
+    LabeledColor c = LabeledColor.builder().color("#000000").label("black").build();
+    val trainingData = List.of(c, c, c, c, c, c, c);
     double beforeTraining = actor.asksFor(TheConfidence.of("black"));
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheConfidence.of("black"));

@@ -7,7 +7,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class ColorSet {
+public class LabeledColor {
   String color;
   String label;
 }
