@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class NeuralNetwork {
+public class ColorDetectingNeuralNetwork {
   private final LabeledNeuron blackDetectingNeuron = new LabeledNeuron("black");
   private final LabeledNeuron whiteDetectingNeuron = new LabeledNeuron("white");
   private final LabeledNeuron grayDetectingNeuron = new LabeledNeuron("gray");

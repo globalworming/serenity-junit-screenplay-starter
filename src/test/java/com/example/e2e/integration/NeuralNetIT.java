@@ -1,7 +1,7 @@
 package com.example.e2e.integration;
 
+import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
-import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.LabeledColor;
 import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
 import com.example.screenplay.action.TrainNeuralNet;
@@ -36,7 +36,7 @@ public class NeuralNetIT {
 
   @Before
   public void setUp() throws Exception {
-    actor.can(AskAndTrainNeuralNetwork.forColor(new NeuralNetwork()));
+    actor.can(AskAndTrainNeuralNetwork.forColor(new ColorDetectingNeuralNetwork()));
   }
 
   @Test

@@ -1,7 +1,7 @@
 package com.example.screenplay.question.integration;
 
+import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
-import com.example.neuralnet.component.NeuralNetwork;
 import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
@@ -18,7 +18,7 @@ public class TheHighestConfidence implements Question<Double> {
 
   @Override
   public Double answeredBy(Actor actor) {
-    NeuralNetwork network = AskAndTrainNeuralNetwork.as(actor);
+    ColorDetectingNeuralNetwork network = AskAndTrainNeuralNetwork.as(actor);
     return network.infer(hslColor).get(0).getConfidence();
   }
 }

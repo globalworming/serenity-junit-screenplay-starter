@@ -1,21 +1,22 @@
 package com.example.screenplay.ability;
 
-import com.example.neuralnet.component.NeuralNetwork;
+import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import net.serenitybdd.screenplay.Actor;
 
 public class AskAndTrainNeuralNetwork extends Ability {
-  private final NeuralNetwork neuralNetwork;
+  private final ColorDetectingNeuralNetwork colorDetectingNeuralNetwork;
 
-  public AskAndTrainNeuralNetwork(NeuralNetwork neuralNetwork) {
+  public AskAndTrainNeuralNetwork(ColorDetectingNeuralNetwork colorDetectingNeuralNetwork) {
 
-    this.neuralNetwork = neuralNetwork;
+    this.colorDetectingNeuralNetwork = colorDetectingNeuralNetwork;
   }
 
-  public static AskAndTrainNeuralNetwork forColor(NeuralNetwork neuralNetwork) {
-    return new AskAndTrainNeuralNetwork(neuralNetwork);
+  public static AskAndTrainNeuralNetwork forColor(
+      ColorDetectingNeuralNetwork colorDetectingNeuralNetwork) {
+    return new AskAndTrainNeuralNetwork(colorDetectingNeuralNetwork);
   }
 
-  public static NeuralNetwork as(Actor actor) {
-    return actor.abilityTo(AskAndTrainNeuralNetwork.class).neuralNetwork;
+  public static ColorDetectingNeuralNetwork as(Actor actor) {
+    return actor.abilityTo(AskAndTrainNeuralNetwork.class).colorDetectingNeuralNetwork;
   }
 }
