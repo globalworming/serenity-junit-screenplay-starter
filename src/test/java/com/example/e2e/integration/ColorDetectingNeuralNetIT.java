@@ -30,7 +30,7 @@ import static org.hamcrest.number.OrderingComparison.greaterThan;
     text =
         "product that tells blind people the color of something. we want to train a neural net to do that")
 @RunWith(SerenityRunner.class)
-public class NeuralNetIT {
+public class ColorDetectingNeuralNetIT {
 
   Actor actor = Actor.named("tester");
 
