@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.math3.analysis.function.Sigmoid;
 
+import java.util.UUID;
 import java.util.function.DoubleConsumer;
 
 @Getter
 @Setter
 public class Neuron implements DoubleConsumer {
 
+  private final UUID uuid = UUID.randomUUID();
   private final Sigmoid sigmoid = new Sigmoid();
   private Double weight = 0d;
   private SigmoidFunction sigmoidFunction = sigmoid::value;

@@ -29,7 +29,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
             + "neurons have inputs and corresponding weights. neurons need to calculate and add the inputs "
             + "(they may add a constant bias) and through a sigmoid function produce a value between 0 and 1 as output")
 @RunWith(SerenityRunner.class)
-public class NeuronTest {
+public class BasicNeuronModelTest {
 
   private Actor actor = Actor.named("tester");
 
