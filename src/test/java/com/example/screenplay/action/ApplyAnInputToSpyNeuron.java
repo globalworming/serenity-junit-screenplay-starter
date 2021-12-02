@@ -5,7 +5,7 @@ import lombok.val;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 
-public class ExciteSpyNeuron implements Performable {
+public class ApplyAnInputToSpyNeuron implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
     val spy = SpyOnNeuron.as(actor);

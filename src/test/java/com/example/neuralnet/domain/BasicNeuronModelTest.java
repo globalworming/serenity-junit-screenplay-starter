@@ -2,7 +2,7 @@ package com.example.neuralnet.domain;
 
 import com.example.screenplay.ability.InteractWithNeuron;
 import com.example.screenplay.ability.SpyOnNeuron;
-import com.example.screenplay.action.ExciteSpyNeuron;
+import com.example.screenplay.action.ApplyAnInputToSpyNeuron;
 import com.example.screenplay.action.SetupMockedNeuronImplementation;
 import com.example.screenplay.question.ApplyWeightIsInvoked;
 import com.example.screenplay.question.OutputIsPropagated;
@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -50,6 +51,17 @@ public class BasicNeuronModelTest {
   }
 
   @Test
+  public void neuronsAcceptsMultipleInputs() {
+    actor.should(
+        seeThat(
+            "a neuron accepts inputs",
+            (a) -> {
+              InteractWithNeuron.as(a).accept(List.of(0., 0.));
+              return true;
+            }));
+  }
+
+  @Test
   public void neuronsHaveInputWeight() {
     actor.should(
         seeThat(
@@ -68,7 +80,7 @@ public class BasicNeuronModelTest {
   public void whenAcceptingAnInputItsWeightedAndConvertedByTheSigmoidFunctionAndSentToTheOutput() {
     actor.can(new SpyOnNeuron(new Neuron()));
     actor.attemptsTo(new SetupMockedNeuronImplementation());
-    actor.attemptsTo(new ExciteSpyNeuron());
+    actor.attemptsTo(new ApplyAnInputToSpyNeuron());
     actor.should(seeThat(new ApplyWeightIsInvoked()));
     actor.should(seeThat(new SigmoidFunctionIsInvoked()));
     actor.should(seeThat(new OutputIsPropagated()));
@@ -89,5 +101,23 @@ public class BasicNeuronModelTest {
     assertThat(output, CoreMatchers.notNullValue());
     Matcher<Double> isValueBetweenZeroAndOne = IsCloseTo.closeTo(0.5, 0.4999);
     assertThat(output.get(), isValueBetweenZeroAndOne);
+  }
+
+  @Test
+  public void outputFromMultipleInputsIsGenerated() {
+
+    // actor can test neuron
+    val neuron = new Neuron();
+    AtomicReference<Double> output = new AtomicReference<>();
+    // actor attempts to link observability tool
+    neuron.setOutputConsumer(output::set);
+    // actor remembers output for single input
+    neuron.accept(List.of(1.));
+    double output1 = output.get();
+    // actor remembers output multipleInput
+    neuron.accept(List.of(1., 1.));
+    double output2 = output.get();
+
+    assertThat(output1, CoreMatchers.not(IsCloseTo.closeTo(output2, 0.1)));
   }
 }
