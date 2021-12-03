@@ -3,7 +3,7 @@ package com.example.e2e.integration;
 import com.example.neuralnet.domain.NeuralNet;
 import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
-import lombok.val;
+import com.example.screenplay.question.AllInputsAreWiredToAllOutputs;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -57,10 +57,28 @@ public class BuildingCustomNeuralNetIT {
     Serenity.reportThat(
         "given neural net with single in- and output",
         () -> {
-          val inputNeuron = new Neuron();
-          val outputNeuron = new Neuron();
-          neuralNet.addInputNeuron(inputNeuron);
-          neuralNet.addOutputNeuron(outputNeuron);
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
+        });
+  }
+
+  @Test
+  // these test names are much nicer with kotlin like
+  // fun `where it has one InputNeuron and one OutputNeuron`
+  public void whereTwoInputAndOneOutputNeuronsAreWired() {
+    givenNeuralNetWithTwoInAndOutputNeurons();
+    actor.attemptsTo(new WireAllTheNeurons());
+    actor.should(seeThat(new AllInputsAreWiredToAllOutputs()));
+  }
+
+  private void givenNeuralNetWithTwoInAndOutputNeurons() {
+    Serenity.reportThat(
+        "given neural net with 2 in- and 2 output neurons",
+        () -> {
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
         });
   }
 

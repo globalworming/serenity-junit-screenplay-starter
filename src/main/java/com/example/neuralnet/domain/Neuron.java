@@ -22,6 +22,7 @@ public class Neuron implements DoubleConsumer {
   private List<Double> weights = new ArrayList<>();
   private SigmoidFunction sigmoidFunction = sigmoid::value;
   private DoubleConsumer outputConsumer = (it) -> {};
+  private List<DoubleConsumer> outputConsumers = new ArrayList<>();
 
   @Override
   public void accept(double it) {
@@ -50,5 +51,10 @@ public class Neuron implements DoubleConsumer {
             .mapToDouble(it -> it)
             .sum();
     outputConsumer.accept(getSigmoidFunction().apply(sum));
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Neuron<%s>", uuid);
   }
 }
