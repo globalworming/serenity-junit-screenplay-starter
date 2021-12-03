@@ -16,7 +16,7 @@
     <name>Sample Serenity BDD project using JUnit and Screenplay, no cucumber, no step libraries</name>
 
     <properties>
-        <serenity.version>2.6.0</serenity.version>
+        <serenity.version>3.1.5</serenity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
