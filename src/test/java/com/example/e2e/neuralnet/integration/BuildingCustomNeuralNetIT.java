@@ -1,8 +1,9 @@
-package com.example.e2e.integration;
+package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.domain.NeuralNet;
 import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
+import com.example.screenplay.action.WireAllTheNeurons;
 import com.example.screenplay.question.AllInputsAreWiredToAllOutputs;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;

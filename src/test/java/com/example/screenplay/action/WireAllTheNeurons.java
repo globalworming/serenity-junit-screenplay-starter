@@ -1,4 +1,4 @@
-package com.example.e2e.integration;
+package com.example.screenplay.action;
 
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import net.serenitybdd.screenplay.Actor;

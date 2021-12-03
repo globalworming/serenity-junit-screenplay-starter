@@ -1,4 +1,4 @@
-package com.example.e2e.integration;
+package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
@@ -28,7 +28,7 @@ import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 @Narrative(
     text =
-        "product that tells blind people the color of something. we want to train a neural net to do that")
+        "A neural net that should tell you the color of something. You have to train it first though.")
 @RunWith(SerenityRunner.class)
 public class ColorDetectingNeuralNetIT {
 

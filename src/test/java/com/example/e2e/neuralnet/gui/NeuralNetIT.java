@@ -1,4 +1,4 @@
-package com.example.e2e.browser;
+package com.example.e2e.neuralnet.gui;
 
 import com.example.screenplay.action.browser.TrainNeuralNet;
 import com.example.screenplay.domain.LabeledColor;

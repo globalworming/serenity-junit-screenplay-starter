@@ -19,7 +19,7 @@ Open a command window and run:
 
 ## But there are some tests failing?!
 
-Some tests depend on a local react app `npm --prefix ./src/react run start` and a local spring boot application `mvn spring-boot:run`
+Some tests depend on a local react app `npm --prefix ./src/react run start` and a local spring boot application `mvn spring-boot:run`. Others are just not maintained anymore. Others may require you to create accounts and API keys.
 
 
 ## Viewing the reports
