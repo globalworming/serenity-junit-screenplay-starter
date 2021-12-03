@@ -11,14 +11,12 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.util.EnvironmentVariables;
-import org.junit.Before;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.text.IsBlankString.blankOrNullString;
 
 @RunWith(SerenityRunner.class)
 public class RegistrationAndLoginIT {
@@ -29,20 +27,16 @@ public class RegistrationAndLoginIT {
   @Managed(driver = "chrome")
   private WebDriver aBrowser;
 
-  @Before
-  public void setUp() {
+  @Test
+  public void registerSomeUser() {
     user = new Actor("normal user");
     user.can(BrowseTheWeb.with(aBrowser));
     String apiKey = environmentVariables.getProperty("MAILOSAUR_API_KEY");
-    user.should(seeThat("api key", actor -> apiKey, not(blankOrNullString())));
+    Assume.assumeNotNull(apiKey);
     user.can(ReceiveEmails.with(new MailosaurClient(apiKey)));
     user.remember(Memory.USERNAME, ActorPropertiesFactory.getUniqueUsername());
     user.remember(Memory.PASSWORD, "asdasdasd");
     user.remember(Memory.EMAIL_ADDRESS, ActorPropertiesFactory.randomUniqueEmailAddress());
-  }
-
-  @Test
-  public void registerSomeUser() {
     user.attemptsTo(new RegisterAccount());
     user.should(seeThat(new TheyAreLoggedIn()));
   }
