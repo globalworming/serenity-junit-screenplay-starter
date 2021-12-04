@@ -3,6 +3,9 @@
   
 This is a minimalistic example using Serenity BDD with the screenplay patter but without Cucumber. It shows how actors with different abilities can work on different interfaces in isolation or in collaboration. 
 
+## check out the report
+https://globalworming.github.io/serenity-junit-screenplay-starter/ 
+
 ## Get the code
 
 Git:
