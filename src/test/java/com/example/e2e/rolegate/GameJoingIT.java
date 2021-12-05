@@ -6,12 +6,16 @@ import com.example.screenplay.action.http.AuthenticateSuccessfully;
 import com.example.screenplay.action.http.CreateGame;
 import com.example.screenplay.question.LatestCreatedGameName;
 import com.example.screenplay.question.NumberOfPlayers;
+import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
+@RunWith(SerenityRunner.class)
 public class GameJoingIT extends RolegateBase {
 
   @Override
@@ -22,6 +26,8 @@ public class GameJoingIT extends RolegateBase {
   }
 
   @Test
+  @Ignore(
+      "this process doesnt work anymore. it may still serve as example how to build steps using a custom webclient")
   public void whenPlayersJoinCreatedGame() {
     gameMaster.wasAbleTo(new CreateGame());
     String slug = gameMaster.asksFor(new LatestCreatedGameName());

@@ -1,5 +1,6 @@
 package com.example.screenplay.action;
 
+import com.example.neuralnet.domain.Wire;
 import com.example.screenplay.ability.InteractWithNeurons;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -16,7 +17,7 @@ public class LinksTwoNeurons implements Performable {
     val neuron = neurons.get(0);
     val neuronToLink = neurons.get(1);
     Serenity.reportThat(
-        String.format("link <%s> --> <%s>", neuron.getUuid(), neuronToLink.getUuid()),
-        () -> neuron.setOutputConsumer(neuronToLink));
+        String.format("link %s --> %s", neuron, neuronToLink),
+        () -> neuron.connect(Wire.builder().source(neuron).target(neuronToLink).build()));
   }
 }

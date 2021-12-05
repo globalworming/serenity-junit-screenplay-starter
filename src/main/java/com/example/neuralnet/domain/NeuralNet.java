@@ -2,6 +2,7 @@ package com.example.neuralnet.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import lombok.val;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class NeuralNet {
   private final List<Neuron> inputNeurons = new ArrayList<>();
   private final List<Neuron> outputNeurons = new ArrayList<>();
+  private final List<Wire> wires = new ArrayList<>();
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
 
   public long size() {
@@ -28,6 +30,13 @@ public class NeuralNet {
   }
 
   public void wire() {
-    inputNeurons.forEach(it -> it.setOutputConsumer(getOutputNeurons().get(0)));
+    for (Neuron inputNeuron : inputNeurons) {
+      for (Neuron outputNeuron : outputNeurons) {
+        val wire = Wire.builder().source(inputNeuron).target(outputNeuron).build();
+        inputNeuron.connect(wire);
+        wires.add(wire);
+        outputNeuron.registerInput(wire);
+      }
+    }
   }
 }

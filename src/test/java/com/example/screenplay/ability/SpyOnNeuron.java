@@ -19,7 +19,7 @@ public class SpyOnNeuron extends Ability {
     SigmoidFunction mockSigmoidFunction = mock(SigmoidFunction.class);
     DoubleConsumer mockOutput = mock(DoubleConsumer.class);
     neuron.setSigmoidFunction(mockSigmoidFunction);
-    neuron.setOutputConsumer(mockOutput);
+    neuron.connect(mockOutput);
     this.neuron = spy(neuron);
   }
 

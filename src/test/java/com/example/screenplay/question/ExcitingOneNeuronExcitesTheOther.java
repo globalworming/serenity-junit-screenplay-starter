@@ -1,6 +1,7 @@
 package com.example.screenplay.question;
 
 import com.example.neuralnet.domain.Neuron;
+import com.example.neuralnet.domain.Signal;
 import com.example.screenplay.ability.InteractWithNeurons;
 import lombok.val;
 import net.serenitybdd.screenplay.Actor;
@@ -17,9 +18,9 @@ public class ExcitingOneNeuronExcitesTheOther extends QuestionWithDefaultSubject
   public Boolean answeredBy(Actor actor) {
     val neurons = InteractWithNeurons.as(actor);
     Neuron inputNeuron = neurons.get(1);
-    inputNeuron.setOutputConsumer((it) -> output = it);
+    inputNeuron.connect((it) -> output = it);
     assertThat(output, nullValue());
-    neurons.get(0).accept(1);
+    neurons.get(0).accept(Signal.builder().strength(1.).build());
     actor.should(
         seeThat(
             "feeding something into the first neuron results in output in the second neuron",
