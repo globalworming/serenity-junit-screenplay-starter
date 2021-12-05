@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="com.example.e2e.rolegate.GameJoingIT" skipped="0" tests="1" time="0.03" timestamp="2021-12-04 12:20:13"><testcase classname="com.example.e2e.rolegate.GameJoingIT" name="When players join created game"><failure message="this process doesnt work anymore. it may still serve as example how to build steps using a custom webclient" type="java.lang.AssertionError">this process doesnt work anymore. it may still serve as example how to build steps using a custom webclient</failure><system-err>this process doesnt work anymore. it may still serve as example how to build steps using a custom webclient
-com.example.screenplay.action.http.Authenticate.performAs(Authenticate.java:11)
-com.example.screenplay.action.http.AuthenticateSuccessfully.performAs(AuthenticateSuccessfully.java:18)
-com.example.e2e.rolegate.GameJoingIT.setUp(GameJoingIT.java:21)
-</system-err></testcase></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="com.example.e2e.rolegate.GameJoingIT" skipped="1" tests="1" time="0.0" timestamp="2021-12-05 11:39:45"><testcase classname="com.example.e2e.rolegate.GameJoingIT" name="When players join created game"><skipped/></testcase></testsuite>

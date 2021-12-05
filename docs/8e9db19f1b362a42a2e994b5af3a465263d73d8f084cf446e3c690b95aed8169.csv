@@ -1,0 +1,7 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Neural net IT","The actor sees the most likely label on top","ERROR","2021-12-04T00:47:43.289631+01:00[Europe/Berlin]","0.0","0.15"
+"Neural net IT","Actor trains neural net","ERROR","2021-12-04T00:47:43.437279+01:00[Europe/Berlin]","0.0","0.11"
+"Neural net IT","Actor can ask neural net","ERROR","2021-12-04T00:47:43.549215+01:00[Europe/Berlin]","0.0","0.1"
+"Building custom neural net IT","Where two input and one output neurons are wired","FAILURE","2021-12-04T00:47:44.10498+01:00[Europe/Berlin]","0.0","0.03"
+"Game creation IT","When an authenticated game master creates a game","FAILURE","2021-12-04T00:47:47.647867+01:00[Europe/Berlin]","0.0","0.17"
+"Game joing IT","When players join created game","FAILURE","2021-12-04T00:47:47.84356+01:00[Europe/Berlin]","0.0","0.06"

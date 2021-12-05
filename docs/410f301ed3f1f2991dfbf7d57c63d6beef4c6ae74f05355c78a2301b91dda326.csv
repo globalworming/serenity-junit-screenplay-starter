@@ -1,4 +1,5 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Building custom neural net IT","Where one input and one output is wired","SUCCESS","2021-12-04T00:20:09.681805+01:00[Europe/Berlin]","0.0","0.02"
-"Building custom neural net IT","Where the default is inspected","SUCCESS","2021-12-04T00:20:09.783125+01:00[Europe/Berlin]","0.0","0.01"
-"Building custom neural net IT","Where it has one input and one output neuron","SUCCESS","2021-12-04T00:20:09.798464+01:00[Europe/Berlin]","0.0","0.01"
+"Building custom neural net IT","Where one input and one output is wired","SUCCESS","2021-12-05T23:39:43.248255+01:00[Europe/Berlin]","0.0","0.02"
+"Building custom neural net IT","Where two input and one output neurons are wired","SUCCESS","2021-12-05T23:39:43.270687+01:00[Europe/Berlin]","0.0","0.01"
+"Building custom neural net IT","Where the default is inspected","SUCCESS","2021-12-05T23:39:43.285899+01:00[Europe/Berlin]","0.0","0.02"
+"Building custom neural net IT","Where it has one input and one output neuron","SUCCESS","2021-12-05T23:39:43.302653+01:00[Europe/Berlin]","0.0","0.01"

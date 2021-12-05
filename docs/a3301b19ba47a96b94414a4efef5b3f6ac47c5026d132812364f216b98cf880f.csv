@@ -1,2 +1,4 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Registration and login IT","Register some user","IGNORED","2021-12-04T00:20:12.93234+01:00[Europe/Berlin]","0.0","0.01"
+"Registration and login IT","Register some user","IGNORED","2021-12-05T23:39:45.891666+01:00[Europe/Berlin]","0.0","0.01"
+"Game creation IT","When an authenticated game master creates a game","IGNORED","2021-12-05T23:39:45.918854+01:00[Europe/Berlin]","0.0","0.0"
+"Game joing IT","When players join created game","IGNORED","2021-12-05T23:39:45.939487+01:00[Europe/Berlin]","0.0","0.0"

@@ -1,2 +1,5 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Building custom neural net IT","Where two input and one output neurons are wired","FAILURE","2021-12-04T00:20:09.703336+01:00[Europe/Berlin]","0.0","0.08"
+"Neural net IT","The actor sees the most likely label on top","ERROR","2021-12-04T01:02:58.844475+01:00[Europe/Berlin]","0.0","1.4"
+"Neural net IT","Actor trains neural net","ERROR","2021-12-04T01:03:00.243959+01:00[Europe/Berlin]","0.0","1.23"
+"Neural net IT","Actor can ask neural net","ERROR","2021-12-04T01:03:01.47951+01:00[Europe/Berlin]","0.0","1.13"
+"Building custom neural net IT","Where two input and one output neurons are wired","FAILURE","2021-12-04T01:03:03.159576+01:00[Europe/Berlin]","0.0","0.04"
