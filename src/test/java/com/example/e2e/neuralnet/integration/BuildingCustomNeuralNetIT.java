@@ -60,13 +60,13 @@ public class BuildingCustomNeuralNetIT {
   }
 
   @Test
-  public void whereTwoInputAndOneOutputNeuronsAreWired() {
-    givenNeuralNetWithTwoInAndOutputNeurons();
+  public void whereTwoInputAndTwoOutputNeuronsAreWired() {
+    givenNeuralNetWithTwoInAndTwoOutputNeurons();
     actor.attemptsTo(new WireAllTheNeurons());
     actor.should(seeThat(new NumberOfWires(), is(4)), seeThat(new AllInputsAreWiredToAllOutputs()));
   }
 
-  private void givenNeuralNetWithTwoInAndOutputNeurons() {
+  private void givenNeuralNetWithTwoInAndTwoOutputNeurons() {
     Serenity.reportThat(
         "given neural net with 2 in- and 2 output neurons",
         () -> {
