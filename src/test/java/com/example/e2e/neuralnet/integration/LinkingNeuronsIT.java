@@ -1,5 +1,6 @@
-package com.example.neuralnet.domain;
+package com.example.e2e.neuralnet.integration;
 
+import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeurons;
 import com.example.screenplay.action.LinksTwoNeurons;
 import com.example.screenplay.question.ExcitingOneNeuronExcitesTheOther;
@@ -14,11 +15,9 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 @Narrative(
     text =
-        "neural nets are made of multiple layers of linked neurons. "
-            + "neurons have inputs and corresponding weights. neurons need to calculate and add the inputs "
-            + "(they may add a constant bias) and through a sigmoid function produce a value between 0 and 1 as output")
+        "when linking two neurons the activation of one neuron activates the other. works only in one direction though there are neural networks which allow for loops or neurons activating themselves")
 @RunWith(SerenityRunner.class)
-public class LinkingNeuronsTest {
+public class LinkingNeuronsIT {
 
   private Neuron inputNeuron;
   private Neuron outputNeuron;

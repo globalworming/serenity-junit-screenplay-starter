@@ -1,5 +1,8 @@
-package com.example.neuralnet.domain;
+package com.example.e2e.neuralnet.integration;
 
+import com.example.neuralnet.domain.Neuron;
+import com.example.neuralnet.domain.Signal;
+import com.example.neuralnet.domain.Wire;
 import com.example.screenplay.ability.InteractWithNeuron;
 import com.example.screenplay.ability.SpyOnNeuron;
 import com.example.screenplay.action.ApplyAnInputToSpyNeuron;
@@ -30,7 +33,7 @@ import static org.hamcrest.number.IsCloseTo.closeTo;
     text =
         "neural nets are made of multiple layers of linked neurons. neurons have inputs. neurons sum up the inputs (they may add a constant bias) and through a sigmoid function produce a value between 0 and 1 as output and send it forward to other neurons.")
 @RunWith(SerenityRunner.class)
-public class BasicNeuronModelTest {
+public class NeuronIT {
 
   private Wire someSource = Wire.builder().build();
   private Wire someOtherSource = Wire.builder().build();
