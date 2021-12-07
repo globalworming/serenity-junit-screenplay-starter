@@ -12,7 +12,6 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.nullValue;
 
 public class ExcitingOneNeuronExcitesTheOther extends QuestionWithDefaultSubject<Boolean> {
-  private Double output = null;
 
   @Override
   public Boolean answeredBy(Actor actor) {
