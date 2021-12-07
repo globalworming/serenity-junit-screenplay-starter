@@ -1,6 +1,6 @@
 package com.example.screenplay.action;
 
-import com.example.screenplay.question.LatestNeuronOutput;
+import com.example.screenplay.question.integration.LatestNeuronOutput;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import org.hamcrest.Matcher;

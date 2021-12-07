@@ -1,4 +1,4 @@
-package com.example.screenplay;
+package com.example.screenplay.domain;
 
 import com.example.neuralnet.component.HslColor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class LabeledColor {
+public class LabeledHslColor {
   HslColor hslColor;
   String label;
 }

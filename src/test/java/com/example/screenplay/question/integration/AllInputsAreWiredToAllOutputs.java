@@ -1,7 +1,8 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.integration;
 
 import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import lombok.val;
 import net.serenitybdd.screenplay.Actor;
 

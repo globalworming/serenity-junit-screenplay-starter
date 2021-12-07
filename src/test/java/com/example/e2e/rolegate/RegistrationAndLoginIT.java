@@ -4,7 +4,7 @@ import com.example.screenplay.action.RegisterAccount;
 import com.example.screenplay.actor.ActorPropertiesFactory;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.actor.ReceiveEmails;
-import com.example.screenplay.question.TheyAreLoggedIn;
+import com.example.screenplay.question.rolegate.TheyAreLoggedIn;
 import com.mailosaur.MailosaurClient;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;

@@ -1,9 +1,10 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.integration;
 
 import com.example.screenplay.ability.InteractWithNeurons;
 import com.example.screenplay.action.EnsureTheLatestNeuronOutputIsBetweenZeroAndOne;
 import com.example.screenplay.action.SendSignal;
 import com.example.screenplay.action.WatchNeuronOutput;
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import lombok.val;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;

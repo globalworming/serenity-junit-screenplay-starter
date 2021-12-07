@@ -1,6 +1,7 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.integration;
 
 import com.example.screenplay.ability.SpyOnNeuron;
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.screenplay.Actor;
 
 import java.util.List;

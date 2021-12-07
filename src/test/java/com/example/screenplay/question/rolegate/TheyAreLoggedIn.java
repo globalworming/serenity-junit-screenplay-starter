@@ -1,5 +1,6 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.rolegate;
 
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.screenplay.Actor;
 
 public class TheyAreLoggedIn extends QuestionWithDefaultSubject<Boolean> {

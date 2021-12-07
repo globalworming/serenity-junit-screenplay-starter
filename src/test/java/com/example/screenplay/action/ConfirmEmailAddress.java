@@ -1,15 +1,15 @@
 package com.example.screenplay.action;
 
-import static net.serenitybdd.screenplay.EventualConsequence.eventually;
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-
-import com.example.screenplay.question.RegistrationConfirmationMessage;
-import com.example.screenplay.question.TheyReceiveRegistrationConfirmationEmail;
+import com.example.screenplay.question.rolegate.RegistrationConfirmationMessage;
+import com.example.screenplay.question.rolegate.TheyReceiveRegistrationConfirmationEmail;
 import com.mailosaur.models.Message;
 import lombok.SneakyThrows;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Open;
+
+import static net.serenitybdd.screenplay.EventualConsequence.eventually;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class ConfirmEmailAddress implements Performable {
 

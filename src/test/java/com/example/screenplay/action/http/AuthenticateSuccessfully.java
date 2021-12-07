@@ -1,7 +1,7 @@
 package com.example.screenplay.action.http;
 
 import com.example.screenplay.actor.Memory;
-import com.example.screenplay.question.LatestResponeBodyAsJsonObject;
+import com.example.screenplay.question.rolegate.LatestResponeBodyAsJsonObject;
 import lombok.SneakyThrows;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
@@ -17,7 +17,8 @@ public class AuthenticateSuccessfully implements Performable {
   public <T extends Actor> void performAs(T actor) {
     actor.attemptsTo(new Authenticate());
 
-    String accessToken = new LatestResponeBodyAsJsonObject().answeredBy(actor).get("token").getAsString();
+    String accessToken =
+        new LatestResponeBodyAsJsonObject().answeredBy(actor).get("token").getAsString();
     assertThat(accessToken, not(IsBlankString.blankOrNullString()));
     actor.remember(Memory.ACCESS_TOKEN, accessToken);
   }

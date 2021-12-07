@@ -1,6 +1,7 @@
-package com.example.screenplay.question;
+package com.example.screenplay.question.integration;
 
 import com.example.screenplay.actor.Memory;
+import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.screenplay.Actor;
 
 public class LatestNeuronOutput extends QuestionWithDefaultSubject<Double> {
