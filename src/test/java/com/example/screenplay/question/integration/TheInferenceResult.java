@@ -3,7 +3,7 @@ package com.example.screenplay.question.integration;
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
 import com.example.neuralnet.domain.InferenceResult;
-import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
+import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
 import com.example.screenplay.question.QuestionWithDefaultSubject;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
@@ -21,7 +21,7 @@ public class TheInferenceResult extends QuestionWithDefaultSubject<List<Inferenc
 
   @Override
   public List<InferenceResult> answeredBy(Actor actor) {
-    ColorDetectingNeuralNetwork network = AskAndTrainNeuralNetwork.as(actor);
+    ColorDetectingNeuralNetwork network = AskAndTrainColorDetectingNeuralNetwork.as(actor);
     return network.infer(hslColor);
   }
 }

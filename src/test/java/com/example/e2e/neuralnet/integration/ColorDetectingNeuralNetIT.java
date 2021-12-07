@@ -2,8 +2,8 @@ package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
-import com.example.screenplay.ability.AskAndTrainNeuralNetwork;
-import com.example.screenplay.action.TrainNeuralNet;
+import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
+import com.example.screenplay.action.TrainColorDetectingNeuralNet;
 import com.example.screenplay.domain.LabeledHslColor;
 import com.example.screenplay.question.integration.TheHighestConfidence;
 import com.example.screenplay.question.integration.TheMostLikelyLabel;
@@ -36,7 +36,7 @@ public class ColorDetectingNeuralNetIT {
 
   @Before
   public void setUp() throws Exception {
-    actor.can(AskAndTrainNeuralNetwork.forColor(new ColorDetectingNeuralNetwork()));
+    actor.can(AskAndTrainColorDetectingNeuralNetwork.forColor(new ColorDetectingNeuralNetwork()));
   }
 
   @Test
@@ -52,7 +52,7 @@ public class ColorDetectingNeuralNetIT {
             LabeledHslColor.builder().hslColor(new HslColor(0, 0, .99)).label("black").build(),
             LabeledHslColor.builder().hslColor(new HslColor(0, 0, .95)).label("black").build());
     val beforeTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
-    actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
+    actor.attemptsTo(TrainColorDetectingNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
     assertThat(afterTraining, greaterThan(beforeTraining));
   }
@@ -64,7 +64,7 @@ public class ColorDetectingNeuralNetIT {
       trainingData.add(LabeledHslColor.builder().hslColor(BLACK).label("black").build());
     }
 
-    actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
+    actor.attemptsTo(TrainColorDetectingNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
     assertThat(afterTraining, IsCloseTo.closeTo(1., 0.1));
   }

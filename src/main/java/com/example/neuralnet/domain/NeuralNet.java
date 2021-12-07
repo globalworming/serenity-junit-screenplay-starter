@@ -14,6 +14,7 @@ public class NeuralNet {
   private final List<Neuron> outputNeurons = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
+  private final List<Fact> facts = new ArrayList<>();
 
   public long size() {
     return inputNeurons.size()
@@ -38,5 +39,13 @@ public class NeuralNet {
         outputNeuron.registerInput(wire);
       }
     }
+  }
+
+  /**
+   * Given specific input we expect some labeled neurons to be very active. Facts are used to check
+   * if adjustments to weights and biases are beneficial overall
+   */
+  public void addFact(List<Double> inputs, List<Double> expectedOutputs) {
+    facts.add(Fact.builder().inputs(inputs).outputs(expectedOutputs).build());
   }
 }
