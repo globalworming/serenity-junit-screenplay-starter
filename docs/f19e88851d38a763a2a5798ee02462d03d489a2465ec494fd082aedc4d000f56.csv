@@ -1,4 +1,4 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Color detecting neural net IT","When training on specific output the confidence gets very high","SUCCESS","2021-12-07T22:43:04.47632+01:00[Europe/Berlin]","0.0","0.04"
-"Color detecting neural net IT","Actor trains neural net","SUCCESS","2021-12-07T22:43:04.521528+01:00[Europe/Berlin]","0.0","0.01"
-"Color detecting neural net IT","Actor can ask neural net","SUCCESS","2021-12-07T22:43:04.535124+01:00[Europe/Berlin]","0.0","0.01"
+"Color detecting neural net IT","When training on specific output the confidence gets very high","SUCCESS","2021-12-07T22:58:11.769792+01:00[Europe/Berlin]","0.0","0.04"
+"Color detecting neural net IT","Actor trains neural net","SUCCESS","2021-12-07T22:58:11.812636+01:00[Europe/Berlin]","0.0","0.01"
+"Color detecting neural net IT","Actor can ask neural net","SUCCESS","2021-12-07T22:58:11.826495+01:00[Europe/Berlin]","0.0","0.01"
