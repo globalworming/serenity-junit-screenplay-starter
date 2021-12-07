@@ -114,7 +114,7 @@
           <configuration>
               <filesets>
                   <fileset>
-                      <directory>docs/*</directory>
+                      <directory>docs</directory>
                   </fileset>
               </filesets>
           </configuration>

@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="com.example.e2e.neuralnet.gui.NeuralNetIT" skipped="0" tests="1" time="4.45" timestamp="2021-12-07 08:25:59"><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor trains neural net"/></testsuite>
