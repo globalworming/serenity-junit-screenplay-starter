@@ -1,4 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Registration and login IT","Register some user","IGNORED","2021-12-04T00:47:47.618343+01:00[Europe/Berlin]","0.0","0.01"
-"Game creation IT","When an authenticated game master creates a game","FAILURE","2021-12-04T00:47:47.647867+01:00[Europe/Berlin]","0.0","0.17"
-"Game joing IT","When players join created game","FAILURE","2021-12-04T00:47:47.84356+01:00[Europe/Berlin]","0.0","0.06"

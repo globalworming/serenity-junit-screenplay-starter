@@ -1,4 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Building custom neural net IT","Where two input and one output neurons are wired","FAILURE","2021-12-04T00:47:44.10498+01:00[Europe/Berlin]","0.0","0.03"
-"Game creation IT","When an authenticated game master creates a game","FAILURE","2021-12-04T00:47:47.647867+01:00[Europe/Berlin]","0.0","0.17"
-"Game joing IT","When players join created game","FAILURE","2021-12-04T00:47:47.84356+01:00[Europe/Berlin]","0.0","0.06"

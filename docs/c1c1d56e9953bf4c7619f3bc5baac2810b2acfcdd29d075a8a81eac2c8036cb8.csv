@@ -1,4 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Neural net IT","The actor sees the most likely label on top","ERROR","2021-12-04T00:47:43.289631+01:00[Europe/Berlin]","0.0","0.15"
-"Neural net IT","Actor trains neural net","ERROR","2021-12-04T00:47:43.437279+01:00[Europe/Berlin]","0.0","0.11"
-"Neural net IT","Actor can ask neural net","ERROR","2021-12-04T00:47:43.549215+01:00[Europe/Berlin]","0.0","0.1"

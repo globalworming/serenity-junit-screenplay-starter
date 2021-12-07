@@ -1,8 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Color detecting neural net IT","When training on specific output the confidence gets very high","SUCCESS","2021-12-04T00:47:43.689898+01:00[Europe/Berlin]","0.0","0.19"
-"Color detecting neural net IT","Actor trains neural net","SUCCESS","2021-12-04T00:47:43.87806+01:00[Europe/Berlin]","0.0","0.02"
-"Color detecting neural net IT","Actor can ask neural net","SUCCESS","2021-12-04T00:47:43.895753+01:00[Europe/Berlin]","0.0","0.02"
-"Building custom neural net IT","Where one input and one output is wired","SUCCESS","2021-12-04T00:47:44.075957+01:00[Europe/Berlin]","0.0","0.03"
-"Building custom neural net IT","Where two input and one output neurons are wired","FAILURE","2021-12-04T00:47:44.10498+01:00[Europe/Berlin]","0.0","0.03"
-"Building custom neural net IT","Where the default is inspected","SUCCESS","2021-12-04T00:47:44.139507+01:00[Europe/Berlin]","0.0","0.02"
-"Building custom neural net IT","Where it has one input and one output neuron","SUCCESS","2021-12-04T00:47:44.16242+01:00[Europe/Berlin]","0.0","0.02"

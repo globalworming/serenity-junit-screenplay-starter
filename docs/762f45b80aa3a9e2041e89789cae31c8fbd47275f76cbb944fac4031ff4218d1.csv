@@ -1,8 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Basic neuron model test","Neurons have input weight","SUCCESS","2021-12-04T00:47:38.365639+01:00[Europe/Berlin]","0.0","0.01"
-"Basic neuron model test","Neurons accept input","SUCCESS","2021-12-04T00:47:38.383028+01:00[Europe/Berlin]","0.0","0.01"
-"Basic neuron model test","Output is generated","SUCCESS","2021-12-04T00:47:38.39871+01:00[Europe/Berlin]","0.0","0.01"
-"Basic neuron model test","Output from multiple inputs is generated","SUCCESS","2021-12-04T00:47:38.411169+01:00[Europe/Berlin]","0.0","0.01"
-"Basic neuron model test","Neurons accepts multiple inputs","SUCCESS","2021-12-04T00:47:38.424448+01:00[Europe/Berlin]","0.0","0.01"
-"Basic neuron model test","When accepting an input its weighted and converted by the sigmoid function and sent to the output","SUCCESS","2021-12-04T00:47:38.437802+01:00[Europe/Berlin]","0.0","0.17"
-"Basic neuron model test","Neurons have sigmoid function","SUCCESS","2021-12-04T00:47:38.606169+01:00[Europe/Berlin]","0.0","0.01"
