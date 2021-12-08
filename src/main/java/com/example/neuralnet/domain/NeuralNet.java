@@ -42,10 +42,43 @@ public class NeuralNet {
   }
 
   /**
-   * Given specific input we expect some labeled neurons to be very active. Facts are used to check
-   * if adjustments to weights and biases are beneficial overall
+   * Given specific input we expect some neurons to be very active. Facts are used to check if
+   * adjustments to weights and biases are beneficial overall
    */
   public void addFact(List<Double> inputs, List<Double> expectedOutputs) {
     facts.add(Fact.builder().inputs(inputs).outputs(expectedOutputs).build());
+  }
+
+  /** @return positive change was applied or false when reverted */
+  public boolean trainOnFacts() {
+    val currentCost = calculateCurrentCost();
+    val change = decideOnChange();
+    applyChange(change);
+    val newCost = calculateCurrentCost();
+    if (isPositiveChange(currentCost, newCost)) {
+      return true;
+    }
+    revertChange(change);
+    return false;
+  }
+
+  public double calculateCurrentCost() {
+    throw new RuntimeException("TODO");
+  }
+
+  public SingleChangeToWeightOrBias decideOnChange() {
+    throw new RuntimeException("TODO");
+  }
+
+  public void applyChange(SingleChangeToWeightOrBias change) {
+    throw new RuntimeException("TODO");
+  }
+
+  public boolean isPositiveChange(double currentCost, double newCost) {
+    throw new RuntimeException("TODO");
+  }
+
+  public void revertChange(SingleChangeToWeightOrBias change) {
+    throw new RuntimeException("TODO");
   }
 }

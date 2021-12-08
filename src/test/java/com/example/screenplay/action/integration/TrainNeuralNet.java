@@ -1,5 +1,6 @@
 package com.example.screenplay.action.integration;
 
+import com.example.screenplay.ability.InteractWithNeuralNet;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
@@ -9,6 +10,6 @@ public class TrainNeuralNet implements Performable {
 
   @Override
   public <T extends Actor> void performAs(T actor) {
-    throw new RuntimeException("TODO");
+    InteractWithNeuralNet.as(actor).trainOnFacts();
   }
 }

@@ -21,12 +21,14 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 @Narrative(
     text =
-        "when training a neural net, we set up some 'facts', some intended output given a specific input. every round of training, we'll make a small change to the biases and weights and check if the resulting output is closer to the result.")
+        "when training a neural net, we set up some 'facts', some intended output given a specific input. every round of training, we'll make a small change to the biases and weights and check if the resulting output is closer to the result we want. If not, revert the change. I couldn't wrap my head around the 'cost function', so I use this naive approach first.")
 @RunWith(SerenityRunner.class)
 public class TrainSimpleNeuralNetIT {
 
-  Actor actor = Actor.named("tester");
-  NeuralNet neuralNet;
+  private Actor actor = Actor.named("tester");
+  private NeuralNet neuralNet;
+  private List<Double> input = List.of(1., 1.);
+  private List<Double> expectedOutput = List.of(.25, .75);
 
   @Before
   public void setUp() {
@@ -35,10 +37,8 @@ public class TrainSimpleNeuralNetIT {
   }
 
   @Test
-  public void whereTwoInputAndOneOutputNeuronsAreWired() {
+  public void whereSmallNeuralNetIsTrained() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    List<Double> input = List.of(1., 1.);
-    List<Double> expectedOutput = List.of(.25, .75);
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
     actor.attemptsTo(new TrainNeuralNet());
     actor.should(seeThat(new NeuralNetOutputIsCloseToTheFacts()));
