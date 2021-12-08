@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="com.example.e2e.neuralnet.integration.TrainSimpleNeuralNetIT" skipped="0" tests="1" time="0.17" timestamp="2021-12-08 10:28:37"><testcase classname="com.example.e2e.neuralnet.integration.TrainSimpleNeuralNetIT" name="Where two input and one output neurons are wired"><error message="TODO" type="java.lang.RuntimeException">TODO</error><system-err>TODO
+com.example.screenplay.action.integration.TrainNeuralNet.performAs(TrainNeuralNet.java:12)
+com.example.e2e.neuralnet.integration.TrainSimpleNeuralNetIT.whereTwoInputAndOneOutputNeuronsAreWired(TrainSimpleNeuralNetIT.java:43)
+</system-err></testcase></testsuite>
