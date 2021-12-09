@@ -5,8 +5,10 @@ import com.example.neuralnet.domain.NeuralNet;
 import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import com.example.screenplay.action.EstablishFact;
-import com.example.screenplay.action.integration.TrainNeuralNet;
-import com.example.screenplay.question.integration.NeuralNetOutputIsCloseToTheFacts;
+import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
+import com.example.screenplay.action.integration.TrainNeuralNetUntilBeneficialChangeIsFound;
+import com.example.screenplay.question.integration.CurrentError;
+import lombok.val;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -18,6 +20,9 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 
 @Narrative(
     text =
@@ -29,6 +34,7 @@ public class TrainSimpleNeuralNetIT {
   private NeuralNet neuralNet;
   private List<Double> input = List.of(1., 1.);
   private List<Double> expectedOutput = List.of(.25, .75);
+  private List<Double> otherExpectedOutput = List.of(1., 1.);
 
   @Before
   public void setUp() {
@@ -37,11 +43,11 @@ public class TrainSimpleNeuralNetIT {
   }
 
   @Test
-  public void whereSmallNeuralNetIsTrained() {
+  public void whereSmallNeuralNetIsTrainedOnSingleFact() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
-    actor.attemptsTo(new TrainNeuralNet());
-    actor.should(seeThat(new NeuralNetOutputIsCloseToTheFacts()));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    actor.should(seeThat(new CurrentError(), closeTo(0, .01)));
   }
 
   private void givenNeuralNetWithTwoInAndOutputNeuronsWiredUp() {
@@ -54,5 +60,36 @@ public class TrainSimpleNeuralNetIT {
           neuralNet.addOutputNeuron(new LabeledNeuron("out 2"));
           neuralNet.wire();
         });
+  }
+
+  @Test
+  public void whereOneBeneficialChangeShouldReduceTheError() {
+    givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
+    actor.attemptsTo(new EstablishFact(input, expectedOutput));
+    val errorBeforeTraining = 0.5;
+    actor.should(seeThat(new CurrentError(), is(errorBeforeTraining)));
+    actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
+    actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
+  }
+
+  @Test
+  public void whereConflictingFactsFindBeneficialChange() {
+    givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
+    actor.attemptsTo(
+        new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
+    val errorBeforeTraining = actor.asksFor(new CurrentError());
+    actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
+    actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
+  }
+
+  @Test
+  public void whereConflictingFactsLimitTheDecreaseInError() {
+    givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
+    actor.attemptsTo(
+        new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
+    actor.should(seeThat(new CurrentError(), is(1.5)));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    // won't get better no matter how many changes you try
+    actor.should(seeThat(new CurrentError(), closeTo(1., .01)));
   }
 }

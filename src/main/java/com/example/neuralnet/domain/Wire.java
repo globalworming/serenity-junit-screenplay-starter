@@ -11,7 +11,7 @@ import java.util.function.DoubleConsumer;
 @Getter
 @Setter
 @Builder
-public class Wire implements DoubleConsumer {
+public class Wire implements DoubleConsumer, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
   private final Neuron source;
@@ -26,5 +26,11 @@ public class Wire implements DoubleConsumer {
   @Override
   public String toString() {
     return "Wire{" + "uuid=" + uuid + '}';
+  }
+
+  // TODO adjusting by set amount and a percentage might train faster
+  @Override
+  public void adjust(double d) {
+    weight += d;
   }
 }

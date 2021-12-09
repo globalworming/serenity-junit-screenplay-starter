@@ -4,24 +4,19 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.val;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @ToString
 @Getter
 public class NeuralNet {
+  private final Random random = new Random(0);
   private final List<Neuron> inputNeurons = new ArrayList<>();
   private final List<Neuron> outputNeurons = new ArrayList<>();
   private final List<ActivationTracker> internalOutputTracker = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
-
-  public long size() {
-    return inputNeurons.size()
-        + outputNeurons.size()
-        + hiddenLayers.stream().mapToLong(List::size).sum();
-  }
+  private final TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
 
   public void addInputNeuron(Neuron inputNeuron) {
     inputNeurons.add(inputNeuron);
@@ -41,7 +36,10 @@ public class NeuralNet {
         inputNeuron.connect(wire);
         wires.add(wire);
         outputNeuron.registerInput(wire);
+        uuidToAdjustable.put(wire.getUuid(), wire);
+        uuidToAdjustable.put(outputNeuron.getUuid(), outputNeuron);
       }
+      uuidToAdjustable.put(inputNeuron.getUuid(), inputNeuron);
     }
   }
 
@@ -90,19 +88,32 @@ public class NeuralNet {
         .sum();
   }
 
-  public SingleChangeToWeightOrBias decideOnChange() {
-    throw new RuntimeException("TODO");
+  public RandomChange decideOnChange() {
+    val amount = random.nextDouble();
+    val direction = random.nextBoolean() ? 1 : -1;
+    val target =
+        // constructs new list.. probably better to just iterate until at right position
+        new ArrayList<>(uuidToAdjustable.keySet())
+            .get(random.nextInt(uuidToAdjustable.keySet().size()));
+    return RandomChange.builder().amount(amount * direction).target(target).build();
   }
 
-  public void applyChange(SingleChangeToWeightOrBias change) {
-    throw new RuntimeException("TODO");
+  public void applyChange(RandomChange change) {
+    uuidToAdjustable.get(change.getTarget()).adjust(change.getAmount());
   }
 
   public boolean isPositiveChange(double currentCost, double newCost) {
-    throw new RuntimeException("TODO");
+    // TODO maybe less or equal? do we want to allow changes that have no effect?
+    return newCost < currentCost;
   }
 
-  public void revertChange(SingleChangeToWeightOrBias change) {
-    throw new RuntimeException("TODO");
+  public void revertChange(RandomChange change) {
+    uuidToAdjustable.get(change.getTarget()).adjust(-change.getAmount());
+  }
+
+  public long size() {
+    return inputNeurons.size()
+        + outputNeurons.size()
+        + hiddenLayers.stream().mapToLong(List::size).sum();
   }
 }

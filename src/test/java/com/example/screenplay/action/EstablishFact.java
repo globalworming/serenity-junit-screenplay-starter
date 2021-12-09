@@ -18,7 +18,7 @@ public class EstablishFact implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
     Serenity.reportThat(
-        format("given %s we would expect an output close to %s", input, expectedOutput),
+        format("when %s adds fact: the input %s should output %s", actor, input, expectedOutput),
         () -> as(actor).addFact(input, expectedOutput));
   }
 }

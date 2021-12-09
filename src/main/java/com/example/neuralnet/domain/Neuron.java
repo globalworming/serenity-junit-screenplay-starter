@@ -10,7 +10,7 @@ import java.util.function.DoubleConsumer;
 
 @Getter
 @Setter
-public class Neuron implements Consumer<Signal> {
+public class Neuron implements Consumer<Signal>, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
   private final Sigmoid sigmoid = new Sigmoid();
@@ -37,5 +37,10 @@ public class Neuron implements Consumer<Signal> {
 
   public void registerInput(Wire wire) {
     inputToStrength.put(wire, .0);
+  }
+
+  @Override
+  public void adjust(double d) {
+    bias += d;
   }
 }

@@ -7,9 +7,7 @@ import java.util.UUID;
 
 @Builder
 @Getter
-public class SingleChangeToWeightOrBias {
-  private final boolean changeToWeight;
-  private final boolean changeToBias;
+public class RandomChange {
   private final UUID target;
   private final double amount;
 }
