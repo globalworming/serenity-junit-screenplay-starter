@@ -51,18 +51,18 @@ public class NeuralNet {
 
   /** @return positive change was applied or false when reverted */
   public boolean trainOnFacts() {
-    val currentCost = calculateCurrentCost();
+    val currentError = calculateCurrentError();
     val change = decideOnChange();
     applyChange(change);
-    val newCost = calculateCurrentCost();
-    if (isPositiveChange(currentCost, newCost)) {
+    val newError = calculateCurrentError();
+    if (isPositiveChange(currentError, newError)) {
       return true;
     }
     revertChange(change);
     return false;
   }
 
-  public double calculateCurrentCost() {
+  public double calculateCurrentError() {
     throw new RuntimeException("TODO");
   }
 
