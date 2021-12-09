@@ -12,6 +12,7 @@ import java.util.List;
 public class NeuralNet {
   private final List<Neuron> inputNeurons = new ArrayList<>();
   private final List<Neuron> outputNeurons = new ArrayList<>();
+  private final List<ActivationTracker> internalOutputTracker = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
@@ -28,6 +29,9 @@ public class NeuralNet {
 
   public void addOutputNeuron(Neuron outputNeuron) {
     outputNeurons.add(outputNeuron);
+    val tracker = new ActivationTracker();
+    internalOutputTracker.add(tracker);
+    outputNeuron.connect(tracker);
   }
 
   public void wire() {
@@ -63,7 +67,27 @@ public class NeuralNet {
   }
 
   public double calculateCurrentError() {
-    throw new RuntimeException("TODO");
+    if (facts.isEmpty()) {
+      throw new IllegalStateException("no facts");
+    }
+    return facts.stream()
+        .mapToDouble(
+            fact -> {
+              val factualInputs = fact.getInputs();
+              for (int i = 0; i < factualInputs.size(); i++) {
+                getInputNeurons()
+                    .get(i)
+                    .accept(Signal.builder().strength(factualInputs.get(i)).build());
+              }
+              val factualResults = fact.getOutputs();
+              double error = 0;
+              for (int i = 0; i < factualResults.size(); i++) {
+                error +=
+                    Math.abs(internalOutputTracker.get(i).getActivation() - factualResults.get(i));
+              }
+              return error;
+            })
+        .sum();
   }
 
   public SingleChangeToWeightOrBias decideOnChange() {
