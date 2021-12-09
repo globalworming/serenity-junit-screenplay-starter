@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Where small neural net is trained on single fact</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff"><link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.css"><!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
+<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
+<script src="chartist/dist/chartist.min.js"></script>
+<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+<!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<!-- ImgPreview -->
+<script src="scripts/imgpreview.full.jquery.js" type="text/javascript"></script>
+</head>
+
+<body class="results-page">
+
+
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle">Serenity and JUnit Quick Start Project</span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+        <span class="breadcrumbs">
+            <a href="index.html" class="breadcrumbs">Home</a>
+
+            > <a href="e7a7e802371ecb9cbe2313dee1165594f859574755583611a270a2ffd9f23276.html">Neuralnet</a>
+            > <a href="0d58029b4224d79ce6908633074c56d98345ad790ac4d741502df213225e2a81.html">Integration</a>
+            > <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train Simple Neural Net IT</a>
+        > Where small neural net is trained on single fact
+        </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="bi bi-journal-check"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="bi bi-journal-text"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="bi bi-chat-text"></i> Capabilities</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
+        </li>
+        <li >
+            <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="bi bi-chat-text"></i> Stories</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 10-12-2021 00:01</span>
+    <br style="clear:left"/>
+</div>
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fs-2 bi bi-chat-left-quote title-icon"></i>
+                                        <span class="story-header-title">Train Simple Neural Net IT </span>
+                                    </h3>
+
+                                </div>
+
+                        </td>
+                        <td valign="top">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="success-color">
+                                    Where small neural net is trained on single fact
+                                        <span class="related-issue-title"></span>
+                                </span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <!-- CAST MEMBERS -->
+            <div>&nbsp;</div>
+            <div>
+                <h3 class="discreet-story-header">
+                    <i class="fs-2 bi bi-people large-icon"></i>
+                    <span class="story-header-title">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#castDetails"
+                           role="button" aria-expanded="true" aria-controls="castDetails">Cast</a>
+                    </span>
+                </h3>
+            </div>
+            <div class="collapse multi-collapse" id="castDetails">
+                <table class="cast">
+                    <tr>
+                            <td width="100%">
+                                <h4>
+                                    <i class="fs-2 bi bi-person"></i>&nbsp;
+                                    <span>
+                                        <a data-toggle="collapse" href="#abilities-tester" aria-expanded="false" aria-controls="abilities">tester</a>
+                                        
+                                    </span>
+                                </h4>
+                                <div class="collapse multi-collapse" id="abilities-tester">
+                                    <div>
+                                        <span class="cast-description">tester can:</span>
+                                        <ul>
+                                                <li>Interact With Neural Net</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+    <!-- END CAST MEMBERS -->
+
+
+</div>
+</div>
+
+<div class="clr"></div>
+
+
+<div id="beforetable"></div>
+
+
+<div id="tablecontents">
+    <div>
+        <table class="step-table">
+            <tr class="step-titles">
+                <th width="65">
+                </th>
+                <th class="step-description-column greentext">
+                    Steps
+                </th>
+
+                <th width="130" class="greentext">Outcome</th>
+                <th width="100" class="greentext"><i title="Duration" class="bi bi-stopwatch"></i></th>
+            </tr>
+            <tr class="step-table-separator">
+                <td colspan="5"></td>
+            </tr>
+
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="0"></a>
+                            <span style="margin-left: 20px;"
+                                  class="top-level-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="top-level-step">
+                                                given neural net with 2 in- and 2 output neurons wired with each other
+                                        </span>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">001ms</span></td>
+                </tr>
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="1"></a>
+                            <span style="margin-left: 20px;"
+                                  class="top-level-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="top-level-step">
+                                                when tester adds fact: the input [1.0, 1.0] should output [0.25, 0.75]
+                                        </span>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">001ms</span></td>
+                </tr>
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="2"></a>
+                            <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2')"
+                               style="display:block">
+                                <i class="bi bi-plus-square imgstepSection2 success-icon"
+                                   style="margin-left: 20px; float:left; padding-right:5px"></i>
+                            </a>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                            <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2')"
+                               style="display:block;">
+                                <span class="top-level-step">
+                                                Tester train neural net for many rounds
+                                        </span>
+                            </a>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">029ms</span></td>
+                </tr>
+                    <tr>
+                        <td colspan="5">
+                            <table id="stepSection2" class="step-table-nested" style="display:none;">
+                <tr class="test-SUCCESS">
+
+                    <td width="70" class="step-icon">
+                        <a name="2-0"></a>
+                            <span style="margin-left: 40px;"
+                                  class="nested-group-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="nested-group-step">
+                                                tester starts 100 rounds of training
+                                        </span>
+                            <span class="evidence">
+                                        <span class="piece-of-evidence">
+                <a name="report-data-69fbbcc3-134d-481f-9046-806bffb7f5c4"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-0">
+                        error after round 0
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-0" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 0
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.5</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0f2b8bf0-03ae-4410-ab62-84df717295f0"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-1">
+                        error after round 1
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-1" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 1
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.5</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-d956108a-b8a7-4d78-b0c0-091e8a5f5064"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-2">
+                        error after round 2
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-2" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 2
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.5</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-297fcad2-e541-42e3-8597-08bc74d6a7a2"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-3">
+                        error after round 3
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-3" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 3
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.5</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-93705d00-41b5-4c08-82be-63222bf6334b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-4">
+                        error after round 4
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-4" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 4
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.3446287943614835</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a84c43fa-3e37-49b0-9686-890d050fad65"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-5">
+                        error after round 5
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-5" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 5
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.3446287943614835</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-6f14dee2-187d-4957-a251-422b108a721e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-6">
+                        error after round 6
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-6" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 6
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.30804388021276835</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-d4f1dea1-15a6-4cea-a97a-c65132fd2798"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-7">
+                        error after round 7
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-7" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 7
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.30804388021276835</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-c1091ea8-d158-4354-ad2f-95e0a1dcccde"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-8">
+                        error after round 8
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-8" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 8
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.28484143116644495</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-15c388f3-a42a-41ce-8ff0-8899dc2d0b84"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-9">
+                        error after round 9
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-9" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 9
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.28484143116644495</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dac51076-9a15-4ad7-9061-bd81cdbe885b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-10">
+                        error after round 10
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-10" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 10
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.28484143116644495</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-3b8bc1f0-651c-4dae-b2f4-6cd4f0fcfc49"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-11">
+                        error after round 11
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-11" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 11
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.28484143116644495</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-b7a1df1e-c24b-4724-8c0d-1374d6354c50"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-12">
+                        error after round 12
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-12" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 12
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.2605873245876486</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cd801712-a4b6-461c-a9b8-733349ed6100"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-13">
+                        error after round 13
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-13" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 13
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.2605873245876486</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-d88512f6-d699-456f-8576-bbd8106fd103"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-14">
+                        error after round 14
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-14" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 14
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.2605873245876486</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a93021ad-7088-42ca-9659-ae531a703806"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-15">
+                        error after round 15
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-15" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 15
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.2605873245876486</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-daf580f0-a87c-4952-b32a-78b8d4d19569"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-16">
+                        error after round 16
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-16" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 16
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.2605873245876486</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-39b31954-8021-43dc-a72d-04ed5a313827"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-17">
+                        error after round 17
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-17" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 17
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.17823236894210032</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-e48e2b91-cb4d-4b21-9b10-1efc2d4e8f22"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-18">
+                        error after round 18
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-18" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 18
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.17823236894210032</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-15e1494f-e4b1-4af9-8704-b5d9c324a5af"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-19">
+                        error after round 19
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-19" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 19
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.17823236894210032</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-bdb6419f-b63c-4299-9afe-c251dd28f6ce"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-20">
+                        error after round 20
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-20" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 20
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.1623465930193091</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-82ce07dd-d2cb-4bb2-ae07-0191b2b90388"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-21">
+                        error after round 21
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-21" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 21
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.1623465930193091</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-49f13e98-74a9-47c4-9f54-dec0ba1a7360"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-22">
+                        error after round 22
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-22" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 22
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.1623465930193091</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cf483ca3-1cfb-43d2-b440-537fa7548c23"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-23">
+                        error after round 23
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-23" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 23
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.16033014976846827</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-39316448-7355-4512-85e1-bcb864a8d4b0"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-24">
+                        error after round 24
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-24" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 24
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.16033014976846827</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-908d4a99-987d-4e46-9047-5c6b5a95ff69"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-25">
+                        error after round 25
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-25" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 25
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-6d75e345-b162-4c76-bd77-6cac785b7ca6"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-26">
+                        error after round 26
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-26" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 26
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-212ef203-0d17-4088-bb57-3cda54442665"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-27">
+                        error after round 27
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-27" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 27
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0f1ebc95-76f7-4cc0-936a-f7ce156f6281"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-28">
+                        error after round 28
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-28" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 28
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-1b1392a0-9d98-42cd-af76-a031a621766b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-29">
+                        error after round 29
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-29" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 29
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0d92bea8-5b71-41a2-b7e9-3248701cd5bf"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-30">
+                        error after round 30
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-30" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 30
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dab210c5-12d6-4bfa-b677-6ccb287cc8d9"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-31">
+                        error after round 31
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-31" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 31
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.15604673743708353</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-23a5e0ca-2073-4961-9732-eaeedeb976e6"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-32">
+                        error after round 32
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-32" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 32
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.06091581366861837</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-9003f9b4-7292-4690-92db-a376d7c43d43"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-33">
+                        error after round 33
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-33" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 33
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.06091581366861837</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a052a4a6-33a4-4d1b-a483-6597647bdbff"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-34">
+                        error after round 34
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-34" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 34
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.05429517898406033</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-3f2c60e2-8447-4036-a037-385c49bd27bf"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-35">
+                        error after round 35
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-35" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 35
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.05429517898406033</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cb9c959d-cf46-4fe9-bc9b-d8edfa393581"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-36">
+                        error after round 36
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-36" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 36
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.041109507031942216</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-3d3bd2fe-101e-4732-bf96-cf272d90b44a"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-37">
+                        error after round 37
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-37" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 37
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-ac8f254d-34f6-48f4-9e43-3faa4abb0d8f"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-38">
+                        error after round 38
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-38" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 38
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-19ff8f82-7f86-44ea-ab9d-b6eeee84f311"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-39">
+                        error after round 39
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-39" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 39
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-58d27726-171d-4ed8-9d12-299306f5e586"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-40">
+                        error after round 40
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-40" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 40
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cfe4dd86-020b-4f0c-926f-326c4ab470ca"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-41">
+                        error after round 41
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-41" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 41
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dc4e8290-ec9b-4e48-a4ce-35990e665c70"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-42">
+                        error after round 42
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-42" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 42
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-573f3073-154f-4add-bc26-1c8786ff605b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-43">
+                        error after round 43
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-43" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 43
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.03368926806825828</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-86d168d6-6580-4e30-b44e-baa78e633154"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-44">
+                        error after round 44
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-44" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 44
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-ee30757b-8060-4fab-a5f6-826d1e3bcf4f"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-45">
+                        error after round 45
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-45" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 45
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-6a15b5bf-2163-416e-a316-b7dae79b2f5c"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-46">
+                        error after round 46
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-46" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 46
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-002f8516-6e40-4b71-a391-4864f134719d"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-47">
+                        error after round 47
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-47" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 47
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-8478f780-fdb8-472d-b894-91c865ed6842"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-48">
+                        error after round 48
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-48" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 48
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dd50534b-9c65-4a4b-b45c-f439ee139a15"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-49">
+                        error after round 49
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-49" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 49
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-7dcef38d-53ba-48b0-bef5-ed47e3ca7c99"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-50">
+                        error after round 50
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-50" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 50
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-300f03ff-5db7-449a-9e50-8e84f65e83e0"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-51">
+                        error after round 51
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-51" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 51
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-b979bf22-7ec6-4bff-afb9-aca3760c3101"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-52">
+                        error after round 52
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-52" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 52
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-76ee15d8-5727-4fd1-9f0d-00d40c9f3581"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-53">
+                        error after round 53
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-53" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 53
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dcce3d40-5ed5-498e-8967-ac000dda9034"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-54">
+                        error after round 54
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-54" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 54
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-52b9b82b-1624-45ff-89da-191c135530ce"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-55">
+                        error after round 55
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-55" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 55
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-dbb073dc-d1ee-4da6-8a41-5f444d5bc4ab"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-56">
+                        error after round 56
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-56" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 56
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-ca851866-8b1b-41cd-a6ed-0d0ca6bbef79"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-57">
+                        error after round 57
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-57" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 57
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-140892dc-3d2f-4a9f-bbcf-23e07cc27b99"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-58">
+                        error after round 58
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-58" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 58
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-1c7aa467-3ef8-4467-8b3d-fd269a895fc9"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-59">
+                        error after round 59
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-59" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 59
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-1820757c-731c-450d-b5eb-d879ea88e7dd"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-60">
+                        error after round 60
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-60" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 60
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-f2e54a3d-ccd9-4e1e-b032-a3272b587c9b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-61">
+                        error after round 61
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-61" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 61
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cc339fa9-2d0a-402b-90bb-5d341ec2f19f"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-62">
+                        error after round 62
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-62" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 62
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-349de754-19ec-4a0f-a543-63ff277d3e6e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-63">
+                        error after round 63
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-63" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 63
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0d8b8fb9-6894-49ca-99e8-91b5415affd0"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-64">
+                        error after round 64
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-64" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 64
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-6a82d22b-5c54-4d29-b358-f8eb8812eeee"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-65">
+                        error after round 65
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-65" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 65
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-70586f4a-053b-4174-ad27-34c4137691c6"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-66">
+                        error after round 66
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-66" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 66
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-4293e01e-b60e-4a83-9efd-ace876d14159"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-67">
+                        error after round 67
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-67" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 67
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.024981085378730283</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-9ece47a9-d86a-446b-aae8-1b5a281e4882"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-68">
+                        error after round 68
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-68" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 68
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-49634754-5944-4d71-8539-33d933a16042"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-69">
+                        error after round 69
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-69" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 69
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-5be010db-5eba-41dd-a279-1686e7cf85da"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-70">
+                        error after round 70
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-70" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 70
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-161886a1-8bd4-45a9-a406-9662f0c7196c"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-71">
+                        error after round 71
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-71" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 71
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a8f1f61e-3e1f-4291-842d-4177cf14aaf2"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-72">
+                        error after round 72
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-72" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 72
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a09605b8-781c-419d-b92a-e77ab806f5d6"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-73">
+                        error after round 73
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-73" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 73
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-be800e81-77d8-4b6f-bbee-35d0d632695e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-74">
+                        error after round 74
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-74" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 74
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-7d7d574b-9c10-43ab-b2c4-3f18bb5b7881"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-75">
+                        error after round 75
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-75" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 75
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-cdf35763-54bf-43bf-bc47-7b7b1c9de9f0"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-76">
+                        error after round 76
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-76" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 76
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0138135198211225</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-21965226-c750-4960-a508-b5cb1c260b96"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-77">
+                        error after round 77
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-77" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 77
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-5446936e-b471-4763-8c2d-6066b972b390"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-78">
+                        error after round 78
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-78" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 78
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-2bc845ca-533e-40a9-b20b-546909e2e06a"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-79">
+                        error after round 79
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-79" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 79
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-a31cf273-ff86-4206-93f4-917517dc68f1"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-80">
+                        error after round 80
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-80" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 80
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-3f1ae46f-62c0-4d33-a8dd-a481a9d0685f"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-81">
+                        error after round 81
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-81" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 81
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0fdc0745-f13f-43b6-8d94-f238e5d30b2b"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-82">
+                        error after round 82
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-82" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 82
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-298b2de0-ae70-4d7d-8b3b-e2e24c2f14cf"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-83">
+                        error after round 83
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-83" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 83
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-fa371eaf-c165-443b-b4c9-3ee2b6135ac2"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-84">
+                        error after round 84
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-84" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 84
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-f719972d-ceaa-4245-ba40-0738d8fef1ae"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-85">
+                        error after round 85
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-85" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 85
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-276375f5-6d98-4d59-853d-d63a6f9a6695"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-86">
+                        error after round 86
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-86" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 86
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-ec8acebf-04f0-4af2-b415-324444b5ef89"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-87">
+                        error after round 87
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-87" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 87
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0fbd4a43-e885-4069-82fc-bf74d2d753dd"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-88">
+                        error after round 88
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-88" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 88
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-590b66a9-a1eb-4498-a503-ea74d872cf3c"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-89">
+                        error after round 89
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-89" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 89
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-6f35dd2a-f690-4c4a-8408-aeb6b166a014"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-90">
+                        error after round 90
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-90" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 90
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-d7a74cd5-8e45-4632-9295-449726517d47"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-91">
+                        error after round 91
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-91" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 91
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-e6104208-16f3-42da-a0ac-f4438cd96a21"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-92">
+                        error after round 92
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-92" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 92
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-3f6b7a0c-7a11-4ca2-add2-c547c878af3e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-93">
+                        error after round 93
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-93" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 93
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.011940075270378048</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-0aa060ff-0fb4-4534-9d06-08427eb37b52"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-94">
+                        error after round 94
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-94" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 94
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-976d9681-fba3-464c-9bca-ee01a9a1a20e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-95">
+                        error after round 95
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-95" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 95
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-d4badfbe-abe4-41e0-90cd-63a0be6100f1"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-96">
+                        error after round 96
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-96" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 96
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-4e36da77-22a5-4380-942e-253c1357259e"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-97">
+                        error after round 97
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-97" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 97
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-13daf2e7-dbbf-4502-a92f-02e249dc14ba"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-98">
+                        error after round 98
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-98" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 98
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                        <span class="piece-of-evidence">
+                <a name="report-data-56d06b47-de74-463e-a697-a375a9d54a97"></a>
+                <span>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                            data-target="#reportData-EVIDENCE-4-99">
+                        error after round 99
+                    </button>
+                </span>
+                <div class="rest-query-details">
+                    <div class="collapse multi-collapse" id="reportData-EVIDENCE-4-99" tabindex="-1" role="dialog"
+                         aria-labelledby="restModalLabel" aria-hidden="true">
+                        <div class="card">
+                            <h4 class="card-header" id="restModalLabel">
+                                error after round 99
+                            </h4>
+                        </div>
+                        <div class="card-body"><pre>0.0064288804394548316</pre></div>
+                    </div>
+                </div>
+                                            </span>
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                    <td width="100"><span class="nested-group-step">027ms</span></td>
+                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                <tr class="test-SUCCESS">
+
+                    <td width="50" class="step-icon">
+                        <a name="3"></a>
+                            <span style="margin-left: 20px;"
+                                  class="top-level-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                    </td>
+
+                    <td class="step-description-column">
+                        <div class="step-description">
+                                <span class="top-level-step">
+                                                Then Current Error should be a numeric value within (0.01) of (0.0)
+                                        </span>
+                            <span class="evidence">
+                                </span>
+                        </div>
+                    </td>
+
+                    <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                    <td width="100"><span class="top-level-step">001ms</span></td>
+                </tr>
+            <tr class="test-SUCCESS">
+                    <td colspan="2"></td>
+                <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
+                <td width="100"><span class="top-level-step"><em>0.05s</em></span></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div id="beforefooter"></div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="version">Serenity BDD version 3.0.5</span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function toggleDiv(divId) {
+        $("#" + divId).toggle();
+        var imgsrc = $(".img" + divId).attr('src');
+        if (imgsrc == 'images/plus.png') {
+            $(".img" + divId).attr("src", function () {
+                return "images/minus.png";
+            });
+
+        } else {
+            $(".img" + divId).attr("src", function () {
+                return "images/plus.png";
+            });
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(document).ready(function () {
+        $('img.screenshot').imgPreview({
+            imgCSS: {
+                width: '500px'
+            },
+            distanceFromCursor: {top: 10, left: -200}
+        });
+    });
+
+    //]]>
+</script>
+<div id="imgPreviewContainer" style="position: absolute; top: 612px; left: 355px; display: none; " class=""><img
+            src="" style="display: none; "></div>
+<div id="imgPreviewContainer2" style="position: absolute; top: 925px; left: 320px; display: none; " class="">
+    <img style="width: 200px; display: none; " src=""></div>
+<div id="imgPreviewWithStyles" style="position: absolute; top: 1272px; left: 321px; display: none; " class="">
+    <img style="height: 200px; opacity: 1; display: none; " src=""></div>
+<div id="imgPreviewWithStyles2" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+<div id="imgPreviewWithStyles3" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Neural net IT","The actor sees the most likely label on top","SUCCESS","2021-12-07T23:06:11.229839+01:00[Europe/Berlin]","0.0","1.46"
-"Neural net IT","Actor trains neural net","SUCCESS","2021-12-07T23:06:12.765436+01:00[Europe/Berlin]","0.0","3.28"
-"Neural net IT","Actor can ask neural net","SUCCESS","2021-12-07T23:06:16.126552+01:00[Europe/Berlin]","0.0","2.33"
+"Neural net IT","The actor sees the most likely label on top","SUCCESS","2021-12-10T00:00:56.910108+01:00[Europe/Berlin]","0.0","1.38"
+"Neural net IT","Actor trains neural net","SUCCESS","2021-12-10T00:00:58.361244+01:00[Europe/Berlin]","0.0","3.06"
+"Neural net IT","Actor can ask neural net","SUCCESS","2021-12-10T00:01:01.49373+01:00[Europe/Berlin]","0.0","1.59"
