@@ -16,7 +16,7 @@ const NeuralNetInterface = () => {
         buildQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
         .then(results => setResults(results));
-  }, [hsl, setResults]);
+  }, [hsl]);
 
   const onClick = (l) => {
     fetch('/train?label=' + l);

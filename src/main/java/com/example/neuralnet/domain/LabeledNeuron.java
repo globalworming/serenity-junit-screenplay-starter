@@ -8,4 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class LabeledNeuron extends Neuron {
 
   private final String label;
+  private double activation;
 }

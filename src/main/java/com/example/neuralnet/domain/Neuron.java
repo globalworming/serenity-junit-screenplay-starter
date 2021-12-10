@@ -31,8 +31,13 @@ public class Neuron implements Consumer<Signal>, Adjustable {
   @Override
   public void accept(Signal signal) {
     inputToStrength.put(signal.getSource(), signal.getStrength());
+    double activation = getActivation();
+    outputConsumers.forEach(it -> it.accept(activation));
+  }
+
+  private double getActivation() {
     double sum = inputToStrength.values().stream().mapToDouble(it -> it).sum();
-    outputConsumers.forEach(it -> it.accept(sigmoidFunction.apply(sum + bias)));
+    return sigmoidFunction.apply(sum + bias);
   }
 
   public void registerInput(Wire wire) {
