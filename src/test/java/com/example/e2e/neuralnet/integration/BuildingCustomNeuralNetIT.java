@@ -38,7 +38,8 @@ public class BuildingCustomNeuralNetIT {
         seeThat("number of neurons", a -> neuralNet.size(), is(0L)),
         seeThat("number of input neurons", a -> neuralNet.getInputNeurons().size(), is(0)),
         seeThat("number of output neurons", a -> neuralNet.getOutputNeurons().size(), is(0)),
-        seeThat("number of hidden layers", a -> neuralNet.getHiddenLayers().size(), is(0)));
+        seeThat("number of layers", a -> neuralNet.getHiddenLayers().size(), is(0)));
+    seeThat("number of wires", a -> neuralNet.getWires().size(), is(0));
   }
 
   @Test
@@ -74,6 +75,32 @@ public class BuildingCustomNeuralNetIT {
           neuralNet.addInputNeuron(new Neuron());
           neuralNet.addOutputNeuron(new Neuron());
           neuralNet.addOutputNeuron(new Neuron());
+        });
+  }
+
+  @Test
+  public void whereThereAreHiddenLayersWired() {
+    givenNeuralNetWithHiddenLayers();
+    actor.attemptsTo(new WireAllTheNeurons());
+    actor.should(seeThat(new NumberOfWires(), is(12)));
+  }
+
+  private void givenNeuralNetWithHiddenLayers() {
+    Serenity.reportThat(
+        "given neural net with 4 layers, ",
+        () -> {
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
+        });
+    Serenity.reportThat(
+        "and two hidden layers, each 2 neurons",
+        () -> {
+          neuralNet.addNeuronToLayer(new Neuron(), 1);
+          neuralNet.addNeuronToLayer(new Neuron(), 1);
+          neuralNet.addNeuronToLayer(new Neuron(), 0);
+          neuralNet.addNeuronToLayer(new Neuron(), 0);
         });
   }
 

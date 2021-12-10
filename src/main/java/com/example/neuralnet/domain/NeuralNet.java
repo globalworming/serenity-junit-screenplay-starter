@@ -14,12 +14,20 @@ public class NeuralNet {
   private final List<Neuron> outputNeurons = new ArrayList<>();
   private final List<ActivationTracker> internalOutputTracker = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
+  // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
   private final TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
 
   public void addInputNeuron(Neuron inputNeuron) {
     inputNeurons.add(inputNeuron);
+  }
+
+  public void addNeuronToLayer(Neuron neuron, int layer) {
+    while (hiddenLayers.size() < layer + 1) {
+      hiddenLayers.add(new ArrayList<>());
+    }
+    hiddenLayers.get(layer).add(neuron);
   }
 
   public void addOutputNeuron(Neuron outputNeuron) {
@@ -30,16 +38,23 @@ public class NeuralNet {
   }
 
   public void wire() {
-    for (Neuron inputNeuron : inputNeurons) {
-      for (Neuron outputNeuron : outputNeurons) {
-        val wire = Wire.builder().source(inputNeuron).target(outputNeuron).build();
-        inputNeuron.connect(wire);
-        wires.add(wire);
-        outputNeuron.registerInput(wire);
-        uuidToAdjustable.put(wire.getUuid(), wire);
-        uuidToAdjustable.put(outputNeuron.getUuid(), outputNeuron);
+    val layers = new ArrayList<List<Neuron>>();
+    layers.add(inputNeurons);
+    layers.addAll(hiddenLayers);
+    layers.add(outputNeurons);
+
+    for (int i = 0; i < layers.size() - 1; i++) {
+      for (Neuron layerNeuron : layers.get(i)) {
+        for (Neuron nextLayerNeuron : layers.get(i + 1)) {
+          val wire = Wire.builder().source(layerNeuron).target(nextLayerNeuron).build();
+          layerNeuron.connect(wire);
+          wires.add(wire);
+          nextLayerNeuron.registerInput(wire);
+          uuidToAdjustable.put(wire.getUuid(), wire);
+          uuidToAdjustable.put(nextLayerNeuron.getUuid(), nextLayerNeuron);
+        }
+        uuidToAdjustable.put(layerNeuron.getUuid(), layerNeuron);
       }
-      uuidToAdjustable.put(inputNeuron.getUuid(), inputNeuron);
     }
   }
 
