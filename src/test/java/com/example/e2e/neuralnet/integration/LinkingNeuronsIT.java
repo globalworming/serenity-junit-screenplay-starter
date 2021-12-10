@@ -19,15 +19,11 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 @RunWith(SerenityRunner.class)
 public class LinkingNeuronsIT {
 
-  private Neuron inputNeuron;
-  private Neuron outputNeuron;
   private Actor actor = Actor.named("tester");
 
   @Before
   public void setUp() {
-    inputNeuron = new Neuron();
-    outputNeuron = new Neuron();
-    actor.can(new InteractWithNeurons(inputNeuron, outputNeuron));
+    actor.can(new InteractWithNeurons(new Neuron(), new Neuron()));
   }
 
   @Test
