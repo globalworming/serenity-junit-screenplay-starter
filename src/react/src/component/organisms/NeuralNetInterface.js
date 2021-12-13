@@ -13,6 +13,16 @@ function buildRememberQueryPart({h, s, l}, label) {
   return `h=${h}&s=${s}&l=${l}&label=${label}`;
 }
 
+function getButton(onClick, hex) {
+  return <button className={`e2e-do-set-color-${hex}`} style={{height: '1px', width: '1px', margin: 0, fontSize: 0}}
+                 onClick={onClick}>#{hex}
+  </button>;
+}
+
+function P1({children}) {
+  return <div className={"p-2"}>{children}</div>
+}
+
 const NeuralNetInterface = () => {
   const [hsl, setHsl] = useState({h: 177, s: 33, l: 33});
   const [results, setResults] = useState([]);
@@ -32,13 +42,11 @@ const NeuralNetInterface = () => {
         .then(askForCurrentError);
   };
   const askForCurrentError = () => {
-    return fetch('/currentError', {mode: 'no-cors'})
-        .then(response => {
-          return response.text()
-        })
-        .then(result => {
-          setCurrentError(result)
-        });
+    fetch('/currentError', {mode: 'no-cors'}).then(response => {
+      return response.text()
+    }).then(result => {
+      setCurrentError(result)
+    });
   };
   const doRemember = (label) => {
     return fetch('/remember?' + buildRememberQueryPart(hsl, label), {mode: 'no-cors'});
@@ -61,19 +69,33 @@ const NeuralNetInterface = () => {
   useEffect(() => {
     askForFacts();
   }, []);
-  useEffect(() => {
-    askForCurrentError();
-  }, []);
 
-  console.log("results", results, "facts", facts, "error", currentError);
-  return <>
-    <ActionButton className={"e2e-do-reset"} onClick={doReset}>reset</ActionButton>
-    <ColorPicker setHsl={setHsl} currentColor={hsl}/>
-    <ShowInferenceResults results={results}/>
-    <TrainingInterface remember={doRemember} train={doTrain} askForFacts={askForFacts}
-                       currentError={currentError} facts={facts} results={results}/>
-    <NeuralNetModel/>
-  </>;
+  return <div className={"d-flex flex-row flex-wrap"}>
+    <div className={"d-flex flex-row flex-wrap"}>
+      <P1>
+        <ActionButton className={"e2e-do-reset"} onClick={doReset}>reset
+        </ActionButton>
+        {getButton(() => setHsl({h: 0, s: 0, l: 0}), "000000")}
+        {getButton(() => setHsl({h: 0, s: 0, l: 100}), "111111")}
+      </P1>
+      <P1>
+        <ColorPicker setHsl={setHsl} currentColor={hsl}/>
+      </P1>
+      <P1>
+        <ShowInferenceResults results={results}/>
+      </P1>
+    </div>
+    <P1>
+      <div style={{maxWidth: 500}}>
+        <TrainingInterface remember={doRemember} train={doTrain} askForFacts={askForFacts}
+                           currentError={currentError} facts={facts} results={results}/>
+      </div>
+    </P1>
+    <P1>
+      <NeuralNetModel/>
+    </P1>
+  </div>
+      ;
 };
 
 export default NeuralNetInterface

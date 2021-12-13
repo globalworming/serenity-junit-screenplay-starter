@@ -5,9 +5,7 @@ import NeuralNetInterface from "./component/organisms/NeuralNetInterface";
 function App() {
   return (
       <div className="App">
-        <div className="content">
-          <NeuralNetInterface/>
-        </div>
+        <NeuralNetInterface/>
       </div>
   );
 }

@@ -13,7 +13,6 @@ const byLabel = (a, b) => {
 };
 
 const TrainingInterface = ({remember, train, results, askForFacts, facts, currentError}) => {
-  console.log("facts", facts)
   return <div className={'e2e-train-network'}>
     <strong>label this color </strong>
     {results.sort(byLabel).map(({label}) =>
@@ -32,10 +31,11 @@ const TrainingInterface = ({remember, train, results, askForFacts, facts, curren
                   onClick={train}>
       a few rounds
     </ActionButton>
-    <hr/>
-    <strong>on facts </strong>
+    <strong> on facts:</strong>
     {facts.map((fact, i) => <React.Fragment key={i}>
-      <p className={"e2e-show-fact"}>{JSON.stringify(fact, null, 2)}</p>
+      <p className={"e2e-show-fact"}>{fact.inputs.map(value => value.toFixed(2)).join(", ")}
+        {' --> '}{fact.outputs.map(value => value.toFixed(2)).join(' ')}
+      </p>
     </React.Fragment>)}
     <hr/>
     <strong>current error </strong><span className={"e2e-show-current-error"}>{currentError}</span>
