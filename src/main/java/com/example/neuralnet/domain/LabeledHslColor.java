@@ -1,4 +1,4 @@
-package com.example.screenplay.domain;
+package com.example.neuralnet.domain;
 
 import com.example.neuralnet.component.HslColor;
 import lombok.Builder;

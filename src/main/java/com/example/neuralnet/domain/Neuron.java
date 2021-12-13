@@ -17,7 +17,7 @@ public class Neuron implements Consumer<Signal>, Adjustable {
   private SigmoidFunction sigmoidFunction = sigmoid::value;
   private List<DoubleConsumer> outputConsumers = new ArrayList<>();
   private Map<Wire, Double> inputToStrength = new HashMap<>();
-  private double bias;
+  private double bias = 0;
 
   @Override
   public String toString() {
@@ -31,13 +31,13 @@ public class Neuron implements Consumer<Signal>, Adjustable {
   @Override
   public void accept(Signal signal) {
     inputToStrength.put(signal.getSource(), signal.getStrength());
-    double activation = getActivation();
+    double activation = getCurrentActivation();
     outputConsumers.forEach(it -> it.accept(activation));
   }
 
-  private double getActivation() {
+  double getCurrentActivation() {
     double sum = inputToStrength.values().stream().mapToDouble(it -> it).sum();
-    return sigmoidFunction.apply(sum + bias);
+    return sigmoidFunction.apply(sum) + bias;
   }
 
   public void registerInput(Wire wire) {

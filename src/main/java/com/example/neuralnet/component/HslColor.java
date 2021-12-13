@@ -1,8 +1,10 @@
 package com.example.neuralnet.component;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class HslColor {
   public static final HslColor WHITE = new HslColor(0, 0, 1d);
   public static final HslColor BLACK = new HslColor(0, 0, 0);

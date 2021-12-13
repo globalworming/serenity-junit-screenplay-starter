@@ -12,13 +12,16 @@ const byLabel = (a, b) => {
   return 0;
 };
 
-const TrainingInterface = ({onClick, results}) => {
+const TrainingInterface = ({remember, train, results}) => {
   return <div className={'e2e-train-network'}>
+    <strong>label this color </strong>
     {results.sort(byLabel).map(({label}) =>
         <React.Fragment key={label}>
-          <ActionButton onClick={() => onClick(label)}>reward for {label}</ActionButton>
+          <ActionButton onClick={() => remember(label)}>{label}</ActionButton>
         </React.Fragment>
     )}
+    <hr/>
+    <strong>train </strong> <ActionButton onClick={train}>a few rounds</ActionButton>
   </div>
 }
 

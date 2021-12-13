@@ -2,7 +2,6 @@ package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.NeuralNet;
-import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import com.example.screenplay.action.EstablishFact;
 import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
@@ -47,17 +46,17 @@ public class TrainSimpleNeuralNetIT {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
-    actor.should(seeThat(new CurrentError(), closeTo(0, .01)));
+    actor.should(seeThat(new CurrentError(), closeTo(0, .1)));
   }
 
   private void givenNeuralNetWithTwoInAndOutputNeuronsWiredUp() {
     Serenity.reportThat(
         "given neural net with 2 in- and 2 output neurons wired with each other",
         () -> {
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new LabeledNeuron("out 1"));
-          neuralNet.addOutputNeuron(new LabeledNeuron("out 2"));
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
           neuralNet.wire();
         });
   }
@@ -66,7 +65,7 @@ public class TrainSimpleNeuralNetIT {
   public void whereOneBeneficialChangeShouldReduceTheError() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
-    val errorBeforeTraining = 0.5;
+    val errorBeforeTraining = 1.;
     actor.should(seeThat(new CurrentError(), is(errorBeforeTraining)));
     actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
     actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
@@ -87,7 +86,7 @@ public class TrainSimpleNeuralNetIT {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
-    actor.should(seeThat(new CurrentError(), is(1.5)));
+    actor.should(seeThat(new CurrentError(), is(3.)));
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
     // won't get better no matter how many changes you try
     actor.should(seeThat(new CurrentError(), closeTo(1., .01)));

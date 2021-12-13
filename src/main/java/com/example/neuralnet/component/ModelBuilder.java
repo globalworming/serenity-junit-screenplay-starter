@@ -43,7 +43,8 @@ public class ModelBuilder {
         .collect(Collectors.toList());
   }
 
-  private static List<NeuralNetModel.Node> buildNodes(int layerIndex, List<Neuron> inputNeurons) {
+  private static List<NeuralNetModel.Node> buildNodes(
+      int layerIndex, List<? extends Neuron> inputNeurons) {
     List<NeuralNetModel.Node> list = new ArrayList<>();
     for (int i = 0; i < inputNeurons.size(); i++) {
       NeuralNetModel.Node node = buildNode(inputNeurons.get(i), i, layerIndex);

@@ -14,7 +14,7 @@ public class OutputIsPropagated extends QuestionWithDefaultSubject<Boolean> {
   @Override
   public Boolean answeredBy(Actor actor) {
     List<DoubleConsumer> outputConsumers = SpyOnNeuron.as(actor).getOutputConsumers();
-    outputConsumers.forEach(it -> verify(it, times(1)).accept(1.));
+    outputConsumers.forEach(it -> verify(it, times(1)).accept(.5));
     return true;
   }
 }

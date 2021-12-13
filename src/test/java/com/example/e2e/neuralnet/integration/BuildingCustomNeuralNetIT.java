@@ -1,7 +1,7 @@
 package com.example.e2e.neuralnet.integration;
 
+import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.NeuralNet;
-import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import com.example.screenplay.action.WireAllTheNeurons;
 import com.example.screenplay.question.integration.AllInputsAreWiredToAllOutputs;
@@ -55,8 +55,8 @@ public class BuildingCustomNeuralNetIT {
     Serenity.reportThat(
         "given neural net with single in- and output",
         () -> {
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
         });
   }
 
@@ -71,10 +71,10 @@ public class BuildingCustomNeuralNetIT {
     Serenity.reportThat(
         "given neural net with 2 in- and 2 output neurons",
         () -> {
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
         });
   }
 
@@ -89,18 +89,18 @@ public class BuildingCustomNeuralNetIT {
     Serenity.reportThat(
         "given neural net with 4 layers, ",
         () -> {
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addInputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new Neuron());
-          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
         });
     Serenity.reportThat(
         "and two hidden layers, each 2 neurons",
         () -> {
-          neuralNet.addNeuronToLayer(new Neuron(), 1);
-          neuralNet.addNeuronToLayer(new Neuron(), 1);
-          neuralNet.addNeuronToLayer(new Neuron(), 0);
-          neuralNet.addNeuronToLayer(new Neuron(), 0);
+          neuralNet.addNeuronToLayer(LabeledNeuron.builder().build(), 1);
+          neuralNet.addNeuronToLayer(LabeledNeuron.builder().build(), 1);
+          neuralNet.addNeuronToLayer(LabeledNeuron.builder().build(), 0);
+          neuralNet.addNeuronToLayer(LabeledNeuron.builder().build(), 0);
         });
   }
 

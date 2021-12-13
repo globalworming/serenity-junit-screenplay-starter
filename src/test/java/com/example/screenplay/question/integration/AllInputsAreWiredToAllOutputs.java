@@ -14,8 +14,8 @@ public class AllInputsAreWiredToAllOutputs extends QuestionWithDefaultSubject<Bo
   @Override
   public Boolean answeredBy(Actor actor) {
     val neuralNet = InteractWithNeuralNet.as(actor);
-    List<Neuron> inputNeurons = neuralNet.getInputNeurons();
-    List<Neuron> outputNeurons = neuralNet.getOutputNeurons();
+    List<? extends Neuron> inputNeurons = neuralNet.getInputNeurons();
+    List<? extends Neuron> outputNeurons = neuralNet.getOutputNeurons();
     for (Neuron inputNeuron : inputNeurons) {
       for (Neuron outputNeuron : outputNeurons) {
         assertThat(

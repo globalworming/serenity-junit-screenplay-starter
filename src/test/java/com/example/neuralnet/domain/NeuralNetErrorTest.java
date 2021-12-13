@@ -28,7 +28,7 @@ public class NeuralNetErrorTest {
     // we sum up errors for every neuron
     // so an error around 1 would be expected
     neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
-    assertThat(neuralNet.calculateCurrentError(), is(1.));
+    assertThat(neuralNet.calculateCurrentError(), is(2.));
   }
 
   @Test

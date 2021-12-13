@@ -3,22 +3,15 @@ package com.example.screenplay.ability;
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import net.serenitybdd.screenplay.Actor;
 
-public class AskAndTrainColorDetectingNeuralNetwork extends Ability {
-  private final ColorDetectingNeuralNetwork colorDetectingNeuralNetwork;
+public class AskAndTrainColorDetectingNeuralNetwork extends InteractWithNeuralNet {
 
   public AskAndTrainColorDetectingNeuralNetwork(
       ColorDetectingNeuralNetwork colorDetectingNeuralNetwork) {
-
-    this.colorDetectingNeuralNetwork = colorDetectingNeuralNetwork;
-  }
-
-  public static AskAndTrainColorDetectingNeuralNetwork forColor(
-      ColorDetectingNeuralNetwork colorDetectingNeuralNetwork) {
-    return new AskAndTrainColorDetectingNeuralNetwork(colorDetectingNeuralNetwork);
+    super(colorDetectingNeuralNetwork);
   }
 
   public static ColorDetectingNeuralNetwork as(Actor actor) {
-    return actor.abilityTo(AskAndTrainColorDetectingNeuralNetwork.class)
-        .colorDetectingNeuralNetwork;
+    return (ColorDetectingNeuralNetwork)
+        actor.abilityTo(AskAndTrainColorDetectingNeuralNetwork.class).getNeuralNet();
   }
 }

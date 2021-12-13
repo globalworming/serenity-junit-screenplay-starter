@@ -1,7 +1,8 @@
 package com.example.screenplay.action;
 
+import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
-import com.example.screenplay.domain.LabeledHslColor;
+import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
 import lombok.AllArgsConstructor;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
@@ -10,6 +11,7 @@ import net.serenitybdd.screenplay.Performable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.String.format;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 @AllArgsConstructor
@@ -27,7 +29,11 @@ public class TrainColorDetectingNeuralNet implements Performable {
         .withTitle("data")
         .andContents(
             trainingData.stream().map(LabeledHslColor::toString).collect(Collectors.joining(", ")));
-    trainingData.forEach(
-        it -> AskAndTrainColorDetectingNeuralNetwork.as(actor).reward(it.getLabel()));
+    Serenity.reportThat(
+        format("on dataset of size %d", trainingData.size()),
+        () ->
+            trainingData.forEach(
+                it -> AskAndTrainColorDetectingNeuralNetwork.as(actor).addFact(it)));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
   }
 }

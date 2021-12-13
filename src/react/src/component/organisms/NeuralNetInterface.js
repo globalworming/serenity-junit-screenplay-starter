@@ -3,32 +3,43 @@ import ColorPicker from "./ColorPicker";
 import ShowInferenceResults from "./ShowInferenceResults";
 import TrainingInterface from "./TrainingInterface";
 
-function buildQueryPart({h, s, l}) {
+function buildInferQueryPart({h, s, l}) {
   return `h=${h}&s=${s}&l=${l}`;
+}
+
+function buildRememberQueryPart({h, s, l}, label) {
+  return `h=${h}&s=${s}&l=${l}&label=${label}`;
 }
 
 const NeuralNetInterface = () => {
   const [hsl, setHsl] = useState({h: 177, s: 33, l: 33});
   const [results, setResults] = useState([]);
 
-  useEffect(() => {
+  function extracted() {
     fetch('/infer?' +
-        buildQueryPart(hsl), {mode: 'no-cors'})
+        buildInferQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
         .then(results => setResults(results));
+  }
+
+  useEffect(() => {
+    extracted();
   }, [hsl]);
 
-  const onClick = (l) => {
-    fetch('/train?label=' + l);
-    fetch('/infer?' + buildQueryPart(hsl), {mode: 'no-cors'})
+  const remember = (label) => {
+    fetch('/remember?' + buildRememberQueryPart(hsl, label), {mode: 'no-cors'});
+  };
+  const train = () => {
+    fetch('/train', {mode: 'no-cors'}).then(() => fetch('/infer?' + buildInferQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
-        .then(data => setResults(data));
+        .then(data => setResults(data))
+    );
   };
   console.log("results", results);
   return <>
     <ColorPicker setHsl={setHsl} currentColor={hsl}/>
     <ShowInferenceResults results={results}/>
-    <TrainingInterface onClick={onClick} results={results}/>
+    <TrainingInterface remember={remember} train={train} results={results}/>
 
   </>;
 };
