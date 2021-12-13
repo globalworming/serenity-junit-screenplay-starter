@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ReactFlow, {Controls} from 'react-flow-renderer';
 
-const NeuralNetModel = ({model}) => {
+const ShowNeuralNetModel = ({model}) => {
   const [elements, setElements] = useState([]);
 
 
@@ -37,4 +37,4 @@ const NeuralNetModel = ({model}) => {
   </>;
 };
 
-export default NeuralNetModel
+export default ShowNeuralNetModel

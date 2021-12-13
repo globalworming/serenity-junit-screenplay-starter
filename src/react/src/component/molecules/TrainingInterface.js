@@ -12,15 +12,13 @@ const byLabel = (a, b) => {
   return 0;
 };
 
-const TrainingInterface = ({remember, train, results, askForFacts, facts, currentError}) => {
+const TrainingInterface = ({remember, train, results, facts, currentError}) => {
   return <div className={'e2e-train-network'}>
     <strong>label this color </strong>
     {results.sort(byLabel).map(({label}) =>
         <React.Fragment key={label}>
           <ActionButton className={'e2e-do-reward-for-' + label}
-                        onClick={() =>
-                            remember(label)
-                                .then(() => askForFacts())}>
+                        onClick={() => remember(label)}>
             {label}
           </ActionButton>{' '}
         </React.Fragment>
