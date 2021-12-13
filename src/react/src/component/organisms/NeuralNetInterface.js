@@ -6,6 +6,7 @@ import ShowNeuralNetModel from "../molecules/ShowNeuralNetModel";
 import ActionButton from "../atom/ActionButton";
 import Actions from "../../Actions";
 import Padding from "../atom/Padding";
+import ShowErrorStatistics from "../molecules/ShowErrorStatistics";
 
 const NeuralNetInterface = () => {
   const [loaded, setLoaded] = useState(false);
@@ -14,27 +15,19 @@ const NeuralNetInterface = () => {
   const [facts, setFacts] = useState([]);
   const [currentError, setCurrentError] = useState(.0);
   const [model, setModel] = useState({});
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     Actions.askForInferenceResults(hsl, setResults);
-  }, [loaded, hsl]);
-
-  useEffect(() => {
-    Actions.askForFacts((result) => setFacts(result))
-  }, [loaded]);
-
-  useEffect(() => {
-    Actions.askForCurrentError((result) => setCurrentError(result))
-  }, [loaded]);
-
-  useEffect(() => {
     Actions.askForModel((result) => setModel(result))
   }, [loaded, hsl]);
 
   useEffect(() => {
+    Actions.askForFacts((result) => setFacts(result));
+    Actions.askForCurrentError((result) => setCurrentError(result));
     setLoaded(true)
   }, [loaded]);
-
+  
   const doReload = () => setLoaded(false);
   const doReset = () => Actions.doReset().then(doReload);
   const doEstablishFact = (label) => Actions.doEstablishFact(label, hsl).then(doReload);
@@ -58,9 +51,8 @@ const NeuralNetInterface = () => {
                            currentError={currentError} facts={facts} results={results}/>
       </div>
     </Padding>
-    <Padding>
-      <ShowNeuralNetModel model={model}/>
-    </Padding>
+    <ShowNeuralNetModel model={model}/>
+    <ShowErrorStatistics errors={errors}/>
   </div>;
 };
 
