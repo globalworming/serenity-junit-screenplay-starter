@@ -40,9 +40,7 @@ public class NeuralNet {
     for (int i = 0; i < layers.size() - 1; i++) {
       for (Neuron layerNeuron : layers.get(i)) {
         for (Neuron nextLayerNeuron : layers.get(i + 1)) {
-          Wire wire = wireNeurons(layerNeuron, nextLayerNeuron);
-          // needed?
-          nextLayerNeuron.registerInput(wire);
+          wireNeurons(layerNeuron, nextLayerNeuron);
         }
       }
     }
@@ -123,7 +121,7 @@ public class NeuralNet {
 
   public boolean isPositiveChange(double currentCost, double newCost) {
     // TODO maybe less or equal? do we want to allow changes that have no effect?
-    return newCost < currentCost;
+    return newCost <= currentCost;
   }
 
   public void revertChange(RandomChange change) {

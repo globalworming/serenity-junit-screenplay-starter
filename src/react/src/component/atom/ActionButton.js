@@ -1,11 +1,14 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
-const ActionButton = ({onClick, children}) => {
-  return <button
-      className={'e2e-do-reward-for-black'}
-      onClick={onClick}>
+const ActionButton = ({onClick, className, children}) => {
+  return <Button
+      variant={'light'}
+      onClick={onClick}
+      className={className}>
     {children}
-  </button>
+  </Button>
+
 }
 
 export default ActionButton

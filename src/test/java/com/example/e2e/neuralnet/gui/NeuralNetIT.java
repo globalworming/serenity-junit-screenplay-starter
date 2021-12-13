@@ -4,7 +4,6 @@ import com.example.screenplay.action.browser.TrainNeuralNet;
 import com.example.screenplay.domain.LabeledColor;
 import com.example.screenplay.question.browser.TheConfidence;
 import com.example.screenplay.question.browser.TheMostLikelyLabel;
-import com.example.screenplay.question.browser.TheMostLikelyLabelIsOnTop;
 import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -19,7 +18,6 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-import static net.serenitybdd.screenplay.EventualConsequence.eventually;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -57,11 +55,5 @@ public class NeuralNetIT {
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheConfidence.of("black"));
     assertThat(beforeTraining, not(is(afterTraining)));
-  }
-
-  @Test
-  public void theActorSeesTheMostLikelyLabelOnTop() {
-    actor.attemptsTo(Open.url("http://localhost:3000"));
-    actor.should(eventually(seeThat(new TheMostLikelyLabelIsOnTop())));
   }
 }

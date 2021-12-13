@@ -17,11 +17,12 @@ const TrainingInterface = ({remember, train, results}) => {
     <strong>label this color </strong>
     {results.sort(byLabel).map(({label}) =>
         <React.Fragment key={label}>
-          <ActionButton onClick={() => remember(label)}>{label}</ActionButton>
+          <ActionButton className={'e2e-do-reward-for-' + label}
+                        onClick={() => remember(label)}>{label}</ActionButton>{' '}
         </React.Fragment>
     )}
     <hr/>
-    <strong>train </strong> <ActionButton onClick={train}>a few rounds</ActionButton>
+    <strong>train </strong> <ActionButton className={"e2e-do-train"} onClick={train}>a few rounds</ActionButton>
   </div>
 }
 

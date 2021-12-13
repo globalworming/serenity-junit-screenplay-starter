@@ -36,12 +36,12 @@ public class Neuron implements Consumer<Signal>, Adjustable {
   }
 
   double getCurrentActivation() {
-    double sum = inputToStrength.values().stream().mapToDouble(it -> it).sum();
-    return sigmoidFunction.apply(sum) + bias;
-  }
+    if (inputToStrength.size() == 0) {
+      return sigmoidFunction.apply(bias);
+    }
 
-  public void registerInput(Wire wire) {
-    inputToStrength.put(wire, .0);
+    double sum = inputToStrength.values().stream().mapToDouble(it -> it).sum();
+    return sigmoidFunction.apply(sum + bias);
   }
 
   @Override

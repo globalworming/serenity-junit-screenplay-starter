@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.targets.Target;
 
 import java.util.List;
 
@@ -24,5 +25,6 @@ public class TrainNeuralNet implements Performable {
           actor.attemptsTo(SelectColor.withValue(labeledColor.getColor()));
           actor.attemptsTo(Click.on(".e2e-do-reward-for-" + labeledColor.getLabel()));
         });
+    actor.attemptsTo(Click.on(Target.the("train a few rounds").locatedBy(".e2e-do-train")));
   }
 }
