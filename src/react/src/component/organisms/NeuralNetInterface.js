@@ -28,12 +28,14 @@ const NeuralNetInterface = () => {
   const [results, setResults] = useState([]);
   const [facts, setFacts] = useState([]);
   const [currentError, setCurrentError] = useState(.0);
+  const [model, setModel] = useState({});
 
   const askForInferenceResults = (hsl) => {
     fetch('/infer?' +
         buildInferQueryPart(hsl), {mode: 'no-cors'})
         .then(response => response.json())
-        .then(results => setResults(results));
+        .then(results => setResults(results))
+        .then(askForModel);
   };
   const askForFacts = () => {
     return fetch('/facts', {mode: 'no-cors'})
@@ -59,8 +61,14 @@ const NeuralNetInterface = () => {
         .then(response => response.json())
         .then(data => setResults(data))
         .then(askForCurrentError)
+        .then(askForModel)
     );
   };
+  const askForModel = () => fetch('/model', {mode: 'no-cors'})
+      .then(response => response.json())
+      .then(results => {
+        return setModel(results);
+      });
 
   useEffect(() => {
     askForInferenceResults(hsl);
@@ -69,6 +77,10 @@ const NeuralNetInterface = () => {
   useEffect(() => {
     askForFacts();
   }, []);
+  useEffect(() => {
+    askForModel();
+  }, []);
+
 
   return <div className={"d-flex flex-row flex-wrap"}>
     <div className={"d-flex flex-row flex-wrap"}>
@@ -92,7 +104,7 @@ const NeuralNetInterface = () => {
       </div>
     </P1>
     <P1>
-      <NeuralNetModel/>
+      <NeuralNetModel model={model}/>
     </P1>
   </div>
       ;
