@@ -54,6 +54,11 @@ public class NeuralNetController {
     return colorDetectingNeuralNetwork.calculateCurrentError();
   }
 
+  @GetMapping("/training/errors")
+  List<Double> errors() {
+    return colorDetectingNeuralNetwork.getTrainingStatistics().getErrors();
+  }
+
   @GetMapping("/model")
   NeuralNetModel model() {
     return ModelBuilder.build(colorDetectingNeuralNetwork);

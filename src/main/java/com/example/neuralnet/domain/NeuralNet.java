@@ -1,5 +1,6 @@
 package com.example.neuralnet.domain;
 
+import com.example.neuralnet.component.TrainingStatistics;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.val;
@@ -23,6 +24,7 @@ public class NeuralNet {
   private final List<Fact> facts = new ArrayList<>();
   private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
   private Function<NeuralNet, Double> errorFunction = ErrorFunction.DEFAULT;
+  private TrainingStatistics trainingStatistics = new TrainingStatistics();
 
   public void addNeuronToLayer(Neuron neuron, int layer) {
     while (hiddenLayers.size() < layer + 1) {
@@ -70,6 +72,7 @@ public class NeuralNet {
   /** @return positive change was applied or false when reverted */
   public boolean trainOnFacts() {
     val currentError = calculateCurrentError();
+    trainingStatistics.trackError(currentError);
     val change = decideOnChange();
     applyChange(change);
     val newError = calculateCurrentError();
@@ -100,7 +103,8 @@ public class NeuralNet {
 
   public boolean isPositiveChange(double currentCost, double newCost) {
     // TODO maybe less or equal? do we want to allow changes that have no effect?
-    return newCost < currentCost;
+    boolean b = newCost < currentCost;
+    return b;
   }
 
   public void revertChange(RandomChange change) {
