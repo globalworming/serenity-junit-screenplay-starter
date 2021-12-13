@@ -3,6 +3,7 @@ package com.example.neuralnet.controller;
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
 import com.example.neuralnet.component.ModelBuilder;
+import com.example.neuralnet.domain.Fact;
 import com.example.neuralnet.domain.InferenceResult;
 import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.neuralnet.domain.NeuralNetModel;
@@ -17,7 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NeuralNetController {
 
-  private final ColorDetectingNeuralNetwork colorDetectingNeuralNetwork;
+  private ColorDetectingNeuralNetwork colorDetectingNeuralNetwork =
+      new ColorDetectingNeuralNetwork();
 
   @GetMapping("/infer")
   List<InferenceResult> infer(@RequestParam int h, @RequestParam int s, @RequestParam int l) {
@@ -36,14 +38,29 @@ public class NeuralNetController {
 
   @GetMapping("/train")
   void train() {
-    int rounds = 10000;
+    int rounds = 100;
     for (int i = 0; i < rounds; i++) {
       colorDetectingNeuralNetwork.trainOnFacts();
     }
   }
 
+  @GetMapping("/facts")
+  List<Fact> facts() {
+    return colorDetectingNeuralNetwork.getFacts();
+  }
+
+  @GetMapping("/currentError")
+  double currentError() {
+    return colorDetectingNeuralNetwork.calculateCurrentError();
+  }
+
   @GetMapping("/model")
   NeuralNetModel model() {
     return ModelBuilder.build(colorDetectingNeuralNetwork);
+  }
+
+  @GetMapping("/reset")
+  void reset() {
+    colorDetectingNeuralNetwork = new ColorDetectingNeuralNetwork();
   }
 }

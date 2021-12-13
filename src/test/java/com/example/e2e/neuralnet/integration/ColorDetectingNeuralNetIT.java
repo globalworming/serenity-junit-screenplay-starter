@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.example.neuralnet.component.HslColor.BLACK;
-import static com.example.neuralnet.component.HslColor.GRAY;
 import static com.example.neuralnet.component.HslColor.WHITE;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -50,8 +49,8 @@ public class ColorDetectingNeuralNetIT {
     val trainingData =
         Arrays.asList(
             LabeledHslColor.builder().hslColor(BLACK).label("black").build(),
-            LabeledHslColor.builder().hslColor(WHITE).label("white").build(),
-            LabeledHslColor.builder().hslColor(GRAY).label("gray").build());
+            //  LabeledHslColor.builder().hslColor(GRAY).label("gray").build(),
+            LabeledHslColor.builder().hslColor(WHITE).label("white").build());
     val beforeTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
     actor.attemptsTo(TrainColorDetectingNeuralNet.onDataSet(trainingData));
     double afterTraining = actor.asksFor(TheHighestConfidence.of(BLACK));

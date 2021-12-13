@@ -17,12 +17,12 @@ public class NeuralNet {
   private final Random random = new Random(0);
   private final List<LabeledNeuron> inputNeurons = new ArrayList<>();
   private final List<LabeledNeuron> outputNeurons = new ArrayList<>();
-  private final List<ActivationTracker> internalOutputTracker = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
   // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
   private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
+  private Function<NeuralNet, Double> errorFunction = ErrorFunction.DEFAULT;
 
   public void addNeuronToLayer(Neuron neuron, int layer) {
     while (hiddenLayers.size() < layer + 1) {
@@ -81,28 +81,7 @@ public class NeuralNet {
   }
 
   public double calculateCurrentError() {
-    if (facts.isEmpty()) {
-      throw new IllegalStateException("no facts");
-    }
-    return facts.stream()
-            .mapToDouble(
-                fact -> {
-                  val factualInputs = fact.getInputs();
-                  for (int i = 0; i < factualInputs.size(); i++) {
-                    getInputNeurons()
-                        .get(i)
-                        .accept(Signal.builder().strength(factualInputs.get(i)).build());
-                  }
-                  val factualResults = fact.getOutputs();
-                  double error = 0;
-                  for (int i = 0; i < factualResults.size(); i++) {
-                    double activation = internalOutputTracker.get(i).getActivation();
-                    error += Math.abs(activation - factualResults.get(i));
-                  }
-                  return error;
-                })
-            .sum()
-        / facts.size();
+    return errorFunction.apply(this);
   }
 
   public RandomChange decideOnChange() {
@@ -121,7 +100,7 @@ public class NeuralNet {
 
   public boolean isPositiveChange(double currentCost, double newCost) {
     // TODO maybe less or equal? do we want to allow changes that have no effect?
-    return newCost <= currentCost;
+    return newCost < currentCost;
   }
 
   public void revertChange(RandomChange change) {
@@ -152,9 +131,6 @@ public class NeuralNet {
 
   public void addOutputNeuron(LabeledNeuron outputNeuron) {
     outputNeurons.add(outputNeuron);
-    val tracker = new ActivationTracker();
-    internalOutputTracker.add(tracker);
-    outputNeuron.connect(tracker);
   }
 
   /**

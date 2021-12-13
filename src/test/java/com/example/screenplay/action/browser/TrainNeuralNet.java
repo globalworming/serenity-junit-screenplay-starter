@@ -2,10 +2,10 @@ package com.example.screenplay.action.browser;
 
 import com.example.screenplay.domain.LabeledColor;
 import lombok.RequiredArgsConstructor;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.targets.Target;
 
 import java.util.List;
 
@@ -20,11 +20,15 @@ public class TrainNeuralNet implements Performable {
 
   @Override
   public <T extends Actor> void performAs(T actor) {
-    trainingData.forEach(
-        labeledColor -> {
-          actor.attemptsTo(SelectColor.withValue(labeledColor.getColor()));
-          actor.attemptsTo(Click.on(".e2e-do-reward-for-" + labeledColor.getLabel()));
+    Serenity.reportThat(
+        "when establishing dataset as facts",
+        () -> {
+          trainingData.forEach(
+              labeledColor -> {
+                actor.attemptsTo(SelectColor.withValue(labeledColor.getColor()));
+                actor.attemptsTo(Click.on(".e2e-do-reward-for-" + labeledColor.getLabel()));
+              });
         });
-    actor.attemptsTo(Click.on(Target.the("train a few rounds").locatedBy(".e2e-do-train")));
+    actor.attemptsTo(new StartTraining());
   }
 }

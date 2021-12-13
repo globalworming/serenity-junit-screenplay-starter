@@ -2,7 +2,6 @@ package com.example.neuralnet.domain;
 
 import com.example.neuralnet.component.NeuralNetFactory;
 import lombok.val;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,20 +14,17 @@ public class NeuralNetErrorTest {
   @Test
   public void whenCalculatingErrorWithoutFacts() {
     val neuralNet = NeuralNetFactory.buildWithTwoInputsAndTwoOutputs();
-    Assert.assertThrows(
-        "without facts to compare to, we cannot make any statement about the error",
-        IllegalStateException.class,
-        neuralNet::calculateCurrentError);
+    assertThat(neuralNet.calculateCurrentError(), is(.0));
   }
 
   @Test
   public void whenCalculatingErrorForSingleFact() {
     val neuralNet = NeuralNetFactory.buildWithTwoInputsAndTwoOutputs();
+    neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
     // with default weight 0, all neurons will emit 0.5
     // we sum up errors for every neuron
     // so an error around 1 would be expected
-    neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
-    assertThat(neuralNet.calculateCurrentError(), is(2.));
+    assertThat(neuralNet.calculateCurrentError(), is(1.));
   }
 
   @Test

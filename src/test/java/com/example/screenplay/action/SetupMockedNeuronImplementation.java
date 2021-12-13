@@ -13,6 +13,6 @@ public class SetupMockedNeuronImplementation implements Performable {
   public <T extends Actor> void performAs(T actor) {
     val spy = SpyOnNeuron.as(actor);
     val sigmoidFunction = spy.getSigmoidFunction();
-    doReturn(1.).when(sigmoidFunction).apply(anyDouble());
+    doReturn(.5).when(sigmoidFunction).apply(anyDouble());
   }
 }

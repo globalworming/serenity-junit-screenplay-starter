@@ -65,7 +65,7 @@ public class TrainSimpleNeuralNetIT {
   public void whereOneBeneficialChangeShouldReduceTheError() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
-    val errorBeforeTraining = 1.;
+    val errorBeforeTraining = .5;
     actor.should(seeThat(new CurrentError(), is(errorBeforeTraining)));
     actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
     actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
@@ -86,7 +86,7 @@ public class TrainSimpleNeuralNetIT {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
-    actor.should(seeThat(new CurrentError(), is(3.)));
+    actor.should(seeThat(new CurrentError(), is(1.5)));
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
     // won't get better no matter how many changes you try
     actor.should(seeThat(new CurrentError(), closeTo(1., .01)));
