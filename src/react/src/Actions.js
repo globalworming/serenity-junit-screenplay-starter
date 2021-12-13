@@ -20,6 +20,11 @@ const Actions = {
       .then(result => callback(result))
   ,
 
+  askForErrors: (callback) => fetch('/training/errors')
+      .then(response => response.json())
+      .then(result => callback(result))
+  ,
+
   askForFacts: (callback) => fetch('/facts')
       .then(response => response.json())
       .then(callback),

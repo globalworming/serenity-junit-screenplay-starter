@@ -19,15 +19,16 @@ const NeuralNetInterface = () => {
 
   useEffect(() => {
     Actions.askForInferenceResults(hsl, setResults);
-    Actions.askForModel((result) => setModel(result))
+    Actions.askForModel(setModel)
   }, [loaded, hsl]);
 
   useEffect(() => {
-    Actions.askForFacts((result) => setFacts(result));
-    Actions.askForCurrentError((result) => setCurrentError(result));
+    Actions.askForFacts(setFacts);
+    Actions.askForCurrentError(setCurrentError);
+    Actions.askForErrors(setErrors);
     setLoaded(true)
   }, [loaded]);
-  
+
   const doReload = () => setLoaded(false);
   const doReset = () => Actions.doReset().then(doReload);
   const doEstablishFact = (label) => Actions.doEstablishFact(label, hsl).then(doReload);
