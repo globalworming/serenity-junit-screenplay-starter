@@ -72,7 +72,7 @@ public class NeuralNet {
   /** @return positive change was applied or false when reverted */
   public boolean trainOnFacts() {
     val currentError = calculateCurrentError();
-    trainingStatistics.trackError(currentError);
+    getTrainingStatistics().trackError(currentError);
     val change = decideOnChange();
     applyChange(change);
     val newError = calculateCurrentError();

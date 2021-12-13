@@ -10,6 +10,7 @@ const ColorPicker = ({setHsl, currentColor}) => <div className={'e2e-pick-color'
         setHsl(hsl)
       }}/>
   <E2eSetColorButton hex={"000000"} onClick={() => setHsl({h: 0, s: 0, l: 0})}/>
+  <E2eSetColorButton hex={"808080"} onClick={() => setHsl({h: 0, s: 0, l: 50})}/>
   <E2eSetColorButton hex={"FFFFFF"} onClick={() => setHsl({h: 0, s: 0, l: 100})}/>
   <hr/>
   <span>{`h: ${currentColor.h} s: ${currentColor.s} l: ${currentColor.l}`}</span>

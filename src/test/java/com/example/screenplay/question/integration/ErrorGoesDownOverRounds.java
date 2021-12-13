@@ -21,7 +21,7 @@ public class ErrorGoesDownOverRounds extends QuestionWithDefaultSubject<Boolean>
               throw new AssertionError();
             }
           }
-          if (errors.get(0) <= errors.get(errors.size() - 1)) {
+          if (errors.get(0) < errors.get(errors.size() - 1)) {
             throw new AssertionError();
           }
         });

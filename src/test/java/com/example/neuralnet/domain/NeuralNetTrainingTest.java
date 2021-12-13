@@ -3,13 +3,13 @@ package com.example.neuralnet.domain;
 import org.junit.Test;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class NeuralNetTrainingTest {
 
@@ -21,10 +21,10 @@ public class NeuralNetTrainingTest {
     // given actor can interact with mocked neural net
     MockitoAnnotations.openMocks(this);
     // given neural net is deciding on a change that's not beneficial
-    Mockito.when(neuralNet.isPositiveChange(anyDouble(), anyDouble())).thenReturn(false);
+    when(neuralNet.isPositiveChange(anyDouble(), anyDouble())).thenReturn(false);
 
     // when going through one training
-    Mockito.when(neuralNet.trainOnFacts()).thenCallRealMethod();
+    when(neuralNet.trainOnFacts()).thenCallRealMethod();
     neuralNet.trainOnFacts();
 
     // it will apply change, calculate errors and revert changes because not beneficial
@@ -40,10 +40,10 @@ public class NeuralNetTrainingTest {
     // given actor can interact with mocked neural net
     MockitoAnnotations.openMocks(this);
     // given neural net is deciding on a change that's beneficial
-    Mockito.when(neuralNet.isPositiveChange(anyDouble(), anyDouble())).thenReturn(true);
+    when(neuralNet.isPositiveChange(anyDouble(), anyDouble())).thenReturn(true);
 
     // when going through one training
-    Mockito.when(neuralNet.trainOnFacts()).thenCallRealMethod();
+    when(neuralNet.trainOnFacts()).thenCallRealMethod();
     neuralNet.trainOnFacts();
 
     // it will apply change, calculate errors and not revert

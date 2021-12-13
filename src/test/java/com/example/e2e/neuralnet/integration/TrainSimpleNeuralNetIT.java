@@ -85,6 +85,7 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
     actor.should(seeThat(new CurrentError(), closeTo(1., .01)));
   }
 
+  /** flaky, probably due to floating point arithmetic mess-up */
   @Test
   public void whereTrainingLogsShowErrorGoingDown() {
     givenNeuralNetReadyForTraining();
