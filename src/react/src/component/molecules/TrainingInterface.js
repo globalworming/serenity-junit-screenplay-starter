@@ -11,7 +11,6 @@ const byLabel = (a, b) => {
   }
   return 0;
 };
-
 const TrainingInterface = ({remember, train, results, facts, currentError}) => {
   return <div className={'e2e-train-network'}>
     <strong>label this color </strong>

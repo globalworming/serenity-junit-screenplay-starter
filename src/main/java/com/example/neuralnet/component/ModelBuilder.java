@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static com.example.neuralnet.component.ModelBuilder.Type.DEFAULT;
+import static com.example.neuralnet.component.ModelBuilder.Type.INPUT;
+import static com.example.neuralnet.component.ModelBuilder.Type.OUTPUT;
+
 public class ModelBuilder {
   public static NeuralNetModel build(NeuralNet neuralNet) {
     return NeuralNetModel.builder()
@@ -22,11 +26,11 @@ public class ModelBuilder {
   private static List<NeuralNetModel.Node> buildNodes(NeuralNet neuralNet) {
     AtomicInteger layerIndex = new AtomicInteger();
     val nodes = new ArrayList<NeuralNetModel.Node>();
-    nodes.addAll(buildNodes(layerIndex.getAndIncrement(), neuralNet.getInputNeurons()));
+    nodes.addAll(buildNodes(layerIndex.getAndIncrement(), neuralNet.getInputNeurons(), INPUT));
     neuralNet
         .getHiddenLayers()
-        .forEach(layer -> nodes.addAll(buildNodes(layerIndex.getAndIncrement(), layer)));
-    nodes.addAll(buildNodes(layerIndex.getAndIncrement(), neuralNet.getOutputNeurons()));
+        .forEach(layer -> nodes.addAll(buildNodes(layerIndex.getAndIncrement(), layer, DEFAULT)));
+    nodes.addAll(buildNodes(layerIndex.getAndIncrement(), neuralNet.getOutputNeurons(), OUTPUT));
     return nodes;
   }
 
@@ -44,23 +48,30 @@ public class ModelBuilder {
   }
 
   private static List<NeuralNetModel.Node> buildNodes(
-      int layerIndex, List<? extends Neuron> inputNeurons) {
+      int layerIndex, List<? extends Neuron> inputNeurons, Type type) {
     List<NeuralNetModel.Node> list = new ArrayList<>();
     for (int i = 0; i < inputNeurons.size(); i++) {
-      NeuralNetModel.Node node = buildNode(inputNeurons.get(i), i, layerIndex);
+      NeuralNetModel.Node node = buildNode(inputNeurons.get(i), i, layerIndex, type);
       list.add(node);
     }
     return list;
   }
 
-  private static NeuralNetModel.Node buildNode(Neuron neuron, int index, int layer) {
+  private static NeuralNetModel.Node buildNode(Neuron neuron, int index, int layer, Type type) {
     NeuralNetModel.Node.NodeBuilder builder =
         NeuralNetModel.Node.builder().uuid(neuron.getUuid()).layer(layer).index(index);
     if (neuron instanceof LabeledNeuron) {
       builder
+          .type(type.toString().toLowerCase())
           .activation(((LabeledNeuron) neuron).getActivation())
           .label(((LabeledNeuron) neuron).getLabel());
     }
     return builder.build();
+  }
+
+  public enum Type {
+    DEFAULT,
+    INPUT,
+    OUTPUT
   }
 }

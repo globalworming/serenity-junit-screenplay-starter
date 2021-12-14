@@ -22,13 +22,12 @@ public class TrainNeuralNet implements Performable {
   public <T extends Actor> void performAs(T actor) {
     Serenity.reportThat(
         "when establishing dataset as facts",
-        () -> {
-          trainingData.forEach(
-              labeledColor -> {
-                actor.attemptsTo(SelectColor.withValue(labeledColor.getColor()));
-                actor.attemptsTo(Click.on(".e2e-do-reward-for-" + labeledColor.getLabel()));
-              });
-        });
+        () ->
+            trainingData.forEach(
+                labeledColor -> {
+                  actor.attemptsTo(SelectColor.withValue(labeledColor.getColor()));
+                  actor.attemptsTo(Click.on(".e2e-do-reward-for-" + labeledColor.getLabel()));
+                }));
     actor.attemptsTo(new StartTraining());
   }
 }

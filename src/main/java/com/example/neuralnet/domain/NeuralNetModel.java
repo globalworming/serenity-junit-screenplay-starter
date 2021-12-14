@@ -20,6 +20,7 @@ public class NeuralNetModel {
     private final double activation;
     private final int layer;
     private final int index;
+    private String type;
   }
 
   @Builder

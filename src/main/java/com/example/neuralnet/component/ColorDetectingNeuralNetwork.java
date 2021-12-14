@@ -1,7 +1,6 @@
 package com.example.neuralnet.component;
 
 import com.example.neuralnet.domain.*;
-import lombok.val;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,22 +8,19 @@ import java.util.stream.Collectors;
 public class ColorDetectingNeuralNetwork extends NeuralNet {
 
   public ColorDetectingNeuralNetwork() {
-    val blacknessInput = LabeledNeuron.builder().label("blackness = 1 - lightness").build();
-    val blackOutput = LabeledNeuron.builder().label("black").build();
-    wireNeurons(blacknessInput, blackOutput);
 
-    val graynessInput =
-        LabeledNeuron.builder().label("grayness = | lightess - blackness  |").build();
-    val grayOutput = LabeledNeuron.builder().label("gray").build();
-    wireNeurons(graynessInput, grayOutput);
-
-    val lightnessInput = LabeledNeuron.builder().label("lightness").build();
-    val whiteOutput = LabeledNeuron.builder().label("white").build();
-    wireNeurons(lightnessInput, whiteOutput);
-
-    addInputNeurons(blacknessInput, graynessInput, lightnessInput);
-    addOutputNeurons(blackOutput, grayOutput, whiteOutput);
-    updateAdjustables();
+    addInputNeurons(
+        LabeledNeuron.builder().label("hue").build(),
+        LabeledNeuron.builder().label("saturation").build(),
+        LabeledNeuron.builder().label("lightness").build());
+    addOutputNeurons(
+        LabeledNeuron.builder().label("black").build(),
+        LabeledNeuron.builder().label("gray").build(),
+        LabeledNeuron.builder().label("white").build());
+    addNeuronToLayer(new Neuron(), 0);
+    addNeuronToLayer(new Neuron(), 0);
+    addNeuronToLayer(new Neuron(), 0);
+    wire();
   }
 
   public synchronized List<InferenceResult> infer(HslColor hslColor) {
@@ -43,10 +39,7 @@ public class ColorDetectingNeuralNetwork extends NeuralNet {
   }
 
   public List<Double> toInputs(HslColor hslColor) {
-    double lightness = hslColor.getLightness();
-    double blackness = 1d - lightness;
-    double grayness = 1d - Math.abs(blackness - lightness);
-    return List.of(blackness, grayness, lightness);
+    return List.of(hslColor.getHue() / 256., hslColor.getSaturation(), hslColor.getLightness());
   }
 
   public void addFact(LabeledHslColor labeledHslColor) {

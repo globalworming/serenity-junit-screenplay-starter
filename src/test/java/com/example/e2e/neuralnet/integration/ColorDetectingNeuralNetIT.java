@@ -38,7 +38,7 @@ public class ColorDetectingNeuralNetIT {
   @Before
   public void setUp() {
     actor.can(new AskAndTrainColorDetectingNeuralNetwork(new ColorDetectingNeuralNetwork()));
-    actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, 100);
+    actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, 500);
   }
 
   @Test

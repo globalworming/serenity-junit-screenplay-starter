@@ -4,7 +4,7 @@ const maxWidth = 400;
 
 const ShowErrorStatistics = ({errors}) => <div style={{maxWidth: maxWidth}}>
   <p>
-    <strong>after {errors.length} trainings</strong>
+    <strong>after <span className={"e2e-number-of-training-rounds"}>{errors.length}</span> trainings</strong>
   </p>
   {errors.length > 0 && <p>from {errors[0].toFixed(2)} to {errors[errors.length - 1].toFixed(2)}</p>}
 

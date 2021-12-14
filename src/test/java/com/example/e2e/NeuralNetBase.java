@@ -23,7 +23,7 @@ public class NeuralNetBase {
   public void setUp() {
     NeuralNet neuralNet = new NeuralNet();
     actor.can(new InteractWithNeuralNet(neuralNet));
-    actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, 100);
+    actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, 400);
     actor.can(BrowseTheWeb.with(browser));
     actor.can(new AskAndTrainColorDetectingNeuralNetwork(new ColorDetectingNeuralNetwork()));
   }
