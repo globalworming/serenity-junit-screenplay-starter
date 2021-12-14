@@ -142,7 +142,7 @@
             $("#requirements-tabs").tabs();
             $("#test-tabs").tabs();
 
-            var requirementsTree = [{"text":"Gui","type":"feature","href":"b288637c37a7df68293a87781a536f72159140b414f1b976de9690e65ad15144.html","nodes":[{"text":"Neural net IT","type":"story","href":"5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html","nodes":[],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-check-circle-fill success-icon \u0027 title\u003d\u0027SUCCESS\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e3 scenarios\u003c/span\u003e"]}],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-check-circle-fill success-icon \u0027 title\u003d\u0027SUCCESS\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e1 story\u003c/span\u003e"]}];
+            var requirementsTree = [{"text":"Gui","type":"feature","href":"b288637c37a7df68293a87781a536f72159140b414f1b976de9690e65ad15144.html","nodes":[{"text":"Neural net IT","type":"story","href":"5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html","nodes":[],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-x-circle-fill failure-icon \u0027 title\u003d\u0027FAILURE\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e4 scenarios\u003c/span\u003e"]}],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-x-circle-fill failure-icon \u0027 title\u003d\u0027FAILURE\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e1 story\u003c/span\u003e"]}];
 
             $('#tree').treeview({
                 data: requirementsTree,
@@ -219,7 +219,7 @@
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="bi bi-chat-text"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 13-12-2021 13:29</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 14-12-2021 10:08</span>
     <br style="clear:left"/>
 </div>
 
@@ -289,10 +289,10 @@
                                                 </div>
                                                 <script>
 
-                                                    var labels = ['100%', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+                                                    var labels = ['75%', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '25%', ' ', ' ', ' ', ' ', ' '];
                                                     // Our series array that contains series objects or in this case series data arrays
 
-                                                    var series = [{meta: 'Passing tests (automated)', value: 3}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Aborted tests (automated)', value: 0}, {meta: 'Aborted tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 0}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 0}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
+                                                    var series = [{meta: 'Passing tests (automated)', value: 3}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Aborted tests (automated)', value: 0}, {meta: 'Aborted tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 1}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 0}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
 
                                                     // As options we currently only set a static size of 300x200 px. We can also omit this and use aspect ratio containers
                                                     // as you saw in the previous example
@@ -336,7 +336,7 @@
                                                                                 class='bi bi-check-circle-fill success-icon'></i>&nbsp;Passing</a>
                                                                 </td>
                                                             <td class="automated-stats">3</td>
-                                                            <td class="automated-stats">100%</td>
+                                                            <td class="automated-stats">75%</td>
                                                         </tr>
                                                         <tr>
                                                                 <td class="aggregate-result-count"><i
@@ -367,19 +367,19 @@
                                                             <td class="automated-stats"> </td>
                                                         </tr>
                                                         <tr>
-                                                                    <td colspan="3"><i
-                                                                                class='bi bi-x-circle failure-icon'></i>&nbsp;<em>Unsuccessful</em></a>
+                                                                    <td colspan="3"><a href="2027108bf4f5d6e64d8e12f87b423a5b4f82f0295291198ac810a72ce385717e.html"><i
+                                                                                    class='bi bi-x-circle failure-icon'></i>&nbsp;<em>Unsuccessful</em></a>
                                                                     </td>
 
                                                         </tr>
 
                                                         <tr>
                                                                 <td class="aggregate-result-count indented-error-category">
-                                                                    <i
-                                                                            class='bi bi-x-circle-fill failure-icon'></i>&nbsp;Failed
+                                                                    <a href="7f163a8fc7e861401a2e9c5b526b91cdd89ee63badbf69a764c6065c06f55d6b.html"><i
+                                                                                class='bi bi-x-circle-fill failure-icon'></i>&nbsp;Failed</a>
                                                                 </td>
-                                                            <td class="automated-stats">0</td>
-                                                            <td class="automated-stats"> </td>
+                                                            <td class="automated-stats">1</td>
+                                                            <td class="automated-stats">25%</td>
                                                         <tr>
                                                                 <td class="aggregate-result-count indented-error-category">
                                                                     <i
@@ -397,7 +397,7 @@
                                                         </tr>
                                                         <tr class="summary-stats">
                                                             <td class="aggregate-result-count">Total</td>
-                                                            <td class="automated-stats">3</td>
+                                                            <td class="automated-stats">4</td>
                                                             <td class="automated-stats"></td>
                                                         </tr>
                                                         </tbody>
@@ -421,13 +421,13 @@
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                            <td>13-12-2021 13:29:56 +0100</td>
-                                                            <td>13-12-2021 13:30:11 +0100</td>
-                                                            <td>14s</td>
+                                                            <td>14-12-2021 10:08:12 +0100</td>
+                                                            <td>14-12-2021 10:08:26 +0100</td>
+                                                            <td>13s</td>
+                                                            <td>2s</td>
                                                             <td>3s</td>
-                                                            <td>6s</td>
-                                                            <td>4s</td>
-                                                            <td>14s</td>
+                                                            <td>3s</td>
+                                                            <td>13s</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -467,11 +467,11 @@
             <td> 
                 
             </td>
-            <td>3</td>
+            <td>4</td>
             <td>0</td>
             <td>
-                <span class="status_icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a></span>
-                <span style="display:none">1</span>
+                <span class="status_icon"><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a></span>
+                <span style="display:none">3</span>
             </td>
 
             <td width="165px">
@@ -480,18 +480,18 @@
 <table>
     <tr>
         <td width="40px" style="padding-top:4px;">
-            <div class="small" style="text-align:right;">100%</div>
+            <div class="small" style="text-align:right;">75%</div>
         </td>
         <td style="min-width:12.5em;">
             <div class="progress">
                 <div class="progress-bar" role="progressbar"
-                     style="width: 100%; background-color:#99cc33;"
+                     style="width: 75%; background-color:#99cc33;"
                      aria-valuenow="3"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -502,10 +502,10 @@
                      style="width: 0%; background-color:#A5C7EE;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -516,10 +516,10 @@
                      style="width: 0%; background-color:darkgrey;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -530,10 +530,10 @@
                      style="width: 0%; background-color:#EEE098;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -544,10 +544,10 @@
                      style="width: 0%; background-color:#FF9966;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -555,13 +555,13 @@
   - Ignored or skipped tests: 0 (0%)">
                 </div>
                 <div class="progress-bar" role="progressbar"
-                     style="width: 0%; background-color:#ff1631;"
-                     aria-valuenow="0"
+                     style="width: 25%; background-color:#ff1631;"
+                     aria-valuenow="1"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -572,10 +572,10 @@
                      style="width: 0%; background-color:#ff6108;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -586,10 +586,10 @@
                      style="width: 0%; background-color:#ff68ff;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="3"
-                     title="  - Total tests: 3
-  - Passing tests: 3 (100%)
-  - Failing tests: 0 (0%)
+                     aria-valuemax="4"
+                     title="  - Total tests: 4
+  - Passing tests: 3 (75%)
+  - Failing tests: 1 (25%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
   - Aborted tests: 0 (0%)
@@ -633,11 +633,26 @@
                                                                                 <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
                                                                         </td>
                                                                     <td>
+                                                                            <a href="97cb241c1b629efa92df915bcf6f1993baa650b08aa49716a0dce812ea6b55db.html">When training on two facts</a>
+                                                                    </td>
+                                                                    <td>6</td>
+                                                                    <td>10:08:12</td>
+                                                                    <td>3s 543ms</td>
+                                                                    <td>
+                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
+                                                                                style="display:none">SUCCESS</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
+                                                                        </td>
+                                                                    <td>
                                                                             <a href="6eca5083b8527b177f815f42c0469d8fd6fccfad7122b37a504187a8d013634f.html">Actor can see facts and error</a>
                                                                     </td>
                                                                     <td>6</td>
-                                                                    <td>13:29:56</td>
-                                                                    <td>3s 732ms</td>
+                                                                    <td>10:08:16</td>
+                                                                    <td>3s 345ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>
@@ -651,26 +666,26 @@
                                                                             <a href="1e7ac8d6f5abb1df1d64d20e53a741e727a9a22024b6d1eb4087a58d88e79515.html">Actor trains neural net</a>
                                                                     </td>
                                                                     <td>4</td>
-                                                                    <td>13:29:59</td>
-                                                                    <td>4s 234ms</td>
+                                                                    <td>10:08:19</td>
+                                                                    <td>2s 821ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>
                                                                     </td>
                                                                 </tr>
-                                                                <tr class="scenario-result SUCCESS">
+                                                                <tr class="scenario-result FAILURE">
                                                                         <td>
                                                                                 <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
                                                                         </td>
                                                                     <td>
-                                                                            <a href="c1ea3c20193788de1895209c17783e739d9fb1daaa3b38b982bf393a8c0ffa12.html">Actor can ask neural net</a>
+                                                                            <a href="2de70e115bb9b12323fb4d97d62aa6aab2ba876ac9ca893d32a2357150e1eb5a.html">When training on three facts</a>
                                                                     </td>
-                                                                    <td>6</td>
-                                                                    <td>13:30:04</td>
-                                                                    <td>6s 727ms</td>
+                                                                    <td>5</td>
+                                                                    <td>10:08:22</td>
+                                                                    <td>3s 690ms</td>
                                                                     <td>
-                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                style="display:none">SUCCESS</span>
+                                                                            <a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
+                                                                                style="display:none">FAILURE</span>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

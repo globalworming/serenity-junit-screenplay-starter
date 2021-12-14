@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="com.example.e2e.neuralnet.gui.NeuralNetIT" skipped="0" tests="4" time="13.4" timestamp="2021-12-14 10:08:12"><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on two facts"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor can see facts and error"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor trains neural net"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on three facts"><failure message="&#10;Expected: is &quot;white&quot;&#10;     but: was &quot;gray&quot;" type="java.lang.AssertionError">
+Expected: is "white"
+     but: was "gray"</failure><system-err>
+Expected: is "white"
+     but: was "gray"
+com.example.e2e.neuralnet.gui.NeuralNetIT.whenTrainingOnThreeFacts(NeuralNetIT.java:61)
+</system-err></testcase></testsuite>
