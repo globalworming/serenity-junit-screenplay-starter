@@ -1,6 +1,6 @@
 package com.example.e2e.neuralnet.integration;
 
-import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
+import com.example.neuralnet.component.LabelHslColorNeuralNet;
 import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
 import com.example.screenplay.action.TrainColorDetectingNeuralNet;
@@ -37,7 +37,7 @@ public class ColorDetectingNeuralNetIT {
 
   @Before
   public void setUp() {
-    actor.can(new AskAndTrainColorDetectingNeuralNetwork(new ColorDetectingNeuralNetwork()));
+    actor.can(new AskAndTrainColorDetectingNeuralNetwork(new LabelHslColorNeuralNet()));
     actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, 500);
   }
 

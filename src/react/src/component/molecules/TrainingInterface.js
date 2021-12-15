@@ -12,6 +12,7 @@ const byLabel = (a, b) => {
   return 0;
 };
 const TrainingInterface = ({remember, train, results, facts, currentError}) => {
+  console.log(facts)
   return <div className={'e2e-train-network'}>
     <strong>label this color </strong>
     {results.sort(byLabel).map(({label}) =>
@@ -29,13 +30,17 @@ const TrainingInterface = ({remember, train, results, facts, currentError}) => {
       a few rounds
     </ActionButton>
     <strong> on facts:</strong>
-    {facts.map((fact, i) => <React.Fragment key={i}>
-      <p className={"e2e-show-fact"}>{fact.inputs.map(value => value.toFixed(2)).join(", ")}
-        {' --> '}{fact.outputs.map(value => value.toFixed(2)).join(' ')}
-      </p>
+    {facts.length >= 20 && <span> {facts.length} facts, don't display</span>}
+    {facts.length < 20 && facts.map((fact, i) => <React.Fragment key={i}>
+      <div className={"e2e-show-fact"}>[{
+        fact.inputs.map(value => value.toFixed(2)).join(", ")
+      }]{'-->'}[{
+        fact.outputs.map(value => value.toFixed(2)).join(';',)
+      }]
+      </div>
     </React.Fragment>)}
     <hr/>
-    <strong>current error </strong><span className={"e2e-show-current-error"}>{currentError}</span>
+    <strong>current error </strong><br/><span className={"e2e-show-current-error"}>{currentError}</span>
   </div>
 }
 

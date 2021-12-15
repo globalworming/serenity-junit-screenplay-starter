@@ -75,7 +75,9 @@ public class NeuronIT {
   public void neuronsHaveSigmoidFunction() {
     actor.should(
         seeThat(
-            "a neuron has an sigmoid function", (a) -> as(a).getSigmoidFunction(), notNullValue()));
+            "a neuron has an sigmoid function",
+            (a) -> as(a).getActivationFunction(),
+            notNullValue()));
   }
 
   @Test

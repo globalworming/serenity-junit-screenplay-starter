@@ -1,7 +1,7 @@
 package com.example.neuralnet.controller;
 
-import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.component.HslColor;
+import com.example.neuralnet.component.LabelGrayFromLightnessNeuralNet;
 import com.example.neuralnet.component.ModelBuilder;
 import com.example.neuralnet.domain.Fact;
 import com.example.neuralnet.domain.InferenceResult;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NeuralNetController {
 
-  private ColorDetectingNeuralNetwork colorDetectingNeuralNetwork =
-      new ColorDetectingNeuralNetwork();
+  private LabelGrayFromLightnessNeuralNet colorDetectingNeuralNetwork =
+      new LabelGrayFromLightnessNeuralNet();
 
   @GetMapping("/infer")
   List<InferenceResult> infer(@RequestParam int h, @RequestParam int s, @RequestParam int l) {
@@ -38,7 +38,7 @@ public class NeuralNetController {
 
   @GetMapping("/train")
   void train() {
-    int rounds = 100;
+    int rounds = 500;
     for (int i = 0; i < rounds; i++) {
       colorDetectingNeuralNetwork.trainOnFacts();
     }
@@ -66,6 +66,6 @@ public class NeuralNetController {
 
   @GetMapping("/reset")
   void reset() {
-    colorDetectingNeuralNetwork = new ColorDetectingNeuralNetwork();
+    colorDetectingNeuralNetwork = new LabelGrayFromLightnessNeuralNet();
   }
 }

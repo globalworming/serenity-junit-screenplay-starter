@@ -10,7 +10,12 @@ const ShowErrorStatistics = ({errors}) => <div style={{maxWidth: maxWidth}}>
 
   <p>
     {errors.map((it, i) => <span
-        style={{display: 'inline-block', width: maxWidth / errors.length, height: it * 50, background: '#FFF'}}
+        style={{
+          display: 'inline-block',
+          width: maxWidth / errors.length,
+          height: Math.max(1, it * 200 / errors[0]),
+          background: '#FFF'
+        }}
         key={i}/>)}
   </p>
 

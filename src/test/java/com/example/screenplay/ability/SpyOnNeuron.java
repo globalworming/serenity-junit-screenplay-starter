@@ -1,7 +1,7 @@
 package com.example.screenplay.ability;
 
+import com.example.neuralnet.domain.ActivationFunction;
 import com.example.neuralnet.domain.Neuron;
-import com.example.neuralnet.domain.SigmoidFunction;
 import lombok.Getter;
 import net.serenitybdd.screenplay.Actor;
 
@@ -16,9 +16,9 @@ public class SpyOnNeuron extends Ability {
   private final Neuron neuron;
 
   public SpyOnNeuron(Neuron neuron) {
-    SigmoidFunction mockSigmoidFunction = mock(SigmoidFunction.class);
+    ActivationFunction mockActivationFunction = mock(ActivationFunction.class);
     DoubleConsumer mockOutput = mock(DoubleConsumer.class);
-    neuron.setSigmoidFunction(mockSigmoidFunction);
+    neuron.setActivationFunction(mockActivationFunction);
     neuron.connect(mockOutput);
     this.neuron = spy(neuron);
   }

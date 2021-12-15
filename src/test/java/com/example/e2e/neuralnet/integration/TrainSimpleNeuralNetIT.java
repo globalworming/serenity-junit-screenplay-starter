@@ -20,6 +20,7 @@ import java.util.List;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
@@ -58,8 +59,8 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
   public void whereOneBeneficialChangeShouldReduceTheError() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(new EstablishFact(input, expectedOutput));
-    val errorBeforeTraining = .5;
-    actor.should(seeThat(new CurrentError(), is(errorBeforeTraining)));
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.should(seeThat(new CurrentError(), greaterThan(9.)));
     actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
     actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
   }
@@ -79,10 +80,10 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
     actor.attemptsTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
-    actor.should(seeThat(new CurrentError(), is(1.5)));
+    actor.should(seeThat(new CurrentError(), greaterThan(7.6)));
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
-    // won't get better no matter how many changes you try
-    actor.should(seeThat(new CurrentError(), closeTo(1., .01)));
+    // won't get better no matter how many changes you try, there must always be a constant error
+    actor.should(seeThat(new CurrentError(), closeTo(0.15, .01)));
   }
 
   /** flaky, probably due to floating point arithmetic mess-up */

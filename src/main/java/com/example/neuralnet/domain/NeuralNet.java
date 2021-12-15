@@ -23,7 +23,7 @@ public class NeuralNet {
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
   private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
-  private Function<NeuralNet, Double> errorFunction = ErrorFunction.DEFAULT;
+  private Function<NeuralNet, Double> errorFunction = LossFunction.DEFAULT;
   private TrainingStatistics trainingStatistics = new TrainingStatistics();
 
   public void addNeuronToLayer(Neuron neuron, int layer) {
@@ -50,7 +50,12 @@ public class NeuralNet {
   }
 
   protected Wire wireNeurons(Neuron in, Neuron out) {
-    val wire = Wire.builder().source(in).target(out).build();
+    val wire =
+        Wire.builder()
+            .source(in)
+            .target(out)
+            .weight((random.nextBoolean() ? 1 : -1) * random.nextDouble())
+            .build();
     in.connect(wire);
     wires.add(wire);
     return wire;
@@ -124,6 +129,7 @@ public class NeuralNet {
   }
 
   public void addInputNeuron(LabeledNeuron inputNeuron) {
+    inputNeuron.setBias(random.nextDouble());
     inputNeurons.add(inputNeuron);
   }
 
@@ -134,6 +140,7 @@ public class NeuralNet {
   }
 
   public void addOutputNeuron(LabeledNeuron outputNeuron) {
+    outputNeuron.setBias(random.nextDouble());
     outputNeurons.add(outputNeuron);
   }
 

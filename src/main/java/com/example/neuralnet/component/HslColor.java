@@ -14,7 +14,7 @@ public class HslColor {
   private final double lightness;
 
   public HslColor(int hue, double saturation, double lightness) {
-    if (hue < 0 || hue > 255) {
+    if (hue < 0 || hue > 360) {
       throw new IllegalArgumentException();
     }
     if (saturation < 0. || saturation > 1.) {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import InferColors from "../molecules/ColorPicker";
 import ShowInferenceResults from "../molecules/ShowInferenceResults";
 import TrainingInterface from "../molecules/TrainingInterface";
-import ShowNeuralNetModel from "../molecules/ShowNeuralNetModel";
+import ShowSmallNeuralNetModel from "../molecules/ShowSmallNeuralNetModel";
 import ActionButton from "../atom/ActionButton";
 import Actions from "../../Actions";
 import Padding from "../atom/Padding";
@@ -52,7 +52,7 @@ const NeuralNetInterface = () => {
                            currentError={currentError} facts={facts} results={results}/>
       </div>
     </Padding>
-    <ShowNeuralNetModel model={model}/>
+    <ShowSmallNeuralNetModel model={model}/>
     <ShowErrorStatistics errors={errors}/>
   </div>;
 };
