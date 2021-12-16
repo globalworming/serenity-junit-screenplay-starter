@@ -7,6 +7,7 @@ import lombok.val;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -71,7 +72,8 @@ public class NeuralNet {
         concat(
             concat(inputNeurons.stream(), outputNeurons.stream()),
             hiddenLayers.stream().flatMap(Collection::stream));
-    return neuronStream.collect(toMap(Neuron::getUuid, Function.identity()));
+
+    return new TreeMap<>(neuronStream.collect(toMap(Neuron::getUuid, Function.identity())));
   }
 
   /** @return positive change was applied or false when reverted */
@@ -150,5 +152,10 @@ public class NeuralNet {
    */
   public void addFact(List<Double> inputs, List<Double> expectedOutputs) {
     facts.add(Fact.builder().inputs(inputs).outputs(expectedOutputs).build());
+  }
+
+  public List<Neuron> getNeurons() {
+    return Stream.concat(inputNeurons.stream(), outputNeurons.stream())
+        .collect(Collectors.toList());
   }
 }

@@ -26,6 +26,7 @@ public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
       getInputNeurons().get(i).accept(Signal.builder().strength(inputs.get(i)).build());
     }
     return getOutputNeurons().stream()
+        .sorted((n1, n2) -> -Double.compare(n1.getActivation(), n2.getActivation()))
         .map(
             it ->
                 InferenceResult.builder()

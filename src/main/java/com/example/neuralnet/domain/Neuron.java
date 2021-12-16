@@ -14,7 +14,7 @@ import java.util.function.DoubleConsumer;
 public class Neuron implements Consumer<Signal>, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
-  private ActivationFunction activationFunction = ActivationFunction.ReLU;
+  private ActivationFunction activationFunction = ActivationFunction.DEFAULT;
   private List<DoubleConsumer> outputConsumers = new ArrayList<>();
   private Map<Wire, Double> inputToStrength = new HashMap<>();
   private double bias = 0;

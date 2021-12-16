@@ -30,8 +30,8 @@ const TrainingInterface = ({remember, train, results, facts, currentError}) => {
       a few rounds
     </ActionButton>
     <strong> on facts:</strong>
-    {facts.length >= 20 && <span> {facts.length} facts, don't display</span>}
-    {facts.length < 20 && facts.map((fact, i) => <React.Fragment key={i}>
+    {facts.length >= 10 && <span> {facts.length} facts</span>}
+    {facts.length < 10 && facts.map((fact, i) => <React.Fragment key={i}>
       <div className={"e2e-show-fact"}>[{
         fact.inputs.map(value => value.toFixed(2)).join(", ")
       }]{'-->'}[{

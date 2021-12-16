@@ -37,7 +37,7 @@ public class NeuralNetController {
 
   @GetMapping("/train")
   void train() {
-    int rounds = 500;
+    int rounds = 20000;
     for (int i = 0; i < rounds; i++) {
       colorDetectingNeuralNetwork.trainOnFacts();
     }

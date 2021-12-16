@@ -9,10 +9,10 @@ const ShowErrorStatistics = ({errors}) => <div style={{maxWidth: maxWidth}}>
   {errors.length > 0 && <p>from {errors[0].toFixed(2)} to {errors[errors.length - 1].toFixed(2)}</p>}
 
   <p>
-    {errors.map((it, i) => <span
+    {errors.filter((value, i) => i % 100 === 0).map((it, i) => <span
         style={{
           display: 'inline-block',
-          width: maxWidth / errors.length,
+          width: Math.max(1, maxWidth * 100 / errors.length),
           height: Math.max(1, it * 200 / errors[0]),
           background: '#FFF'
         }}
