@@ -220,7 +220,7 @@
             <a href="#"><i class="bi bi-chat-text"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 14-12-2021 10:08</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 16-12-2021 23:13</span>
     <br style="clear:left"/>
 </div>
 
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                             <div class="requirementNarrativeTitle">
-                                when training a neural net, we set up some 'facts', some intended output given a specific input. every round of training, we'll make a small change to the biases and weights and check if the resulting output is closer to the result we want. If not, revert the change. I couldn't wrap my head around the 'cost function', so I use this naive approach first.
+                                
                             </div>
 
                     </div>
@@ -461,7 +461,7 @@
 
                                                     <h3>Scenarios</h3>
 
-                                                        <a name="d14c1690-cc8c-462f-b49f-73793135d7c0"></a>
+                                                        <a name="39f74a92-52b1-4d01-b61b-16e3004e3740"></a>
 
 
                                                             <div class="scenario-docs card" id="6c04cdc6c3935fa8aef52722ba5edb5c0b09a6cb2dee113abd382f6222fa43a5">
@@ -482,9 +482,9 @@
                                                                 <div class="scenario-docs card-body">
                                                                         <p>given neural net with 2 in- and 2 output neurons wired with each other</p>
                                                                         <p>when tester adds fact: the input [1.0, 1.0] should output [0.25, 0.75]</p>
-                                                                        <p>Then Current Error should be (0.5)</p>
+                                                                        <p>Then Current Error should be a value greater than (9.0)</p>
                                                                         <p>Tester train neural net until beneficial change is found</p>
-                                                                        <p>Then Current Error should be a value less than (0.5)</p>
+                                                                        <p>Then Current Error should be a value less than (9.320856789393615)</p>
                                                                     <div class="examples">
                                                                     </div>
                                                                 </div>
@@ -510,7 +510,7 @@
                                                                         <p>when tester adds fact: the input [1.0, 1.0] should output [0.25, 0.75]</p>
                                                                         <p>when tester adds fact: the input [1.0, 1.0] should output [1.0, 1.0]</p>
                                                                         <p>Tester train neural net until beneficial change is found</p>
-                                                                        <p>Then Current Error should be a value less than (1.5)</p>
+                                                                        <p>Then Current Error should be a value less than (7.601267707145752)</p>
                                                                     <div class="examples">
                                                                     </div>
                                                                 </div>
@@ -612,9 +612,9 @@
                                                                         <p>given neural net with 2 in- and 2 output neurons wired with each other</p>
                                                                         <p>when tester adds fact: the input [1.0, 1.0] should output [0.25, 0.75]</p>
                                                                         <p>when tester adds fact: the input [1.0, 1.0] should output [1.0, 1.0]</p>
-                                                                        <p>Then Current Error should be (1.5)</p>
+                                                                        <p>Then Current Error should be a value greater than (7.6)</p>
                                                                         <p>Tester train neural net for many rounds</p>
-                                                                        <p>Then Current Error should be a numeric value within (0.01) of (1.0)</p>
+                                                                        <p>Then Current Error should be a numeric value within (0.01) of (0.15)</p>
                                                                     <div class="examples">
                                                                     </div>
                                                                 </div>
@@ -766,13 +766,13 @@
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                            <td>14-12-2021 10:08:26 +0100</td>
-                                                            <td>14-12-2021 10:08:26 +0100</td>
-                                                            <td>231ms</td>
-                                                            <td>13ms</td>
+                                                            <td>16-12-2021 23:13:47 +0100</td>
+                                                            <td>16-12-2021 23:13:47 +0100</td>
+                                                            <td>211ms</td>
+                                                            <td>15ms</td>
                                                             <td>53ms</td>
-                                                            <td>36ms</td>
-                                                            <td>221ms</td>
+                                                            <td>33ms</td>
+                                                            <td>200ms</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -801,8 +801,8 @@
                                                                             <a href="6463b22f155ba1ff416ea1cf724045640f73df0e5e2778b7d7b7bf3ed98ae20a.html">Where one beneficial change should reduce the error</a>
                                                                     </td>
                                                                     <td>5</td>
-                                                                    <td>10:08:26</td>
-                                                                    <td>044ms</td>
+                                                                    <td>23:13:47</td>
+                                                                    <td>041ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>
@@ -813,8 +813,8 @@
                                                                             <a href="82bacc788984c216a89fc446ea7a5bd96bcfba0057039722fb0901f04151a9dc.html">Where conflicting facts find beneficial change</a>
                                                                     </td>
                                                                     <td>5</td>
-                                                                    <td>10:08:26</td>
-                                                                    <td>013ms</td>
+                                                                    <td>23:13:47</td>
+                                                                    <td>015ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>
@@ -825,7 +825,7 @@
                                                                             <a href="6539ca3ea5537fc13f6e3b311d12125c7221d3f3e3a474875589943c148205ce.html">Where we keep track of the number of training rounds</a>
                                                                     </td>
                                                                     <td>5</td>
-                                                                    <td>10:08:26</td>
+                                                                    <td>23:13:47</td>
                                                                     <td>053ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
@@ -837,8 +837,8 @@
                                                                             <a href="1caf7b4b7cc6991a5e0821ae2fce89014da683faae2351b788aab216eba941ab.html">Where small neural net is trained on single fact</a>
                                                                     </td>
                                                                     <td>4</td>
-                                                                    <td>10:08:26</td>
-                                                                    <td>050ms</td>
+                                                                    <td>23:13:47</td>
+                                                                    <td>024ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>
@@ -849,8 +849,8 @@
                                                                             <a href="67764f4a7e066b780a2dcc97cf0871f690157564631475bbe409c046ef987929.html">Where training logs show error going down</a>
                                                                     </td>
                                                                     <td>5</td>
-                                                                    <td>10:08:26</td>
-                                                                    <td>036ms</td>
+                                                                    <td>23:13:47</td>
+                                                                    <td>038ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
                                                                                 style="display:none">FAILURE</span>
@@ -861,8 +861,8 @@
                                                                             <a href="5cb3b7a9f1a00ca6ab04e4a6e6531ae6636fb23e47afe3d6ff5bd302a8045ea2.html">Where conflicting facts limit the decrease in error</a>
                                                                     </td>
                                                                     <td>6</td>
-                                                                    <td>10:08:26</td>
-                                                                    <td>025ms</td>
+                                                                    <td>23:13:47</td>
+                                                                    <td>029ms</td>
                                                                     <td>
                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                 style="display:none">SUCCESS</span>

@@ -142,7 +142,7 @@
             $("#requirements-tabs").tabs();
             $("#test-tabs").tabs();
 
-            var requirementsTree = [{"text":"Api","type":"capability","href":"5b0b500db2dfd98ccb3584eed6275bc7ba4d506665983d1b8fc2e8acb36c8678.html","nodes":[{"text":"Json place holder IT","type":"feature","href":"4986e333ae5243a6cd9a1e4f07a2757fc44d6fcf184514913ab2bb80ac241cf5.html","nodes":[],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-check-circle-fill success-icon \u0027 title\u003d\u0027SUCCESS\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e2 scenarios\u003c/span\u003e"]}],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-check-circle-fill success-icon \u0027 title\u003d\u0027SUCCESS\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e1 feature\u003c/span\u003e"]}];
+            var requirementsTree = [{"text":"Api","type":"capability","href":"5b0b500db2dfd98ccb3584eed6275bc7ba4d506665983d1b8fc2e8acb36c8678.html","nodes":[{"text":"Json place holder IT","type":"feature","href":"4986e333ae5243a6cd9a1e4f07a2757fc44d6fcf184514913ab2bb80ac241cf5.html","nodes":[],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-hourglass-top pending-icon \u0027 title\u003d\u0027PENDING\u0027\u003e\u003c/i\u003e\u003c/a\u003e",""]}],"selectable":false,"tags":["\u003ca href\u003d\u0027##beforetable\u0027\u003e\u003ci class\u003d\u0027bi bi-hourglass-top pending-icon \u0027 title\u003d\u0027PENDING\u0027\u003e\u003c/i\u003e\u003c/a\u003e","\u003cspan class\u003d\u0027feature-count\u0027\u003e1 feature\u003c/span\u003e"]}];
 
             $('#tree').treeview({
                 data: requirementsTree,
@@ -218,7 +218,7 @@
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="bi bi-chat-text"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 14-12-2021 10:08</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated </span>
     <br style="clear:left"/>
 </div>
 
@@ -241,8 +241,7 @@
                             </div>
                         </div>
                             <div class="requirementNarrativeTitle">
-                                API Checks<br />
-Some http client examples. Serenity comes with a wrapper for RestAssured but you can totally just use whatever client you want... given you want to implement all the tedious thing yourself. See e.g. the rolegate example that is using te okHttp client
+                                
                             </div>
 
                     </div>
@@ -282,41 +281,7 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                                 <div id="results" class="tab-pane fade">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-sm-4">
-
-                                                <div style="width:300px;" class="chart-container automated-and-manual-results">
-                                                    <div class="ct-chart ct-square"></div>
-                                                </div>
-                                                <script>
-
-                                                    var labels = ['100%', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
-                                                    // Our series array that contains series objects or in this case series data arrays
-
-                                                    var series = [{meta: 'Passing tests (automated)', value: 2}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Aborted tests (automated)', value: 0}, {meta: 'Aborted tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 0}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 0}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
-
-                                                    // As options we currently only set a static size of 300x200 px. We can also omit this and use aspect ratio containers
-                                                    // as you saw in the previous example
-                                                    var options = {
-                                                        width: 350,
-                                                        height: 300
-                                                    };
-
-                                                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                                                        new Chartist.Pie('.ct-chart', {
-                                                            series: series,
-                                                            labels: labels,
-                                                        }, {
-                                                            donut: true,
-                                                            donutWidth: 60,
-                                                            donutSolid: true,
-                                                            startAngle: 270,
-                                                            showLabel: true
-                                                        }, options);
-                                                    });
-
-                                                </script>
-                                            </div>
-                                            <div class="col-sm-8">
+                                                <div class="col-sm-12">
 
                                                     <table class="table">
                                                         <thead>
@@ -331,12 +296,11 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                                <td class="aggregate-result-count">
-                                                                    <a href="7e62ca5406ecdedf45e012e6085f027c14492ae35f7cbfd4dede453267095b51.html"><i
-                                                                                class='bi bi-check-circle-fill success-icon'></i>&nbsp;Passing</a>
+                                                                <td class="aggregate-result-count"><i
+                                                                            class='bi bi-check-circle-fill success-icon'></i>&nbsp;Passing
                                                                 </td>
-                                                            <td class="automated-stats">2</td>
-                                                            <td class="automated-stats">100%</td>
+                                                            <td class="automated-stats">0</td>
+                                                            <td class="automated-stats"> </td>
                                                         </tr>
                                                         <tr>
                                                                 <td class="aggregate-result-count"><i
@@ -397,7 +361,7 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                                                         </tr>
                                                         <tr class="summary-stats">
                                                             <td class="aggregate-result-count">Total</td>
-                                                            <td class="automated-stats">2</td>
+                                                            <td class="automated-stats">0</td>
                                                             <td class="automated-stats"></td>
                                                         </tr>
                                                         </tbody>
@@ -421,13 +385,13 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                            <td>14-12-2021 10:08:27 +0100</td>
-                                                            <td>14-12-2021 10:08:30 +0100</td>
-                                                            <td>2s</td>
-                                                            <td>208ms</td>
-                                                            <td>2s</td>
-                                                            <td>1s</td>
-                                                            <td>2s</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>0ms</td>
+                                                            <td>0ms</td>
+                                                            <td>0ms</td>
+                                                            <td>0ms</td>
+                                                            <td>0ms</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -467,11 +431,11 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
             <td> 
                 
             </td>
-            <td>2</td>
+            <td>0</td>
             <td>0</td>
             <td>
-                <span class="status_icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a></span>
-                <span style="display:none">1</span>
+                <span class="status_icon"><a href='##beforetable'><i class='bi bi-hourglass-top pending-icon ' title='PENDING'></i></a></span>
+                <span style="display:none">2</span>
             </td>
 
             <td width="165px">
@@ -480,17 +444,17 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
 <table>
     <tr>
         <td width="40px" style="padding-top:4px;">
-            <div class="small" style="text-align:right;">100%</div>
+            <div class="small" style="text-align:right;">0%</div>
         </td>
         <td style="min-width:12.5em;">
             <div class="progress">
                 <div class="progress-bar" role="progressbar"
-                     style="width: 100%; background-color:#99cc33;"
-                     aria-valuenow="2"
+                     style="width: 0%; background-color:#99cc33;"
+                     aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -502,9 +466,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#A5C7EE;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -516,9 +480,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:darkgrey;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -530,9 +494,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#EEE098;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -544,9 +508,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#FF9966;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -558,9 +522,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#ff1631;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -572,9 +536,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#ff6108;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -586,9 +550,9 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                      style="width: 0%; background-color:#ff68ff;"
                      aria-valuenow="0"
                      aria-valuemin="0"
-                     aria-valuemax="2"
-                     title="  - Total tests: 2
-  - Passing tests: 2 (100%)
+                     aria-valuemax="0"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
   - Failing tests: 0 (0%)
   - Tests with errors: 0 (0%)
   - Compromised tests 0 (0%)
@@ -615,51 +579,7 @@ Some http client examples. Serenity comes with a wrapper for RestAssured but you
                                                 <div class="col-sm-12">
                                                     <h3><i class="bi bi-gear"></i> Automated Tests</h3>
 
-                                                        <table class="scenario-result-table table"
-                                                               id="scenario-results">
-                                                            <thead>
-                                                            <tr>
-                                                                    <th>story</th>
-                                                                <th class="test-name-column">Scenario</th>
-                                                                <th>Steps</th>
-                                                                <th>Started</th>
-                                                                <th>Duration</th>
-                                                                <th>Result</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="4986e333ae5243a6cd9a1e4f07a2757fc44d6fcf184514913ab2bb80ac241cf5.html">Json place holder IT</a>
-                                                                        </td>
-                                                                    <td>
-                                                                            <a href="89133152e76cad4256855352851e364a3586ed7c21fec54792eef07b5180a536.html">When posting</a>
-                                                                    </td>
-                                                                    <td>3</td>
-                                                                    <td>10:08:27</td>
-                                                                    <td>2s 726ms</td>
-                                                                    <td>
-                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                style="display:none">SUCCESS</span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="4986e333ae5243a6cd9a1e4f07a2757fc44d6fcf184514913ab2bb80ac241cf5.html">Json place holder IT</a>
-                                                                        </td>
-                                                                    <td>
-                                                                            <a href="2b7cb77cb84830f04488a404739c6a4a5c15aab13336a8621cafa761b9105c1d.html">When there are many posts</a>
-                                                                    </td>
-                                                                    <td>2</td>
-                                                                    <td>10:08:30</td>
-                                                                    <td>208ms</td>
-                                                                    <td>
-                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                style="display:none">SUCCESS</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                        No automated tests were executed
 
                                                 </div>
                                             </div>

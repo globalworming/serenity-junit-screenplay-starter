@@ -1,7 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="com.example.e2e.neuralnet.gui.NeuralNetIT" skipped="0" tests="4" time="13.4" timestamp="2021-12-14 10:08:12"><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on two facts"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor can see facts and error"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor trains neural net"/><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on three facts"><failure message="&#10;Expected: is &quot;white&quot;&#10;     but: was &quot;gray&quot;" type="java.lang.AssertionError">
-Expected: is "white"
-     but: was "gray"</failure><system-err>
-Expected: is "white"
-     but: was "gray"
-com.example.e2e.neuralnet.gui.NeuralNetIT.whenTrainingOnThreeFacts(NeuralNetIT.java:61)
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="3" name="com.example.e2e.neuralnet.gui.NeuralNetIT" skipped="0" tests="4" time="26.54" timestamp="2021-12-16 11:13:20"><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on two facts"><failure message="Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'&#10;Driver info: driver.version: unknown" type="net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException">Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown</failure><system-err>Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$0(TrainNeuralNet.java:29)
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$1(TrainNeuralNet.java:26)
+com.example.screenplay.action.browser.TrainNeuralNet.performAs(TrainNeuralNet.java:23)
+com.example.e2e.neuralnet.gui.NeuralNetIT.whenTrainingOnTwoFacts(NeuralNetIT.java:46)
+</system-err></testcase><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor can see facts and error"><failure message="Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-black to be present (tried for 5 second(s) with 100 milliseconds interval)&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'&#10;Driver info: driver.version: unknown" type="net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException">Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-black to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown</failure><system-err>Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-black to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$0(TrainNeuralNet.java:29)
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$1(TrainNeuralNet.java:26)
+com.example.screenplay.action.browser.TrainNeuralNet.performAs(TrainNeuralNet.java:23)
+com.example.e2e.neuralnet.gui.NeuralNetIT.actorCanSeeFactsAndError(NeuralNetIT.java:69)
+</system-err></testcase><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="Actor trains neural net"><error message="no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.e2e-inference-confidence-for-label-black&quot;}&#10;  (Session info: chrome=91.0.4472.114)&#10;For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.114, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: /tmp/.com.google.Chrome.Fwlbff}, goog:chromeOptions: {debuggerAddress: localhost:41899}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}&#10;Session ID: de47d42cbca5bec4f656ce7534976618&#10;*** Element info: {Using=css selector, value=.e2e-inference-confidence-for-label-black}" type="org.openqa.selenium.NoSuchElementException">no such element: Unable to locate element: {"method":"css selector","selector":".e2e-inference-confidence-for-label-black"}
+  (Session info: chrome=91.0.4472.114)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.114, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: /tmp/.com.google.Chrome.Fwlbff}, goog:chromeOptions: {debuggerAddress: localhost:41899}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: de47d42cbca5bec4f656ce7534976618
+*** Element info: {Using=css selector, value=.e2e-inference-confidence-for-label-black}</error><system-err>no such element: Unable to locate element: {"method":"css selector","selector":".e2e-inference-confidence-for-label-black"}
+  (Session info: chrome=91.0.4472.114)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.114, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: /tmp/.com.google.Chrome.Fwlbff}, goog:chromeOptions: {debuggerAddress: localhost:41899}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: de47d42cbca5bec4f656ce7534976618
+*** Element info: {Using=css selector, value=.e2e-inference-confidence-for-label-black}
+com.example.screenplay.question.browser.TheConfidence.answeredBy(TheConfidence.java:24)
+com.example.screenplay.question.browser.TheConfidence.answeredBy(TheConfidence.java:9)
+com.example.e2e.neuralnet.gui.NeuralNetIT.actorTrainsNeuralNet(NeuralNetIT.java:79)
+</system-err></testcase><testcase classname="com.example.e2e.neuralnet.gui.NeuralNetIT" name="When training on three facts"><failure message="Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'&#10;Driver info: driver.version: unknown" type="net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException">Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown</failure><system-err>Expected condition failed: waiting for By.cssSelector: .e2e-do-reward-for-white to be present (tried for 5 second(s) with 100 milliseconds interval)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'kiste', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.8.0-55-generic', java.version: '11.0.8'
+Driver info: driver.version: unknown
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$0(TrainNeuralNet.java:29)
+com.example.screenplay.action.browser.TrainNeuralNet.lambda$performAs$1(TrainNeuralNet.java:26)
+com.example.screenplay.action.browser.TrainNeuralNet.performAs(TrainNeuralNet.java:23)
+com.example.e2e.neuralnet.gui.NeuralNetIT.whenTrainingOnThreeFacts(NeuralNetIT.java:59)
 </system-err></testcase></testsuite>
