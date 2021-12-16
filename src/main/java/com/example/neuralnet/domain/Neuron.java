@@ -1,8 +1,8 @@
 package com.example.neuralnet.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.math3.analysis.function.Sigmoid;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -10,15 +10,18 @@ import java.util.function.DoubleConsumer;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Neuron implements Consumer<Signal>, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
-  private final Sigmoid sigmoid = new Sigmoid();
-  // private ActivationFunction activationFunction = sigmoid::value;
-  private ActivationFunction activationFunction = (x) -> Math.max(0, x);
+  private ActivationFunction activationFunction = ActivationFunction.ReLU;
   private List<DoubleConsumer> outputConsumers = new ArrayList<>();
   private Map<Wire, Double> inputToStrength = new HashMap<>();
   private double bias = 0;
+
+  public Neuron(ActivationFunction activationFunction) {
+    this.activationFunction = activationFunction;
+  }
 
   @Override
   public String toString() {

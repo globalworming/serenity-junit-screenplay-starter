@@ -2,6 +2,7 @@ package com.example.neuralnet.domain;
 
 import com.example.neuralnet.component.NeuralNetFactory;
 import lombok.val;
+import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class NeuralNetErrorTest {
     // with default weight 0, all neurons will emit 0.5
     // we sum up errors for every neuron
     // so an error around 1 would be expected
-    assertThat(neuralNet.calculateCurrentError(), is(1.));
+    assertThat(neuralNet.calculateCurrentError(), IsCloseTo.closeTo(5.88, .1));
   }
 
   @Test
@@ -33,6 +34,6 @@ public class NeuralNetErrorTest {
 
     neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
     neuralNet.addFact(List.of(.0, .0), List.of(.0, .0));
-    assertThat(neuralNet.calculateCurrentError(), is(2.));
+    assertThat(neuralNet.calculateCurrentError(), IsCloseTo.closeTo(4., .1));
   }
 }

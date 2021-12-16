@@ -1,7 +1,6 @@
 package com.example.e2e.neuralnet.gui;
 
 import com.example.e2e.NeuralNetBase;
-import com.example.screenplay.action.browser.NewFactsIncreaseTheError;
 import com.example.screenplay.action.browser.TrainNeuralNet;
 import com.example.screenplay.domain.LabeledColor;
 import com.example.screenplay.question.browser.NumberOfFacts;
@@ -69,7 +68,8 @@ public class NeuralNetIT extends NeuralNetBase {
     val trainingData = List.of(c, c);
     actor.attemptsTo(TrainNeuralNet.onDataSet(trainingData));
     actor.should(eventually(seeThat(new NumberOfFacts(), is(2))));
-    actor.should(seeThat(new NewFactsIncreaseTheError()));
+    // not true for cross entropy
+    // actor.should(seeThat(new NewFactsIncreaseTheError()));
   }
 
   @Test

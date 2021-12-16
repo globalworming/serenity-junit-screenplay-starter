@@ -1,6 +1,8 @@
 package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.component.CustomLabelGrayFromLightnessNeuralNet;
+import com.example.neuralnet.domain.ActivationFunction;
+import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
 import com.example.screenplay.action.WireAllTheNeurons;
 import com.example.screenplay.action.integration.AddFactsSoGrayResemblesCurveWithPeakAtHalfLightness;
@@ -30,19 +32,40 @@ public class ComparingGrayDetectingNeuralNetworksIT {
 
   Actor actor = Actor.named("tester");
   int rounds = 100000;
+  CustomLabelGrayFromLightnessNeuralNet neuralNet = new CustomLabelGrayFromLightnessNeuralNet();
 
   @Before
   public void setUp() {
-    actor.can(
-        new AskAndTrainColorDetectingNeuralNetwork(new CustomLabelGrayFromLightnessNeuralNet()));
+    actor.can(new AskAndTrainColorDetectingNeuralNetwork(neuralNet));
     actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, rounds);
+    actor.attemptsTo(new AddFactsSoGrayResemblesCurveWithPeakAtHalfLightness());
   }
 
   /** the default build, only one sigmoid in- and one output */
   @Test
   public void noHiddenNeurons() {
-    actor.attemptsTo(new AddFactsSoGrayResemblesCurveWithPeakAtHalfLightness());
     actor.attemptsTo(new WireAllTheNeurons());
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
+    Serenity.reportThat(
+        format(
+            "after %s training rounds: current error<%s> should still be close to inital error<%s>. this network can't train efficiently compared to others",
+            rounds, errorAfterTraining, errorBeforeTraining),
+        () ->
+            actor.should(seeThat(new CurrentError(), IsCloseTo.closeTo(errorBeforeTraining, .1))));
+  }
+
+  /** the default build, only one sigmoid in- and one output */
+  @Test
+  public void onHiddenLayerOfThreeReluNeurons() {
+    Serenity.reportThat(
+        "set up 3 hidden ReLU neurons",
+        () -> {
+          neuralNet.addNeuronToLayer(new Neuron(ActivationFunction.ReLU), 1);
+          actor.attemptsTo(new WireAllTheNeurons());
+        });
+
     val errorBeforeTraining = new CurrentError().answeredBy(actor);
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
     val errorAfterTraining = new CurrentError().answeredBy(actor);
