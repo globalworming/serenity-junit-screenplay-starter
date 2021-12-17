@@ -94,8 +94,6 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
 
     val errorBeforeTraining = new CurrentError().answeredBy(actor);
     actor.attemptsTo(new TrainNeuralNetForManyRounds());
-    sanityCheckInferenceResults();
-
     val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
