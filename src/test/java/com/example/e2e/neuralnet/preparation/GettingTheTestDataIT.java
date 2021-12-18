@@ -25,8 +25,6 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GettingTheTestDataIT extends NeuralNetBase {
 
-  @Rule public TemporaryFolder folder = new TemporaryFolder();
-
   Actor you = new Actor("you");
 
   @Test
