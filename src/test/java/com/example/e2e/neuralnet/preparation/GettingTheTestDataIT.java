@@ -44,6 +44,5 @@ public class GettingTheTestDataIT extends NeuralNetBase {
   public void t2_whereWeImportTheDataIntoAnSqliteDatabase() {
     you.attemptsTo(new CreateSqliteDatabaseFromTheSurveyData());
     you.should(eventually(seeThat(new DatabaseConnectionCanBeEstablished())));
-    // /home/wormi/workspace/serenity/serenity-junit-screenplay-starter-java/db
   }
 }
