@@ -75,7 +75,7 @@ public class NeuralNet {
 
     return new TreeMap<>(neuronStream.collect(toMap(Neuron::getUuid, Function.identity())));
   }
-
+  // refactor into function
   /** @return positive change was applied or false when reverted */
   public boolean trainOnFacts() {
     val currentError = calculateCurrentError();
