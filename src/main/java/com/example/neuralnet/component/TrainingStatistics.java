@@ -9,6 +9,7 @@ import java.util.List;
 public class TrainingStatistics {
 
   private List<Double> errors = new ArrayList<>();
+// TODO validation set errors and validation set % labeled correctly 
 
   public void trackError(double d) {
     errors.add(d);
