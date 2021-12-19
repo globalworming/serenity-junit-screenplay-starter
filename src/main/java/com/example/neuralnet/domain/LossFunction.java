@@ -3,7 +3,7 @@ package com.example.neuralnet.domain;
 import lombok.val;
 
 import java.util.function.Function;
-
+// TODO loss function regarding validation set
 public class LossFunction {
   /** whats this? that's neither cross entropy nor quadratic cost, is it? */
   public static final Function<NeuralNet, Double> DEFAULT =
