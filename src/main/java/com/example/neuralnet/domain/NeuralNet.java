@@ -94,6 +94,10 @@ public class NeuralNet {
     return errorFunction.apply(this);
   }
 
+  // fixme: amount of change should be in relation to the error i think.
+  // makes sense insofar as we can allow big changes when we are in a plain and get more
+  // careful when we reach the a point of minimal error where big changes are more likely to be
+  // worse? maybe?
   public RandomChange decideOnChange() {
     val amount = random.nextDouble();
     val direction = random.nextBoolean() ? 1 : -1;
