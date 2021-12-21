@@ -21,7 +21,7 @@ public class TrainNeuralNetUntilBeneficialChangeIsFound implements Performable {
         () -> {
           for (int i = 0; i < maxRounds; i++) {
             val before = neuralNetTrainer.calculateCurrentTrainingError();
-            neuralNetTrainer.train(1);
+            neuralNetTrainer.trainRandomlyChangingSingleAdjustable(1);
             val after = neuralNetTrainer.calculateCurrentTrainingError();
             if (neuralNetTrainer.isPositiveChange(before, after)) {
               return;

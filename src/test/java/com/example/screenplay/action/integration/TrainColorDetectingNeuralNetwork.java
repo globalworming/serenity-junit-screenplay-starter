@@ -3,6 +3,7 @@ package com.example.screenplay.action.integration;
 import com.example.neuralnet.component.ColorDetectingNeuralNetwork;
 import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.neuralnet.domain.NeuralNetTrainer;
+import com.example.neuralnet.domain.TrainingStrategy;
 import com.example.screenplay.actor.Memory;
 import lombok.RequiredArgsConstructor;
 import net.serenitybdd.core.Serenity;
@@ -22,8 +23,16 @@ public class TrainColorDetectingNeuralNetwork implements Performable {
 
   @Override
   public <T extends Actor> void performAs(T actor) {
-    com.example.screenplay.ability.TrainColorDetectingNeuralNetwork.as(actor)
-        .train(actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
+    TrainingStrategy trainingStrategy = actor.recall(Memory.TRAINING_STRATEGY);
+    NeuralNetTrainer neuralNetTrainer =
+        com.example.screenplay.ability.TrainColorDetectingNeuralNetwork.as(actor);
+    if (trainingStrategy == TrainingStrategy.CHANGE_ONE) {
+      neuralNetTrainer.trainRandomlyChangingSingleAdjustable(
+          actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
+    } else {
+      neuralNetTrainer.trainRandomlyChangingAllAdjustables(
+          actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
+    }
   }
 
   @RequiredArgsConstructor
@@ -53,7 +62,8 @@ public class TrainColorDetectingNeuralNetwork implements Performable {
                             .collect(Collectors.toList());
                     neuralNetTrainer.addFact(input, output);
                   }));
-      neuralNetTrainer.train(actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
+      neuralNetTrainer.trainRandomlyChangingSingleAdjustable(
+          actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
     }
   }
 }

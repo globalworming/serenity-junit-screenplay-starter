@@ -8,6 +8,7 @@ public class TrainNeuralNetwork implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
     com.example.screenplay.ability.TrainNeuralNetwork.as(actor)
-        .train(actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
+        .trainRandomlyChangingSingleAdjustable(
+            actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS));
   }
 }
