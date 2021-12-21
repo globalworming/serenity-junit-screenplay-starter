@@ -3,22 +3,35 @@ package com.example.neuralnet.controller;
 import com.example.neuralnet.component.HslColor;
 import com.example.neuralnet.component.LabelHslColorNeuralNet;
 import com.example.neuralnet.component.ModelBuilder;
-import com.example.neuralnet.domain.Fact;
-import com.example.neuralnet.domain.InferenceResult;
-import com.example.neuralnet.domain.LabeledHslColor;
-import com.example.neuralnet.domain.NeuralNetModel;
+import com.example.neuralnet.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class NeuralNetController {
 
   private LabelHslColorNeuralNet colorDetectingNeuralNetwork = new LabelHslColorNeuralNet();
+  private NeuralNetTrainer neuralNetTrainer;
+
+  {
+    neuralNetTrainer = NeuralNetTrainer.builder().neuralNet(colorDetectingNeuralNetwork).build();
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 1);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 1);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 1);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 1);
+    colorDetectingNeuralNetwork.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 1);
+  }
 
   @GetMapping("/infer")
   List<InferenceResult> infer(@RequestParam int h, @RequestParam int s, @RequestParam int l) {
@@ -28,34 +41,31 @@ public class NeuralNetController {
   @GetMapping("/remember")
   void rememberFact(
       @RequestParam int h, @RequestParam int s, @RequestParam int l, @RequestParam String label) {
-    colorDetectingNeuralNetwork.addFact(
-        LabeledHslColor.builder()
-            .label(label)
-            .hslColor(new HslColor(h, 0.01d * s, 0.01d * l))
-            .build());
+    neuralNetTrainer.addFact(
+        colorDetectingNeuralNetwork.toInputs(new HslColor(h, s, l)),
+        colorDetectingNeuralNetwork.getOutputNeurons().stream()
+            .map(it -> it.getLabel().equals(label) ? 1. : 0.)
+            .collect(Collectors.toList()));
   }
 
   @GetMapping("/train")
   void train() {
-    int rounds = 20000;
-    for (int i = 0; i < rounds; i++) {
-      colorDetectingNeuralNetwork.trainOnFacts();
-    }
+    neuralNetTrainer.train(1000);
   }
 
   @GetMapping("/facts")
   List<Fact> facts() {
-    return colorDetectingNeuralNetwork.getFacts();
+    return neuralNetTrainer.getFacts();
   }
 
   @GetMapping("/currentError")
   double currentError() {
-    return colorDetectingNeuralNetwork.calculateCurrentError();
+    return ErrorFunction.DEFAULT.apply(colorDetectingNeuralNetwork, neuralNetTrainer.getFacts());
   }
 
   @GetMapping("/training/errors")
   List<Double> errors() {
-    return colorDetectingNeuralNetwork.getTrainingStatistics().getErrors();
+    return neuralNetTrainer.getTrainingStatistics().getErrors();
   }
 
   @GetMapping("/model")

@@ -4,9 +4,10 @@ import com.example.screenplay.ability.TrainNeuralNetwork;
 import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.screenplay.Actor;
 
-public class CurrentError extends QuestionWithDefaultSubject<Double> {
+public class NumberOfTrainingRounds extends QuestionWithDefaultSubject<Integer> {
+
   @Override
-  public Double answeredBy(Actor actor) {
-    return TrainNeuralNetwork.as(actor).calculateCurrentTrainingError();
+  public Integer answeredBy(Actor actor) {
+    return TrainNeuralNetwork.as(actor).getTrainingStatistics().getErrors().size();
   }
 }

@@ -1,7 +1,6 @@
 package com.example.neuralnet.component;
 
 import com.example.neuralnet.domain.InferenceResult;
-import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.neuralnet.domain.NeuralNet;
 import com.example.neuralnet.domain.Signal;
 
@@ -9,16 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
-
-  public void addFact(LabeledHslColor labeledHslColor) {
-    addFact(
-        toInputs(labeledHslColor.getHslColor()),
-        getOutputNeurons().stream()
-            .map(it -> it.getLabel().equals(labeledHslColor.getLabel()) ? 1. : 0.)
-            .collect(Collectors.toList()));
-  }
-
-  public abstract List<Double> toInputs(HslColor hslColor);
 
   public synchronized List<InferenceResult> infer(HslColor hslColor) {
     List<Double> inputs = toInputs(hslColor);
@@ -34,5 +23,9 @@ public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
                     .label(it.getLabel())
                     .build())
         .collect(Collectors.toList());
+  }
+
+  public static List<Double> toInputs(HslColor hslColor) {
+    return List.of(hslColor.getHue() / 360., hslColor.getSaturation(), hslColor.getLightness());
   }
 }

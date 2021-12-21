@@ -34,6 +34,10 @@ public class Neuron implements Consumer<Signal>, Adjustable {
 
   @Override
   public void accept(Signal signal) {
+    if (inputToStrength.containsKey(signal.getSource())
+        && inputToStrength.get(signal.getSource()) == signal.getStrength()) {
+      return;
+    }
     inputToStrength.put(signal.getSource(), signal.getStrength());
     double activation = getCurrentActivation();
     outputConsumers.forEach(it -> it.accept(activation));

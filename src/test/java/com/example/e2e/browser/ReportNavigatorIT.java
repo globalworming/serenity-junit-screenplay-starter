@@ -1,7 +1,7 @@
 package com.example.e2e.browser;
 
-import com.example.screenplay.action.AccessTheLatestReport;
-import com.example.screenplay.action.LookUpAllUnsuccessfulOutcomes;
+import com.example.screenplay.action.browser.AccessTheLatestReport;
+import com.example.screenplay.action.browser.LookUpAllUnsuccessfulOutcomes;
 import com.example.screenplay.question.browser.OutcomesShown;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;

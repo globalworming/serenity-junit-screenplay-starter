@@ -1,11 +1,11 @@
 package com.example.neuralnet.domain;
 
-import com.example.neuralnet.component.TrainingStatistics;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.val;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,12 +20,9 @@ public class NeuralNet {
   private final List<LabeledNeuron> inputNeurons = new ArrayList<>();
   private final List<LabeledNeuron> outputNeurons = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
-  // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
-  private final List<Fact> facts = new ArrayList<>();
   private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
-  private Function<NeuralNet, Double> errorFunction = LossFunction.DEFAULT;
-  private TrainingStatistics trainingStatistics = new TrainingStatistics();
+  private BiFunction<NeuralNet, List<Fact>, Double> errorFunction = ErrorFunction.DEFAULT;
 
   public void addNeuronToLayer(Neuron neuron, int layer) {
     while (hiddenLayers.size() < layer + 1) {
@@ -75,52 +72,6 @@ public class NeuralNet {
 
     return new TreeMap<>(neuronStream.collect(toMap(Neuron::getUuid, Function.identity())));
   }
-  // refactor into function
-  /** @return positive change was applied or false when reverted */
-  public boolean trainOnFacts() {
-    val currentError = calculateCurrentError();
-    getTrainingStatistics().trackError(currentError);
-    val change = decideOnChange();
-    applyChange(change);
-    val newError = calculateCurrentError();
-    if (isPositiveChange(currentError, newError)) {
-      return true;
-    }
-    revertChange(change);
-    return false;
-  }
-
-  public double calculateCurrentError() {
-    return errorFunction.apply(this);
-  }
-
-  // fixme: amount of change should be in relation to the error i think.
-  // makes sense insofar as we can allow big changes when we are in a plain and get more
-  // careful when we reach the a point of minimal error where big changes are more likely to be
-  // worse? maybe?
-  public RandomChange decideOnChange() {
-    val amount = random.nextDouble();
-    val direction = random.nextBoolean() ? 1 : -1;
-    val target =
-        // constructs new list.. probably better to just iterate until at right position
-        new ArrayList<>(uuidToAdjustable.keySet())
-            .get(random.nextInt(uuidToAdjustable.keySet().size()));
-    return RandomChange.builder().amount(amount * direction).target(target).build();
-  }
-
-  public void applyChange(RandomChange change) {
-    uuidToAdjustable.get(change.getTarget()).adjust(change.getAmount());
-  }
-
-  public boolean isPositiveChange(double currentCost, double newCost) {
-    // TODO maybe less or equal? do we want to allow changes that have no effect?
-    boolean b = newCost < currentCost;
-    return b;
-  }
-
-  public void revertChange(RandomChange change) {
-    uuidToAdjustable.get(change.getTarget()).adjust(-change.getAmount());
-  }
 
   public long size() {
     return inputNeurons.size()
@@ -148,14 +99,6 @@ public class NeuralNet {
   public void addOutputNeuron(LabeledNeuron outputNeuron) {
     outputNeuron.setBias(random.nextDouble());
     outputNeurons.add(outputNeuron);
-  }
-
-  /**
-   * Given specific input we expect some neurons to be very active. Facts are used to check if
-   * adjustments to weights and biases are beneficial overall
-   */
-  public void addFact(List<Double> inputs, List<Double> expectedOutputs) {
-    facts.add(Fact.builder().inputs(inputs).outputs(expectedOutputs).build());
   }
 
   public List<Neuron> getNeurons() {

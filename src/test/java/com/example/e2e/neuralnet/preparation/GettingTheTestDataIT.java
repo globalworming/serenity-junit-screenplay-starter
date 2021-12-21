@@ -11,9 +11,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.thucydides.core.annotations.Narrative;
 import org.junit.FixMethodOrder;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
@@ -25,7 +23,7 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GettingTheTestDataIT extends NeuralNetBase {
 
-  Actor you = new Actor("you");
+  private Actor you = new Actor("you");
 
   @Test
   public void t1_whereWeDownloadAndExtractTheDump() {
