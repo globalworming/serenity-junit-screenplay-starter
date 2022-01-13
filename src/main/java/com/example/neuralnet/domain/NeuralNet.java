@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.val;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
 
 @ToString
@@ -23,7 +26,7 @@ public class NeuralNet {
   // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
   private final List<Fact> facts = new ArrayList<>();
-  private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
+  private List<Adjustable> adjustables = new ArrayList<>();
   private Function<NeuralNet, Double> errorFunction = LossFunction.DEFAULT;
   private TrainingStatistics trainingStatistics = new TrainingStatistics();
 
@@ -63,17 +66,17 @@ public class NeuralNet {
   }
 
   protected void updateAdjustables() {
-    uuidToAdjustable = new TreeMap<>(allNeuronsById());
-    getWires().forEach(wire -> uuidToAdjustable.put(wire.getUuid(), wire));
+    adjustables = new ArrayList<>(allNeuronsById());
+    adjustables.addAll(getWires());
   }
 
-  private Map<UUID, Adjustable> allNeuronsById() {
+  private List<Adjustable> allNeuronsById() {
     Stream<Neuron> neuronStream =
         concat(
             concat(inputNeurons.stream(), outputNeurons.stream()),
             hiddenLayers.stream().flatMap(Collection::stream));
 
-    return new TreeMap<>(neuronStream.collect(toMap(Neuron::getUuid, Function.identity())));
+    return neuronStream.collect(toList());
   }
   // refactor into function
   /** @return positive change was applied or false when reverted */
@@ -103,23 +106,21 @@ public class NeuralNet {
     val direction = random.nextBoolean() ? 1 : -1;
     val target =
         // constructs new list.. probably better to just iterate until at right position
-        new ArrayList<>(uuidToAdjustable.keySet())
-            .get(random.nextInt(uuidToAdjustable.keySet().size()));
+        adjustables.get(random.nextInt(adjustables.size()));
     return RandomChange.builder().amount(amount * direction).target(target).build();
   }
 
   public void applyChange(RandomChange change) {
-    uuidToAdjustable.get(change.getTarget()).adjust(change.getAmount());
+    change.getTarget().adjust(change.getAmount());
   }
 
   public boolean isPositiveChange(double currentCost, double newCost) {
     // TODO maybe less or equal? do we want to allow changes that have no effect?
-    boolean b = newCost < currentCost;
-    return b;
+    return newCost < currentCost;
   }
 
   public void revertChange(RandomChange change) {
-    uuidToAdjustable.get(change.getTarget()).adjust(-change.getAmount());
+    change.getTarget().adjust(-change.getAmount());
   }
 
   public long size() {
