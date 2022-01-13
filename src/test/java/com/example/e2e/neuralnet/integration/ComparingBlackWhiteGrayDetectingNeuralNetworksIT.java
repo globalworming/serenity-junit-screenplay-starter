@@ -19,6 +19,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.thucydides.core.annotations.Narrative;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -36,7 +37,7 @@ import static org.hamcrest.Matchers.is;
 public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
 
   Actor actor = Actor.named("tester");
-  int rounds = 50000;
+  int rounds = 80000;
   CustomGrayWhiteBlackFromLightnessNeuralNet neuralNet =
       new CustomGrayWhiteBlackFromLightnessNeuralNet();
 
@@ -47,8 +48,8 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
     actor.attemptsTo(new AddSmallSampleFactsForGrayWhiteBlackLabels());
   }
 
-  /** the default build, only one sigmoid in- and one output */
   @Test
+  @Ignore
   public void noHiddenNeuronsAllSigmoid() {
     Serenity.reportThat(
         "with default configuration", () -> actor.attemptsTo(new WireAllTheNeurons()));
@@ -84,6 +85,7 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
   }
 
   @Test
+  @Ignore
   public void noHiddenNeuronsAllReLu() {
     Serenity.reportThat(
         "with all neurons set to ReLU",

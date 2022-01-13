@@ -115,8 +115,7 @@ public class NeuralNet {
   }
 
   public boolean isPositiveChange(double currentCost, double newCost) {
-    // TODO maybe less or equal? do we want to allow changes that have no effect?
-    return newCost < currentCost;
+    return newCost <= currentCost;
   }
 
   public void revertChange(RandomChange change) {
