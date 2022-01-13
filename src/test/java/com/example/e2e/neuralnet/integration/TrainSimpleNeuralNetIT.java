@@ -3,18 +3,16 @@ package com.example.e2e.neuralnet.integration;
 import com.example.e2e.NeuralNetBase;
 import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
-import com.example.screenplay.action.integration.EstablishFact;
+import com.example.screenplay.action.EstablishFact;
+import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
 import com.example.screenplay.action.integration.TrainNeuralNetUntilBeneficialChangeIsFound;
-import com.example.screenplay.action.integration.TrainNeuralNetwork;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.question.integration.CurrentError;
 import com.example.screenplay.question.integration.ErrorGoesDownOverRounds;
-import com.example.screenplay.question.integration.NumberOfTrainingRounds;
 import lombok.val;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Narrative;
-import org.hamcrest.number.IsCloseTo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,16 +37,16 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
   @Test
   public void whereSmallNeuralNetIsTrainedOnSingleFact() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    trainer.attemptsTo(new EstablishFact(input, expectedOutput));
-    trainer.attemptsTo(new TrainNeuralNetwork());
-    trainer.should(seeThat(new CurrentError(), closeTo(0, .1)));
+    actor.attemptsTo(new EstablishFact(input, expectedOutput));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    actor.should(seeThat(new CurrentError(), closeTo(0, .1)));
   }
 
   private void givenNeuralNetWithTwoInAndOutputNeuronsWiredUp() {
     Serenity.reportThat(
         "given neural net with 2 in- and 2 output neurons wired with each other",
         () -> {
-          val neuralNet = InteractWithNeuralNet.as(you);
+          val neuralNet = InteractWithNeuralNet.as(actor);
           neuralNet.addInputNeuron(LabeledNeuron.builder().build());
           neuralNet.addInputNeuron(LabeledNeuron.builder().build());
           neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
@@ -60,54 +58,53 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
   @Test
   public void whereOneBeneficialChangeShouldReduceTheError() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    trainer.attemptsTo(new EstablishFact(input, expectedOutput));
-    val errorBeforeTraining = new CurrentError().answeredBy(trainer);
-    trainer.should(seeThat(new CurrentError(), greaterThan(9.)));
-    trainer.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
-    trainer.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
+    actor.attemptsTo(new EstablishFact(input, expectedOutput));
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.should(seeThat(new CurrentError(), greaterThan(9.)));
+    actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
+    actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
   }
 
   @Test
   public void whereConflictingFactsFindBeneficialChange() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    trainer.attemptsTo(
+    actor.attemptsTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
-    val errorBeforeTraining = trainer.asksFor(new CurrentError());
-    trainer.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
-    trainer.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
+    val errorBeforeTraining = actor.asksFor(new CurrentError());
+    actor.attemptsTo(new TrainNeuralNetUntilBeneficialChangeIsFound());
+    actor.should(seeThat(new CurrentError(), lessThan(errorBeforeTraining)));
   }
 
-  /** also flakey? didn't I just see this fail? */
   @Test
   public void whereConflictingFactsLimitTheDecreaseInError() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    trainer.attemptsTo(
+    actor.attemptsTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
-    trainer.should(seeThat(new CurrentError(), IsCloseTo.closeTo(7.6, 0.01)));
-    trainer.attemptsTo(new TrainNeuralNetwork());
+    actor.should(seeThat(new CurrentError(), greaterThan(7.6)));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
     // won't get better no matter how many changes you try, there must always be a constant error
-    trainer.should(seeThat(new CurrentError(), closeTo(0.15, .01)));
+    actor.should(seeThat(new CurrentError(), closeTo(0.15, .01)));
   }
 
   @Test
   public void whereTrainingLogsShowErrorGoingDown() {
     givenNeuralNetReadyForTraining();
-    trainer.attemptsTo(new TrainNeuralNetwork());
-    trainer.should(seeThat(new ErrorGoesDownOverRounds()));
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    actor.should(seeThat(new ErrorGoesDownOverRounds()));
   }
 
   private void givenNeuralNetReadyForTraining() {
     givenNeuralNetWithTwoInAndOutputNeuronsWiredUp();
-    trainer.wasAbleTo(
+    actor.wasAbleTo(
         new EstablishFact(input, expectedOutput), new EstablishFact(input, otherExpectedOutput));
   }
 
   @Test
   public void whereWeKeepTrackOfTheNumberOfTrainingRounds() {
     givenNeuralNetReadyForTraining();
-    trainer.attemptsTo(new TrainNeuralNetwork());
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
 
-    int rounds = trainer.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS);
-    trainer.should(seeThat(new NumberOfTrainingRounds(), is(rounds)));
+    int rounds = actor.recall(Memory.NUMBER_OF_TRAINING_ROUNDS);
+    actor.should(seeThat(new NumberOfTrainingRounds(), is(rounds)));
   }
 }

@@ -1,6 +1,6 @@
 package com.example.e2e.rolegate;
 
-import com.example.screenplay.action.browser.RegisterAccount;
+import com.example.screenplay.action.RegisterAccount;
 import com.example.screenplay.actor.ActorPropertiesFactory;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.actor.ReceiveEmails;

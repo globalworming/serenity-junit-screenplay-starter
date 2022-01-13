@@ -15,28 +15,25 @@ public class NeuralNetErrorTest {
   @Test
   public void whenCalculatingErrorWithoutFacts() {
     val neuralNet = NeuralNetFactory.buildWithTwoInputsAndTwoOutputs();
-    val neuralNetTrainer = NeuralNetTrainer.builder().neuralNet(neuralNet).build();
-    assertThat(neuralNetTrainer.calculateCurrentTrainingError(), is(.0));
+    assertThat(neuralNet.calculateCurrentError(), is(.0));
   }
 
   @Test
   public void whenCalculatingErrorForSingleFact() {
     val neuralNet = NeuralNetFactory.buildWithTwoInputsAndTwoOutputs();
-    val neuralNetTrainer = NeuralNetTrainer.builder().neuralNet(neuralNet).build();
-    neuralNetTrainer.addFact(List.of(1., 1.), List.of(1., 1.));
+    neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
     // with default weight 0, all neurons will emit 0.5
     // we sum up errors for every neuron
     // so an error around 1 would be expected
-    assertThat(neuralNetTrainer.calculateCurrentTrainingError(), IsCloseTo.closeTo(5.88, .1));
+    assertThat(neuralNet.calculateCurrentError(), IsCloseTo.closeTo(5.88, .1));
   }
 
   @Test
   public void whenCalculatingErrorForMultipleFacts() {
     val neuralNet = NeuralNetFactory.buildWithTwoInputsAndTwoOutputs();
-    val neuralNetTrainer = NeuralNetTrainer.builder().neuralNet(neuralNet).build();
 
-    neuralNetTrainer.addFact(List.of(1., 1.), List.of(1., 1.));
-    neuralNetTrainer.addFact(List.of(.0, .0), List.of(.0, .0));
-    assertThat(neuralNetTrainer.calculateCurrentTrainingError(), IsCloseTo.closeTo(4., .1));
+    neuralNet.addFact(List.of(1., 1.), List.of(1., 1.));
+    neuralNet.addFact(List.of(.0, .0), List.of(.0, .0));
+    assertThat(neuralNet.calculateCurrentError(), IsCloseTo.closeTo(4., .1));
   }
 }

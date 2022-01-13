@@ -2,7 +2,7 @@ package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeurons;
-import com.example.screenplay.action.integration.LinksTwoNeurons;
+import com.example.screenplay.action.LinksTwoNeurons;
 import com.example.screenplay.question.integration.ExcitingOneNeuronExcitesTheOther;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;

@@ -1,15 +1,17 @@
 package com.example.e2e.neuralnet.integration;
 
+import com.example.neuralnet.component.CustomGrayWhiteBlackFromLightnessNeuralNet;
 import com.example.neuralnet.component.HslColor;
-import com.example.neuralnet.component.LabelHslColorNeuralNet;
 import com.example.neuralnet.domain.ActivationFunction;
-import com.example.neuralnet.domain.NeuralNetTrainer;
 import com.example.neuralnet.domain.Neuron;
-import com.example.screenplay.ability.InteractWithColorDetectingNeuralNet;
+import com.example.screenplay.ability.AskAndTrainColorDetectingNeuralNetwork;
+import com.example.screenplay.action.WireAllTheNeurons;
 import com.example.screenplay.action.integration.AddSmallSampleFactsForGrayWhiteBlackLabels;
-import com.example.screenplay.action.integration.TrainColorDetectingNeuralNetwork;
+import com.example.screenplay.action.integration.EnsureErrorIsBelowSixPercent;
+import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
 import com.example.screenplay.actor.Memory;
-import com.example.screenplay.question.integration.color.TheMostLikelyLabel;
+import com.example.screenplay.question.integration.CurrentError;
+import com.example.screenplay.question.integration.TheMostLikelyLabel;
 import lombok.val;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -23,9 +25,7 @@ import org.junit.runners.MethodSorters;
 
 import static java.lang.String.format;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThan;
 
 @Narrative(
     text = {
@@ -35,32 +35,27 @@ import static org.hamcrest.Matchers.lessThan;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
 
-  Actor you = Actor.named("you");
-  Actor trainer = Actor.named("trainer");
-  int rounds = 10000;
-  LabelHslColorNeuralNet neuralNet = null;
-  NeuralNetTrainer neuralNetTrainer = null;
+  Actor actor = Actor.named("tester");
+  int rounds = 50000;
+  CustomGrayWhiteBlackFromLightnessNeuralNet neuralNet =
+      new CustomGrayWhiteBlackFromLightnessNeuralNet();
 
   @Before
   public void setUp() {
-    neuralNet = new LabelHslColorNeuralNet();
-    you.can(new InteractWithColorDetectingNeuralNet(neuralNet));
-    trainer.remember(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS, rounds);
-    neuralNetTrainer = NeuralNetTrainer.builder().neuralNet(neuralNet).build();
-    trainer.can(
-        new com.example.screenplay.ability.TrainColorDetectingNeuralNetwork(neuralNetTrainer));
-    trainer.attemptsTo(new AddSmallSampleFactsForGrayWhiteBlackLabels());
+    actor.can(new AskAndTrainColorDetectingNeuralNetwork(neuralNet));
+    actor.remember(Memory.NUMBER_OF_TRAINING_ROUNDS, rounds);
+    actor.attemptsTo(new AddSmallSampleFactsForGrayWhiteBlackLabels());
   }
 
   /** the default build, only one sigmoid in- and one output */
   @Test
   public void noHiddenNeuronsAllSigmoid() {
-    Serenity.reportThat("with default configuration", () -> neuralNet.wire());
+    Serenity.reportThat(
+        "with default configuration", () -> actor.attemptsTo(new WireAllTheNeurons()));
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(
-        new com.example.screenplay.action.integration.TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -68,17 +63,14 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
   private void reportAndCheckErrorReduction(Double errorBeforeTraining, Double errorAfterTraining) {
     Serenity.reportThat(
         errorReductionHappenedAndExpectedError(errorBeforeTraining, errorAfterTraining),
-        () -> {
-          assertThat(errorAfterTraining, lessThan(errorBeforeTraining));
-          assertThat(errorAfterTraining, lessThan(0.06));
-        });
+        () -> actor.attemptsTo(new EnsureErrorIsBelowSixPercent()));
   }
 
   private void sanityCheckInferenceResults() {
     Serenity.reportThat(
         "then sanity check results",
         () ->
-            you.should(
+            actor.should(
                 seeThat(TheMostLikelyLabel.of(HslColor.BLACK), is("black")),
                 seeThat(TheMostLikelyLabel.of(HslColor.WHITE), is("white")),
                 seeThat(TheMostLikelyLabel.of(HslColor.GRAY), is("gray"))));
@@ -97,12 +89,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
         "with all neurons set to ReLU",
         () -> {
           neuralNet.getNeurons().forEach(it -> it.setActivationFunction(ActivationFunction.ReLU));
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -114,12 +106,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
         () -> {
           neuralNet.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
           neuralNet.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -132,12 +124,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
           for (int i = 0; i < 6; i++) {
             neuralNet.addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
           }
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -150,12 +142,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
           neuralNet.addNeuronToLayer(new Neuron(), 0);
           neuralNet.addNeuronToLayer(new Neuron(), 0);
           neuralNet.getNeurons().forEach(it -> it.setActivationFunction(ActivationFunction.ReLU));
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -169,12 +161,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
             neuralNet.addNeuronToLayer(new Neuron(), 0);
           }
           neuralNet.getNeurons().forEach(it -> it.setActivationFunction(ActivationFunction.ReLU));
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -189,12 +181,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
             neuralNet.addNeuronToLayer(new Neuron(), 1);
           }
           neuralNet.getNeurons().forEach(it -> it.setActivationFunction(ActivationFunction.ReLU));
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }
@@ -209,12 +201,12 @@ public class ComparingBlackWhiteGrayDetectingNeuralNetworksIT {
             neuralNet.addNeuronToLayer(new Neuron(), 1);
           }
           neuralNet.getNeurons().forEach(it -> it.setActivationFunction(ActivationFunction.ReLU));
-          neuralNet.wire();
+          actor.attemptsTo(new WireAllTheNeurons());
         });
 
-    val errorBeforeTraining = neuralNetTrainer.calculateCurrentTrainingError();
-    trainer.attemptsTo(new TrainColorDetectingNeuralNetwork());
-    val errorAfterTraining = neuralNetTrainer.calculateCurrentTrainingError();
+    val errorBeforeTraining = new CurrentError().answeredBy(actor);
+    actor.attemptsTo(new TrainNeuralNetForManyRounds());
+    val errorAfterTraining = new CurrentError().answeredBy(actor);
     reportAndCheckErrorReduction(errorBeforeTraining, errorAfterTraining);
     sanityCheckInferenceResults();
   }

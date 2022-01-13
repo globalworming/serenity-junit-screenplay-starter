@@ -1,7 +1,7 @@
 package com.example.e2e.api;
 
-import com.example.screenplay.action.http.GetAListOfAllPosts;
-import com.example.screenplay.action.http.UploadNewPost;
+import com.example.screenplay.action.GetAListOfAllPosts;
+import com.example.screenplay.action.UploadNewPost;
 import com.example.screenplay.question.api.NumberOfReturnedPosts;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;

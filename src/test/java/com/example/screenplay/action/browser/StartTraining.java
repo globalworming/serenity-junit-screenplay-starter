@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.greaterThan;
 public class StartTraining implements Performable {
   @Override
   public <T extends Actor> void performAs(T actor) {
-    int intendedTrainingRounds = actor.recall(Memory.DEFAULT_NUMBER_OF_TRAINING_ROUNDS);
+    int intendedTrainingRounds = actor.recall(Memory.NUMBER_OF_TRAINING_ROUNDS);
     long currentTrainingRounds = getCurrentTrainingRounds(actor);
     while (currentTrainingRounds <= intendedTrainingRounds) {
       actor.attemptsTo(Click.on(Target.the("train a few rounds").locatedBy(".e2e-do-train")));
