@@ -1,6 +1,6 @@
 package com.example.screenplay.question.integration;
 
-import com.example.screenplay.ability.InteractWithNeuralNet;
+import com.example.screenplay.ability.TrainNeuralNetwork;
 import com.example.screenplay.question.QuestionWithDefaultSubject;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
@@ -12,7 +12,7 @@ import static java.lang.String.format;
 public class ErrorGoesDownOverRounds extends QuestionWithDefaultSubject<Boolean> {
   @Override
   public Boolean answeredBy(Actor actor) {
-    List<Double> errors = InteractWithNeuralNet.as(actor).getTrainingStatistics().getErrors();
+    List<Double> errors = TrainNeuralNetwork.as(actor).getTrainingStatistics().getErrors();
     Serenity.reportThat(
         format("error list %s should be sorted and decreasing", errors),
         () -> {

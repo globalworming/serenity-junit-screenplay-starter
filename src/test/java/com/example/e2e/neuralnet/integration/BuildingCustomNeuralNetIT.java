@@ -3,7 +3,7 @@ package com.example.e2e.neuralnet.integration;
 import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.NeuralNet;
 import com.example.screenplay.ability.InteractWithNeuralNet;
-import com.example.screenplay.action.WireAllTheNeurons;
+import com.example.screenplay.action.integration.WireAllTheNeurons;
 import com.example.screenplay.question.integration.AllInputsAreWiredToAllOutputs;
 import com.example.screenplay.question.integration.NumberOfWires;
 import net.serenitybdd.core.Serenity;

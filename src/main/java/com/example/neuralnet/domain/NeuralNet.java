@@ -1,19 +1,16 @@
 package com.example.neuralnet.domain;
 
-import com.example.neuralnet.component.TrainingStatistics;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.val;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Stream.concat;
 
 @ToString
@@ -23,12 +20,9 @@ public class NeuralNet {
   private final List<LabeledNeuron> inputNeurons = new ArrayList<>();
   private final List<LabeledNeuron> outputNeurons = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
-  // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
-  private final List<Fact> facts = new ArrayList<>();
-  private List<Adjustable> adjustables = new ArrayList<>();
-  private Function<NeuralNet, Double> errorFunction = LossFunction.DEFAULT;
-  private TrainingStatistics trainingStatistics = new TrainingStatistics();
+  private TreeMap<UUID, Adjustable> uuidToAdjustable = new TreeMap<>();
+  private BiFunction<NeuralNet, List<Fact>, Double> errorFunction = ErrorFunction.DEFAULT;
 
   public void addNeuronToLayer(Neuron neuron, int layer) {
     while (hiddenLayers.size() < layer + 1) {
@@ -66,61 +60,17 @@ public class NeuralNet {
   }
 
   protected void updateAdjustables() {
-    adjustables = new ArrayList<>(allNeuronsById());
-    adjustables.addAll(getWires());
+    uuidToAdjustable = new TreeMap<>(allNeuronsById());
+    getWires().forEach(wire -> uuidToAdjustable.put(wire.getUuid(), wire));
   }
 
-  private List<Adjustable> allNeuronsById() {
+  private Map<UUID, Adjustable> allNeuronsById() {
     Stream<Neuron> neuronStream =
         concat(
             concat(inputNeurons.stream(), outputNeurons.stream()),
             hiddenLayers.stream().flatMap(Collection::stream));
 
-    return neuronStream.collect(toList());
-  }
-  // refactor into function
-  /** @return positive change was applied or false when reverted */
-  public boolean trainOnFacts() {
-    val currentError = calculateCurrentError();
-    getTrainingStatistics().trackError(currentError);
-    val change = decideOnChange();
-    applyChange(change);
-    val newError = calculateCurrentError();
-    if (isPositiveChange(currentError, newError)) {
-      return true;
-    }
-    revertChange(change);
-    return false;
-  }
-
-  public double calculateCurrentError() {
-    return errorFunction.apply(this);
-  }
-
-  // fixme: amount of change should be in relation to the error i think.
-  // makes sense insofar as we can allow big changes when we are in a plain and get more
-  // careful when we reach the a point of minimal error where big changes are more likely to be
-  // worse? maybe?
-  public RandomChange decideOnChange() {
-    val amount = random.nextDouble();
-    val direction = random.nextBoolean() ? 1 : -1;
-    val target =
-        // constructs new list.. probably better to just iterate until at right position
-        adjustables.get(random.nextInt(adjustables.size()));
-    return RandomChange.builder().amount(amount * direction).target(target).build();
-  }
-
-  public void applyChange(RandomChange change) {
-    change.getTarget().adjust(change.getAmount());
-  }
-
-  public boolean isPositiveChange(double currentCost, double newCost) {
-    // TODO maybe less or equal? do we want to allow changes that have no effect?
-    return newCost < currentCost;
-  }
-
-  public void revertChange(RandomChange change) {
-    change.getTarget().adjust(-change.getAmount());
+    return new TreeMap<>(neuronStream.collect(toMap(Neuron::getUuid, Function.identity())));
   }
 
   public long size() {
@@ -149,14 +99,6 @@ public class NeuralNet {
   public void addOutputNeuron(LabeledNeuron outputNeuron) {
     outputNeuron.setBias(random.nextDouble());
     outputNeurons.add(outputNeuron);
-  }
-
-  /**
-   * Given specific input we expect some neurons to be very active. Facts are used to check if
-   * adjustments to weights and biases are beneficial overall
-   */
-  public void addFact(List<Double> inputs, List<Double> expectedOutputs) {
-    facts.add(Fact.builder().inputs(inputs).outputs(expectedOutputs).build());
   }
 
   public List<Neuron> getNeurons() {
