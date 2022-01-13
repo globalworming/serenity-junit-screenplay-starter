@@ -20,8 +20,8 @@ import static java.util.stream.Stream.concat;
 @Getter
 public class NeuralNet {
   private final Random random = new Random(0);
-  private final List<LabeledNeuron> inputNeurons = new ArrayList<>();
-  private final List<LabeledNeuron> outputNeurons = new ArrayList<>();
+  private final List<Neuron> inputNeurons = new ArrayList<>();
+  private final List<Neuron> outputNeurons = new ArrayList<>();
   private final List<Wire> wires = new ArrayList<>();
   // hidden layer seems like a terrible name. i can see it, can't I?
   private final List<List<Neuron>> hiddenLayers = new ArrayList<>();
@@ -129,24 +129,24 @@ public class NeuralNet {
         + hiddenLayers.stream().mapToLong(List::size).sum();
   }
 
-  protected void addInputNeurons(LabeledNeuron... neurons) {
-    for (LabeledNeuron neuron : neurons) {
+  protected void addInputNeurons(Neuron... neurons) {
+    for (Neuron neuron : neurons) {
       addInputNeuron(neuron);
     }
   }
 
-  public void addInputNeuron(LabeledNeuron inputNeuron) {
+  public void addInputNeuron(Neuron inputNeuron) {
     inputNeuron.setBias(random.nextDouble());
     inputNeurons.add(inputNeuron);
   }
 
-  protected void addOutputNeurons(LabeledNeuron... neurons) {
-    for (LabeledNeuron neuron : neurons) {
+  protected void addOutputNeurons(Neuron... neurons) {
+    for (Neuron neuron : neurons) {
       addOutputNeuron(neuron);
     }
   }
 
-  public void addOutputNeuron(LabeledNeuron outputNeuron) {
+  public void addOutputNeuron(Neuron outputNeuron) {
     outputNeuron.setBias(random.nextDouble());
     outputNeurons.add(outputNeuron);
   }
@@ -162,5 +162,11 @@ public class NeuralNet {
   public List<Neuron> getNeurons() {
     return Stream.concat(inputNeurons.stream(), outputNeurons.stream())
         .collect(Collectors.toList());
+  }
+
+  public void feedForward() {
+    inputNeurons.forEach(Neuron::forward);
+    hiddenLayers.forEach(layer -> layer.forEach(Neuron::forward));
+    outputNeurons.forEach(Neuron::forward);
   }
 }

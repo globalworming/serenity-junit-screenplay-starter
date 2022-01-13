@@ -13,12 +13,12 @@ import static net.serenitybdd.core.Serenity.reportThat;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 @RequiredArgsConstructor
-public class SendSignalToNeuron implements Performable {
+public class SendSignalToNeuronAndForward implements Performable {
 
   private final Wire source;
 
   public static Performable from(Wire source) {
-    return instrumented(SendSignalToNeuron.class, source);
+    return instrumented(SendSignalToNeuronAndForward.class, source);
   }
 
   @Override
@@ -27,5 +27,6 @@ public class SendSignalToNeuron implements Performable {
     val signal = Signal.builder().source(source).strength(.5).build();
     val action = format("send %s from %s to %s", signal, source, neuron);
     reportThat(action, () -> neuron.accept(signal));
+    reportThat("feed forward signal", neuron::forward);
   }
 }

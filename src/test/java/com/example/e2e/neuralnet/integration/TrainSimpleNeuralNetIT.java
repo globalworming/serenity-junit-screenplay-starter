@@ -1,7 +1,7 @@
 package com.example.e2e.neuralnet.integration;
 
 import com.example.e2e.NeuralNetBase;
-import com.example.neuralnet.domain.LabeledNeuron;
+import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import com.example.screenplay.action.EstablishFact;
 import com.example.screenplay.action.integration.TrainNeuralNetForManyRounds;
@@ -47,10 +47,10 @@ public class TrainSimpleNeuralNetIT extends NeuralNetBase {
         "given neural net with 2 in- and 2 output neurons wired with each other",
         () -> {
           val neuralNet = InteractWithNeuralNet.as(actor);
-          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
-          neuralNet.addInputNeuron(LabeledNeuron.builder().build());
-          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
-          neuralNet.addOutputNeuron(LabeledNeuron.builder().build());
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addInputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
+          neuralNet.addOutputNeuron(new Neuron());
           neuralNet.wire();
         });
   }

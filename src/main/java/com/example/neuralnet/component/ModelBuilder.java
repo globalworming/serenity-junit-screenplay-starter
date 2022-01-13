@@ -1,6 +1,5 @@
 package com.example.neuralnet.component;
 
-import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.NeuralNet;
 import com.example.neuralnet.domain.NeuralNetModel;
 import com.example.neuralnet.domain.Neuron;
@@ -60,11 +59,11 @@ public class ModelBuilder {
   private static NeuralNetModel.Node buildNode(Neuron neuron, int index, int layer, Type type) {
     NeuralNetModel.Node.NodeBuilder builder =
         NeuralNetModel.Node.builder().uuid(neuron.getUuid()).layer(layer).index(index);
-    if (neuron instanceof LabeledNeuron) {
+    if (neuron instanceof Neuron) {
       builder
           .type(type.toString().toLowerCase())
-          .activation(((LabeledNeuron) neuron).getActivation())
-          .label(((LabeledNeuron) neuron).getLabel());
+          .activation(((Neuron) neuron).getActivation())
+          .label(((Neuron) neuron).getLabel());
     }
     return builder.build();
   }

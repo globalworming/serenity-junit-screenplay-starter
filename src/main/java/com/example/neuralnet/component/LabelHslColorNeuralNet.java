@@ -1,7 +1,6 @@
 package com.example.neuralnet.component;
 
 import com.example.neuralnet.domain.ActivationFunction;
-import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.Neuron;
 
 import java.util.List;
@@ -9,14 +8,9 @@ import java.util.List;
 public class LabelHslColorNeuralNet extends ColorDetectingNeuralNetwork {
 
   public LabelHslColorNeuralNet() {
-    addInputNeurons(
-        LabeledNeuron.builder().label("hue").build(),
-        LabeledNeuron.builder().label("saturation").build(),
-        LabeledNeuron.builder().label("lightness").build());
-    addOutputNeurons(
-        LabeledNeuron.builder().label("black").build(),
-        LabeledNeuron.builder().label("gray").build(),
-        LabeledNeuron.builder().label("white").build());
+    addInputNeurons(new Neuron("hue"), new Neuron("saturation"), new Neuron("lightness"));
+    addOutputNeurons(new Neuron("black"), new Neuron("gray"), new Neuron("white"));
+    getOutputNeurons().forEach(neuron -> neuron.setActivationFunction(ActivationFunction.Sigmoid));
     addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
     addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);
     addNeuronToLayer(new Neuron(ActivationFunction.Sigmoid), 0);

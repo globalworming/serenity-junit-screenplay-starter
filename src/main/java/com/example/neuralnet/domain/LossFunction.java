@@ -11,7 +11,8 @@ public class LossFunction {
         if (neuralNet.getFacts().size() == 0) {
           return 0.;
         }
-        return neuralNet.getFacts().stream()
+        double sum =
+            neuralNet.getFacts().stream()
                 .mapToDouble(
                     fact -> {
                       val factualInputs = fact.getInputs();
@@ -21,6 +22,7 @@ public class LossFunction {
                             .get(i)
                             .accept(Signal.builder().strength(factualInputs.get(i)).build());
                       }
+                      neuralNet.feedForward();
                       val factualResults = fact.getOutputs();
                       double error = 0;
                       for (int i = 0; i < factualResults.size(); i++) {
@@ -29,7 +31,7 @@ public class LossFunction {
                       }
                       return error;
                     })
-                .sum()
-            / neuralNet.getFacts().size();
+                .sum();
+        return sum / neuralNet.getFacts().size();
       };
 }

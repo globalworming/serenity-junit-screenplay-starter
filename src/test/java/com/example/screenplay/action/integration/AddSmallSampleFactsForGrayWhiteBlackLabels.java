@@ -1,7 +1,7 @@
 package com.example.screenplay.action.integration;
 
-import com.example.neuralnet.domain.LabeledNeuron;
 import com.example.neuralnet.domain.NeuralNet;
+import com.example.neuralnet.domain.Neuron;
 import com.example.screenplay.ability.InteractWithNeuralNet;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
@@ -20,7 +20,7 @@ public class AddSmallSampleFactsForGrayWhiteBlackLabels implements Performable {
         seeThat(
             "precondition: neural net has single input and labels 'black', 'white', 'gray'",
             (a) -> {
-              List<LabeledNeuron> outputNeurons = neuralNet.getOutputNeurons();
+              List<Neuron> outputNeurons = neuralNet.getOutputNeurons();
               return neuralNet.size() == 4
                   && neuralNet.getInputNeurons().size() == 1
                   && outputNeurons.size() == 3

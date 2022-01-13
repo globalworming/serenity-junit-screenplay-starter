@@ -7,7 +7,6 @@ import com.example.screenplay.action.TrainColorDetectingNeuralNet;
 import com.example.screenplay.actor.Memory;
 import com.example.screenplay.question.integration.TheHighestConfidence;
 import com.example.screenplay.question.integration.TheMostLikelyLabel;
-import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.thucydides.core.annotations.Narrative;
@@ -17,15 +16,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.example.neuralnet.component.HslColor.BLACK;
-import static com.example.neuralnet.component.HslColor.WHITE;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 @Narrative(
     text =
@@ -47,22 +43,9 @@ public class ColorDetectingNeuralNetIT {
   }
 
   @Test
-  public void actorTrainsNeuralNet() {
-    val trainingData =
-        Arrays.asList(
-            LabeledHslColor.builder().hslColor(BLACK).label("black").build(),
-            //  LabeledHslColor.builder().hslColor(GRAY).label("gray").build(),
-            LabeledHslColor.builder().hslColor(WHITE).label("white").build());
-    val beforeTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
-    actor.attemptsTo(TrainColorDetectingNeuralNet.onDataSet(trainingData));
-    double afterTraining = actor.asksFor(TheHighestConfidence.of(BLACK));
-    assertThat(afterTraining, greaterThan(beforeTraining));
-  }
-
-  @Test
   public void whenTrainingOnSpecificOutputTheConfidenceGetsVeryHigh() {
     List<LabeledHslColor> trainingData = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       trainingData.add(LabeledHslColor.builder().hslColor(BLACK).label("black").build());
     }
 

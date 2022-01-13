@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 
@@ -14,13 +16,19 @@ import java.util.function.DoubleConsumer;
 public class Neuron implements Consumer<Signal>, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
+  private String label;
+  private double activation;
   private ActivationFunction activationFunction = ActivationFunction.DEFAULT;
   private List<DoubleConsumer> outputConsumers = new ArrayList<>();
-  private Map<Wire, Double> inputToStrength = new HashMap<>();
+  private List<Double> signals = new ArrayList<>();
   private double bias = 0;
 
   public Neuron(ActivationFunction activationFunction) {
     this.activationFunction = activationFunction;
+  }
+
+  public Neuron(String label) {
+    this.label = label;
   }
 
   @Override
@@ -34,18 +42,18 @@ public class Neuron implements Consumer<Signal>, Adjustable {
 
   @Override
   public void accept(Signal signal) {
-    inputToStrength.put(signal.getSource(), signal.getStrength());
-    double activation = getCurrentActivation();
+    signals.add(signal.getStrength());
+  }
+
+  public void forward() {
+    refreshActivation();
+    signals.clear();
     outputConsumers.forEach(it -> it.accept(activation));
   }
 
-  double getCurrentActivation() {
-    if (inputToStrength.size() == 0) {
-      return activationFunction.apply(bias);
-    }
-
-    double sum = inputToStrength.values().stream().mapToDouble(it -> it).sum();
-    return activationFunction.apply(sum + bias);
+  private void refreshActivation() {
+    double sum = signals.stream().mapToDouble(it -> it).sum();
+    activation = activationFunction.apply(sum + bias);
   }
 
   @Override

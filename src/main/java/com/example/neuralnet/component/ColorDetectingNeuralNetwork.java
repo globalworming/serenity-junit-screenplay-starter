@@ -21,10 +21,8 @@ public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
   public abstract List<Double> toInputs(HslColor hslColor);
 
   public synchronized List<InferenceResult> infer(HslColor hslColor) {
-    List<Double> inputs = toInputs(hslColor);
-    for (int i = 0; i < getInputNeurons().size(); i++) {
-      getInputNeurons().get(i).accept(Signal.builder().strength(inputs.get(i)).build());
-    }
+    inputColor(hslColor);
+    feedForward();
     return getOutputNeurons().stream()
         .sorted((n1, n2) -> -Double.compare(n1.getActivation(), n2.getActivation()))
         .map(
@@ -34,5 +32,12 @@ public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
                     .label(it.getLabel())
                     .build())
         .collect(Collectors.toList());
+  }
+
+  private void inputColor(HslColor hslColor) {
+    List<Double> inputs = toInputs(hslColor);
+    for (int i = 0; i < getInputNeurons().size(); i++) {
+      getInputNeurons().get(i).accept(Signal.builder().strength(inputs.get(i)).build());
+    }
   }
 }

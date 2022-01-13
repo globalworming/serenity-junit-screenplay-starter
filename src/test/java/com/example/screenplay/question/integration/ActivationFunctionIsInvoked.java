@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class SigmoidFunctionIsInvoked extends QuestionWithDefaultSubject<Boolean> {
+public class ActivationFunctionIsInvoked extends QuestionWithDefaultSubject<Boolean> {
   @Override
   public Boolean answeredBy(Actor actor) {
     verify(SpyOnNeuron.as(actor).getActivationFunction(), times(1)).apply(any());
