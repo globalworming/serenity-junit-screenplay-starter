@@ -50,7 +50,7 @@ public class NeuralNetController {
 
   @GetMapping("/train")
   void train() {
-    neuralNetTrainer.trainRandomlyChangingSingleAdjustable(1000);
+    neuralNetTrainer.train(1000);
   }
 
   @GetMapping("/facts")

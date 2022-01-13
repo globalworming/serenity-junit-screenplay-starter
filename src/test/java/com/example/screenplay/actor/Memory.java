@@ -11,5 +11,4 @@ public class Memory {
   public static final String LATEST_RESPONSE_BODY = "latest response body";
   public static final String LATEST_NEURON_OUTPUT = "latest neuron output";
   public static final String DEFAULT_NUMBER_OF_TRAINING_ROUNDS = "number of training rounds";
-  public static final String TRAINING_STRATEGY = "training strategy";
 }
