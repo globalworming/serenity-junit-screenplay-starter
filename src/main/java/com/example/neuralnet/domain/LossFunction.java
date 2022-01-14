@@ -5,7 +5,6 @@ import lombok.val;
 import java.util.function.Function;
 // TODO loss function regarding validation set
 public class LossFunction {
-  /** whats this? that's neither cross entropy nor quadratic cost, is it? */
   public static final Function<NeuralNet, Double> DEFAULT =
       (neuralNet) -> {
         if (neuralNet.getFacts().size() == 0) {
@@ -17,10 +16,7 @@ public class LossFunction {
                     fact -> {
                       val factualInputs = fact.getInputs();
                       for (int i = 0; i < factualInputs.size(); i++) {
-                        neuralNet
-                            .getInputNeurons()
-                            .get(i)
-                            .accept(Signal.builder().strength(factualInputs.get(i)).build());
+                        neuralNet.getInputNeurons().get(i).accept(factualInputs.get(i));
                       }
                       neuralNet.feedForward();
                       val factualResults = fact.getOutputs();

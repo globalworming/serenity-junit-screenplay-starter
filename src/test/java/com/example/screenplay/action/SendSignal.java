@@ -1,7 +1,6 @@
 package com.example.screenplay.action;
 
 import com.example.neuralnet.domain.Neuron;
-import com.example.neuralnet.domain.Signal;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import net.serenitybdd.screenplay.Actor;
@@ -21,7 +20,7 @@ public class SendSignal implements Performable {
 
   @Override
   public <T extends Actor> void performAs(T t) {
-    val signal = Signal.builder().strength(.5).build();
+    val signal = .5;
     val action = format("send %s to %s", signal, neuron);
     reportThat(action, () -> neuron.accept(signal));
   }

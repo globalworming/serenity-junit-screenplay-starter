@@ -7,13 +7,12 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Neuron implements Consumer<Signal>, Adjustable {
+public class Neuron implements DoubleConsumer, Adjustable {
 
   private final UUID uuid = UUID.randomUUID();
   private String label;
@@ -41,8 +40,8 @@ public class Neuron implements Consumer<Signal>, Adjustable {
   }
 
   @Override
-  public void accept(Signal signal) {
-    signals.add(signal.getStrength());
+  public void accept(double signal) {
+    signals.add(signal);
   }
 
   public void forward() {

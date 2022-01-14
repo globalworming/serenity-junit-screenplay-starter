@@ -1,6 +1,5 @@
 package com.example.screenplay.action;
 
-import com.example.neuralnet.domain.Signal;
 import com.example.neuralnet.domain.Wire;
 import com.example.screenplay.ability.InteractWithNeuron;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class SendSignalToNeuronAndForward implements Performable {
   @Override
   public void performAs(Actor actor) {
     val neuron = InteractWithNeuron.as(actor);
-    val signal = Signal.builder().source(source).strength(.5).build();
+    val signal = .5;
     val action = format("send %s from %s to %s", signal, source, neuron);
     reportThat(action, () -> neuron.accept(signal));
     reportThat("feed forward signal", neuron::forward);

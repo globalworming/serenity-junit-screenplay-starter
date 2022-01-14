@@ -11,7 +11,7 @@
 
 <section>
     <h1>
-        SvelteKit app
+        click boxes, get points when all are black
     </h1>
     <Game/>
 </section>

@@ -1,7 +1,6 @@
 package com.example.e2e.neuralnet.integration;
 
 import com.example.neuralnet.domain.Neuron;
-import com.example.neuralnet.domain.Signal;
 import com.example.screenplay.ability.InteractWithNeuron;
 import com.example.screenplay.ability.SpyOnNeuron;
 import com.example.screenplay.action.ApplyAnInputToSpyNeuronAndFeedForward;
@@ -38,7 +37,7 @@ public class NeuronIT {
         seeThat(
             "a neuron accepts signals",
             (a) -> {
-              as(a).accept(Signal.builder().build());
+              as(a).accept(0.);
               return true;
             }));
   }

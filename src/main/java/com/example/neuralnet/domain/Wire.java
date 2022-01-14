@@ -20,7 +20,7 @@ public class Wire implements DoubleConsumer, Adjustable {
 
   @Override
   public void accept(double d) {
-    target.accept(Signal.builder().source(this).strength(d * weight).build());
+    target.accept(d * weight);
   }
 
   @Override

@@ -3,7 +3,6 @@ package com.example.neuralnet.component;
 import com.example.neuralnet.domain.InferenceResult;
 import com.example.neuralnet.domain.LabeledHslColor;
 import com.example.neuralnet.domain.NeuralNet;
-import com.example.neuralnet.domain.Signal;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public abstract class ColorDetectingNeuralNetwork extends NeuralNet {
   private void inputColor(HslColor hslColor) {
     List<Double> inputs = toInputs(hslColor);
     for (int i = 0; i < getInputNeurons().size(); i++) {
-      getInputNeurons().get(i).accept(Signal.builder().strength(inputs.get(i)).build());
+      getInputNeurons().get(i).accept(inputs.get(i));
     }
   }
 }
