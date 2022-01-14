@@ -41,9 +41,6 @@ public class NeuralNetFactory {
     neuralNet.addFact(List.of(0., 0.5, 0.), List.of(0., 1., 0., 0.));
     neuralNet.addFact(List.of(0., 0., 0.5), List.of(0., 0., 1., 0.));
     neuralNet.addFact(List.of(0., 0., 0.), List.of(0., 0., 0., 1.));
-    for (int i = 0; i < 100000; i++) {
-      neuralNet.trainOnFacts();
-    }
     return neuralNet;
   }
 }

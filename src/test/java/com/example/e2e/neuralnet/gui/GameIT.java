@@ -41,6 +41,9 @@ public class GameIT {
   @Test(timeout = 60000)
   public void play() {
     while (true) {
+      for (int i = 0; i < 1000; i++) {
+        neuralNet.trainOnFacts();
+      }
       feedNeuralNetWithGameState();
       neuralNet.feedForward();
       Neuron neuron =
@@ -53,6 +56,10 @@ public class GameIT {
       }
       if (neuron.getLabel().startsWith("wait")) {
         Thread.sleep(300);
+      }
+      log.info("current error: " + neuralNet.calculateCurrentError());
+      if (neuralNet.calculateCurrentError() < 0.2) {
+        return;
       }
     }
   }
