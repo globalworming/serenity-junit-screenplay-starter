@@ -12,11 +12,11 @@
         {id: 'tile-2', name: 'danger'}
     ];
     let score = 0;
-    let round = 0;
     let size = tweened(0, {
-        duration: 1000,
+        duration: 100,
         easing: cubicOut
     });
+    let difficulty = 1;
 
     function nextTiles(tiles) {
         tiles.forEach(tile => {
@@ -40,25 +40,25 @@
 
     }
 
-    function nextRound() {
-        round++;
-        if (round === 10) {
-            run = false;
-        }
-    }
-
     const restart = () => {
         score = 0;
-        round = 0;
         run = true;
     }
+
+    const nextFrame = () => {
+        nextPoints(tiles);
+        tiles = nextTiles(tiles);
+        size.set($size < 50 ? 100 : 0)
+    };
+
     onMount(() => {
+        let counter = 0;
         const tick = setInterval(() => {
-            nextRound()
-            nextPoints(tiles);
-            tiles = nextTiles(tiles);
-            size.set($size < 50 ? 100 : 0)
-        }, 1000);
+            if (counter % (Math.round(100 / difficulty)) === 0) {
+                nextFrame();
+            }
+            ++counter
+        }, 10);
 
         return () => {
             clearInterval(tick);
@@ -67,23 +67,27 @@
 
 
 </script>
-<h2>highscore: <span class="see-highscore">{highscore}</span></h2>
+<h2>score: {score} - highscore: <span class="see-highscore">{highscore}</span></h2>
+<div>
+    <button on:click="{e => --difficulty}">-</button>
+    <span>difficulty {difficulty}</span>
+    <button on:click="{e => ++difficulty}">+</button>
+</div>
 {#if !run}
     <button class="do-restart" on:click="{e => restart()}">restart</button>
 {/if}
 
 {#if run}
-    <h2>score: {score}</h2>
-    {#each tiles as { id, name }, i}
-        <div class="tile {id} {name}" on:click="{e => tiles[i].name = ''}"></div>
-    {/each}
-    <div class="bar" style="width: {$size}px"></div>
+  {#each tiles as { id, name }, i}
+      <div class="tile {id} {name}" on:click="{e => tiles[i].name = ''}"></div>
+  {/each}
+  <div class="bar" style="width: {$size}px"></div>
 {/if}
 
 
 <style>
     .bar {
-        height: 1px;
+        height: 3px;
         background: #0d78ae;
     }
 
