@@ -5,6 +5,7 @@
     import {cubicOut} from 'svelte/easing';
 
     let highscore = 0;
+    let health = 100;
     let run = true;
     let tiles = [
         {id: 'tile-0', name: 'danger'},
@@ -40,12 +41,27 @@
 
     }
 
+    function nextHealth(tiles) {
+        if (tiles.filter(tile => tile.name === ('ultradanger')).length === tiles.length) {
+            health = Math.max(--health, 0);
+        }
+        if (health <= 0) {
+            run = false;
+        }
+
+    }
+
     const restart = () => {
         score = 0;
+        health = 100;
         run = true;
     }
 
     const nextFrame = () => {
+        if (!run) {
+            return;
+        }
+        nextHealth(tiles);
         nextPoints(tiles);
         tiles = nextTiles(tiles);
         size.set($size < 50 ? 100 : 0)
@@ -67,7 +83,7 @@
 
 
 </script>
-<h2>score: {score} - highscore: <span class="see-highscore">{highscore}</span></h2>
+<h2>score: {score} - highscore: <span class="see-highscore">{highscore}</span> - health: {health}</h2>
 <div>
     <button on:click="{e => --difficulty}">-</button>
     <span>difficulty {difficulty}</span>
