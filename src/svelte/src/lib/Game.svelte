@@ -67,8 +67,11 @@
 
 
 </script>
-<h2>highscore: {highscore}</h2>
-<button on:click="{e => restart()}">restart</button>
+<h2>highscore: <span class="see-highscore">{highscore}</span></h2>
+{#if !run}
+    <button class="do-restart" on:click="{e => restart()}">restart</button>
+{/if}
+
 {#if run}
     <h2>score: {score}</h2>
     {#each tiles as { id, name }, i}

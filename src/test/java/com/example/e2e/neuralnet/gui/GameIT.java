@@ -9,8 +9,8 @@ import lombok.val;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
+import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Narrative;
@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+
+import java.util.concurrent.TimeUnit;
 
 @Narrative(text = "let an actor use a browser. use a neural net to drive decisions")
 @RunWith(SerenityRunner.class)
@@ -33,6 +35,7 @@ public class GameIT {
 
   @Before
   public void setUp() {
+    browser.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
     actor.can(BrowseTheWeb.with(browser));
     actor.attemptsTo(Open.url("http://localhost:3000"));
   }
@@ -40,28 +43,33 @@ public class GameIT {
   @SneakyThrows
   @Test(timeout = 60000)
   public void play() {
+    trainManyRounds();
     while (true) {
-      for (int i = 0; i < 1000; i++) {
-        neuralNet.trainOnFacts();
-      }
+      restartGameIfNecessary();
       feedNeuralNetWithGameState();
-      neuralNet.feedForward();
-      Neuron neuron =
-          neuralNet.getOutputNeurons().stream()
-              .reduce((n1, n2) -> n1.getActivation() > n2.getActivation() ? n1 : n2)
-              .orElseThrow();
-      log.info(neuron.getLabel());
-      if (neuron.getLabel().startsWith("click ")) {
-        Click.on(neuron.getLabel().substring("click ".length())).performAs(actor);
-      }
-      if (neuron.getLabel().startsWith("wait")) {
-        Thread.sleep(300);
-      }
-      log.info("current error: " + neuralNet.calculateCurrentError());
-      if (neuralNet.calculateCurrentError() < 0.2) {
+      performRecommendedAction();
+      if (currentHighScore() >= 100) {
         return;
       }
     }
+  }
+
+  private void trainManyRounds() {
+    for (int i = 0; i < 50000; i++) {
+      neuralNet.trainOnFacts();
+    }
+    log.info("current error: " + neuralNet.calculateCurrentError());
+  }
+
+  private void restartGameIfNecessary() {
+    Target.the("restart button")
+        .locatedBy(".do-restart")
+        .resolveAllFor(actor)
+        .forEach(
+            webElementFacade -> {
+              trainManyRounds();
+              webElementFacade.click();
+            });
   }
 
   private void feedNeuralNetWithGameState() {
@@ -79,6 +87,27 @@ public class GameIT {
                 feedTileDanger(".tile-2", neuron);
               }
             });
+    neuralNet.feedForward();
+  }
+
+  private void performRecommendedAction() {
+    Neuron neuron =
+        neuralNet.getOutputNeurons().stream()
+            .reduce((n1, n2) -> n1.getActivation() > n2.getActivation() ? n1 : n2)
+            .orElseThrow();
+    log.info(neuron.getLabel());
+    if (neuron.getLabel().startsWith("click ")) {
+      String selector = neuron.getLabel().substring("click ".length());
+      Target.the(selector).locatedBy(selector).resolveFor(actor).click();
+    }
+  }
+
+  private int currentHighScore() {
+    String highscore = Text.of(".high-score").answeredBy(actor);
+    if (highscore.length() == 0) {
+      return 0;
+    }
+    return Integer.parseInt(highscore);
   }
 
   private void feedTileDanger(String selector, Neuron neuron) {
