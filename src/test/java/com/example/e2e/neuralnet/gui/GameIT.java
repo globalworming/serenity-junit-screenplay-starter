@@ -6,6 +6,7 @@ import com.example.neuralnet.domain.Neuron;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
@@ -17,6 +18,8 @@ import net.thucydides.core.annotations.Narrative;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -38,13 +41,14 @@ public class GameIT {
     browser.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
     actor.can(BrowseTheWeb.with(browser));
     actor.attemptsTo(Open.url("http://localhost:3000"));
+    browser.manage().window().setSize(new Dimension(300, 700));
   }
 
   @SneakyThrows
-  @Test(timeout = 60000)
+  @Test(timeout = 600000)
   public void play() {
-    trainManyRounds();
     while (true) {
+      train();
       restartGameIfNecessary();
       feedNeuralNetWithGameState();
       performRecommendedAction();
@@ -54,10 +58,8 @@ public class GameIT {
     }
   }
 
-  private void trainManyRounds() {
-    for (int i = 0; i < 50000; i++) {
-      neuralNet.trainOnFacts();
-    }
+  private void train() {
+    neuralNet.trainOnFacts();
     log.info("current error: " + neuralNet.calculateCurrentError());
   }
 
@@ -65,11 +67,7 @@ public class GameIT {
     Target.the("restart button")
         .locatedBy(".do-restart")
         .resolveAllFor(actor)
-        .forEach(
-            webElementFacade -> {
-              trainManyRounds();
-              webElementFacade.click();
-            });
+        .forEach(WebElementFacade::click);
   }
 
   private void feedNeuralNetWithGameState() {
@@ -96,9 +94,12 @@ public class GameIT {
             .reduce((n1, n2) -> n1.getActivation() > n2.getActivation() ? n1 : n2)
             .orElseThrow();
     log.info(neuron.getLabel());
-    if (neuron.getLabel().startsWith("click ")) {
-      String selector = neuron.getLabel().substring("click ".length());
-      Target.the(selector).locatedBy(selector).resolveFor(actor).click();
+    try {
+      if (neuron.getLabel().startsWith("click ")) {
+        String selector = neuron.getLabel().substring("click ".length());
+        Target.the(selector).locatedBy(selector).resolveFor(actor).click();
+      }
+    } catch (StaleElementReferenceException ignore) {
     }
   }
 
