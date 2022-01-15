@@ -4,12 +4,15 @@
     import {tweened} from 'svelte/motion';
     import {cubicOut} from 'svelte/easing';
 
+    let highscore = 0;
+    let run = true;
     let tiles = [
         {id: 'tile-0', name: 'danger'},
         {id: 'tile-1', name: 'danger'},
         {id: 'tile-2', name: 'danger'}
     ];
-    let points = 0;
+    let score = 0;
+    let round = 0;
     let size = tweened(0, {
         duration: 1000,
         easing: cubicOut
@@ -29,32 +32,51 @@
 
     function nextPoints(tiles) {
         if (tiles.filter(tile => tile.name === '').length === tiles.length) {
-            points += 1
+            score++;
+        }
+        if (score > highscore) {
+            highscore = score;
+        }
+
+    }
+
+    function nextRound() {
+        round++;
+        if (round === 10) {
+            run = false;
         }
     }
 
+    const restart = () => {
+        score = 0;
+        round = 0;
+        run = true;
+    }
     onMount(() => {
-        const interval = setInterval(() => {
+        const tick = setInterval(() => {
+            nextRound()
             nextPoints(tiles);
             tiles = nextTiles(tiles);
             size.set($size < 50 ? 100 : 0)
         }, 1000);
 
         return () => {
-            clearInterval(interval);
+            clearInterval(tick);
         };
     });
 
 
 </script>
+<h2>highscore: {highscore}</h2>
+<button on:click="{e => restart()}">restart</button>
+{#if run}
+    <h2>score: {score}</h2>
+    {#each tiles as { id, name }, i}
+        <div class="tile {id} {name}" on:click="{e => tiles[i].name = ''}"></div>
+    {/each}
+    <div class="bar" style="width: {$size}px"></div>
+{/if}
 
-<div class="bar" style="width: {$size}px"></div>
-<h2>POINTS: {points}</h2>
-{#each tiles as { id, name }, i}
-    <div class="tile {id} {name}" on:click="{e => tiles[i].name = ''}">
-
-    </div>
-{/each}
 
 <style>
     .bar {
@@ -63,8 +85,8 @@
     }
 
     .tile {
-        width: 30px;
-        height: 30px;
+        width: 100px;
+        height: 100px;
         color: #f5f5f5;
         text-align: center;
         background: #0c0d0e;
