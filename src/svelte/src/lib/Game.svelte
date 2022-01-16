@@ -42,9 +42,7 @@
     }
 
     function nextHealth(tiles) {
-        if (tiles.filter(tile => tile.name === ('ultradanger')).length === tiles.length) {
-            health = Math.max(--health, 0);
-        }
+        health = Math.max(health - tiles.filter(tile => tile.name === ('ultradanger')).length, 0);
         if (health <= 0) {
             run = false;
         }
@@ -87,7 +85,7 @@
     health: {health}</h2>
 <div>
     <button class="decrease-difficulty" on:click="{e => difficulty = Math.max(1, difficulty - 1)}">-</button>
-    <span>difficulty {difficulty}</span>
+    <span>difficulty </span><span class="see-difficulty">{difficulty}</span>
     <button class="increase-difficulty" on:click="{e => difficulty = Math.min(100, difficulty + 1)}">+</button>
 </div>
 {#if !run}

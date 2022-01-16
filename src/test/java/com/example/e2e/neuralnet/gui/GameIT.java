@@ -93,6 +93,9 @@ public class GameIT {
               if ("tile-2 danger".equals(neuron.getLabel())) {
                 feedTileDanger(".tile-2", neuron);
               }
+              if ("difficulty".equals(neuron.getLabel())) {
+                feedDifficulty(neuron);
+              }
             });
     neuralNet.feedForward();
   }
@@ -128,5 +131,14 @@ public class GameIT {
       return;
     }
     neuron.accept(0);
+  }
+
+  private void feedDifficulty(Neuron neuron) {
+    String difficulty = Text.of(".see-difficulty").answeredBy(actor);
+
+    if (difficulty.length() == 0) {
+      return;
+    }
+    neuron.accept(Double.parseDouble(difficulty));
   }
 }
