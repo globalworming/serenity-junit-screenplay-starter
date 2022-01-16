@@ -36,7 +36,7 @@ public class GameIT {
   @Managed(driver = "chrome")
   WebDriver browser;
 
-  NeuralNet neuralNet = NeuralNetFactory.buildGamePlayingNeuralNet();
+  NeuralNet neuralNet = NeuralNetFactory.buildGamePlayingNeuralNetThatTrainedSomeRounds();
 
   @Before
   public void setUp() {
@@ -68,7 +68,9 @@ public class GameIT {
   }
 
   private void train() {
-    neuralNet.trainOnFacts();
+    for (int i = 0; i < 100; i++) {
+      neuralNet.trainOnFacts();
+    }
     log.info("current error: " + neuralNet.calculateCurrentError());
   }
 

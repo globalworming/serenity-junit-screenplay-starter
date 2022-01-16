@@ -86,7 +86,7 @@
 <div>
     <button class="decrease-difficulty" on:click="{e => difficulty = Math.max(1, difficulty - 1)}">-</button>
     <span>difficulty </span><span class="see-difficulty">{difficulty}</span>
-    <button class="increase-difficulty" on:click="{e => difficulty = Math.min(100, difficulty + 1)}">+</button>
+    <button class="increase-difficulty" on:click="{e => difficulty = Math.min(5, difficulty + 1)}">+</button>
 </div>
 {#if !run}
     <button class="do-restart" on:click="{e => restart()}">restart</button>

@@ -18,7 +18,7 @@ public class NeuralNetFactory {
     return neuralNet;
   }
 
-  public static NeuralNet buildGamePlayingNeuralNet() {
+  public static NeuralNet buildGamePlayingNeuralNetThatTrainedSomeRounds() {
     val neuralNet = new NeuralNet();
     neuralNet.addInputNeuron(new Neuron("tile-0 danger"));
     neuralNet.addInputNeuron(new Neuron("tile-1 danger"));
@@ -37,7 +37,10 @@ public class NeuralNetFactory {
     neuralNet.addFact(List.of(1., 0., 0., 0.), List.of(1., 0., 0., .0, 0.));
     neuralNet.addFact(List.of(0., 1., 0., 0.), List.of(0., 1., 0., .0, 0.));
     neuralNet.addFact(List.of(0., 0., 1., 0.), List.of(0., 0., 1., .0, 0.));
-    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 0.));
+    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 1.));
+    for (int i = 0; i < 10000; i++) {
+      neuralNet.trainOnFacts();
+    }
     return neuralNet;
   }
 }
