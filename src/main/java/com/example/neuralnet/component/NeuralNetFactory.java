@@ -32,13 +32,16 @@ public class NeuralNetFactory {
     neuralNet.getNeurons().forEach(neuron -> neuron.setActivationFunction(ActivationFunction.ReLU));
     neuralNet.wire();
 
-    neuralNet.addFact(List.of(1., 1., 1., 10.), List.of(0., 0., 0., 0., 1.));
+    neuralNet.addFact(List.of(1., 1., 1., 5.), List.of(0., 0., 0., 0., 1.));
+    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 0.));
     neuralNet.addFact(List.of(1., 1., 1., 1.), List.of(1., 1., 1., 0., 0.));
+    neuralNet.addFact(List.of(0., 1., 1., 1.), List.of(0., 1., 1., 0., 0.));
+    neuralNet.addFact(List.of(1., 0., 1., 1.), List.of(1., 0., 1., 0., 0.));
+    neuralNet.addFact(List.of(1., 1., 0., 1.), List.of(1., 1., 0., 0., 0.));
     neuralNet.addFact(List.of(1., 0., 0., 0.), List.of(1., 0., 0., .0, 0.));
     neuralNet.addFact(List.of(0., 1., 0., 0.), List.of(0., 1., 0., .0, 0.));
     neuralNet.addFact(List.of(0., 0., 1., 0.), List.of(0., 0., 1., .0, 0.));
-    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 1.));
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 200_000; i++) {
       neuralNet.trainOnFacts();
     }
     return neuralNet;

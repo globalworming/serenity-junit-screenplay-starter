@@ -5,7 +5,7 @@
     import {cubicOut} from 'svelte/easing';
 
     let highscore = 0;
-    let health = 100;
+    let health = 10;
     let run = true;
     let tiles = [
         {id: 'tile-0', name: 'danger'},
@@ -51,7 +51,7 @@
 
     const restart = () => {
         score = 0;
-        health = 100;
+        health = 10;
         run = true;
     }
 
