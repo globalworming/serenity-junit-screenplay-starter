@@ -83,11 +83,12 @@
 
 
 </script>
-<h2>score: {score} - highscore: <span class="see-highscore">{highscore}</span> - health: {health}</h2>
+<h2>score: <span class="see-score">{score}</span> - highscore: <span class="see-highscore">{highscore}</span> -
+    health: {health}</h2>
 <div>
-    <button on:click="{e => --difficulty}">-</button>
+    <button class="decrease-difficulty" on:click="{e => difficulty = Math.max(1, difficulty - 1)}">-</button>
     <span>difficulty {difficulty}</span>
-    <button on:click="{e => ++difficulty}">+</button>
+    <button class="increase-difficulty" on:click="{e => difficulty = Math.min(100, difficulty + 1)}">+</button>
 </div>
 {#if !run}
     <button class="do-restart" on:click="{e => restart()}">restart</button>

@@ -26,21 +26,16 @@ public class NeuralNetFactory {
     neuralNet.addOutputNeuron(new Neuron("click .tile-0"));
     neuralNet.addOutputNeuron(new Neuron("click .tile-1"));
     neuralNet.addOutputNeuron(new Neuron("click .tile-2"));
-    neuralNet.addOutputNeuron(new Neuron("wait"));
+    neuralNet.addOutputNeuron(new Neuron("click .increase-difficulty"));
+    neuralNet.addOutputNeuron(new Neuron("click .decrease-difficulty"));
     neuralNet.getNeurons().forEach(neuron -> neuron.setActivationFunction(ActivationFunction.ReLU));
     neuralNet.wire();
 
-    neuralNet.addFact(List.of(1., 1., 1.), List.of(1., 1., 1., 0.));
-    // neuralNet.addFact(List.of(1., 1., 0.), List.of(1., 1., 0., 0.));
-    // neuralNet.addFact(List.of(1., 0., 1.), List.of(1., 0., 1., 0.));
-    // neuralNet.addFact(List.of(0., 1., 1.), List.of(0., 1., 1., 0.));
-    neuralNet.addFact(List.of(1., 0., 0.), List.of(1., 0., 0., 0.));
-    neuralNet.addFact(List.of(0., 1., 0.), List.of(0., 1., 0., 0.));
-    neuralNet.addFact(List.of(0., 0., 1.), List.of(0., 0., 1., 0.));
-    neuralNet.addFact(List.of(0.5, 0., 0.), List.of(1., 0., 0., 0.));
-    neuralNet.addFact(List.of(0., 0.5, 0.), List.of(0., 1., 0., 0.));
-    neuralNet.addFact(List.of(0., 0., 0.5), List.of(0., 0., 1., 0.));
-    neuralNet.addFact(List.of(0., 0., 0.), List.of(0., 0., 0., 1.));
+    neuralNet.addFact(List.of(1., 1., 1.), List.of(0., 0., 0., 0., 1.));
+    neuralNet.addFact(List.of(1., 0., 0.), List.of(1., 0., 0., .0, 0.));
+    neuralNet.addFact(List.of(0., 1., 0.), List.of(0., 1., 0., .0, 0.));
+    neuralNet.addFact(List.of(0., 0., 1.), List.of(0., 0., 1., .0, 0.));
+    neuralNet.addFact(List.of(0., 0., 0.), List.of(0., 0., 0., 1., 0.));
     return neuralNet;
   }
 }

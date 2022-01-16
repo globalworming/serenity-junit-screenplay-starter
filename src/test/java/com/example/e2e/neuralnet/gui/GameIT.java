@@ -15,10 +15,12 @@ import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Narrative;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
@@ -49,9 +51,16 @@ public class GameIT {
   public void play() {
     while (true) {
       train();
-      restartGameIfNecessary();
-      feedNeuralNetWithGameState();
-      performRecommendedAction();
+      try {
+        restartGameIfNecessary();
+        feedNeuralNetWithGameState();
+        performRecommendedAction();
+
+      } catch (StaleElementReferenceException
+          | NoSuchElementException
+          | ElementShouldBeEnabledException ignore) {
+        log.error("", ignore);
+      }
       if (currentHighScore() >= 100) {
         return;
       }
@@ -94,12 +103,9 @@ public class GameIT {
             .reduce((n1, n2) -> n1.getActivation() > n2.getActivation() ? n1 : n2)
             .orElseThrow();
     log.info(neuron.getLabel());
-    try {
-      if (neuron.getLabel().startsWith("click ")) {
-        String selector = neuron.getLabel().substring("click ".length());
-        Target.the(selector).locatedBy(selector).resolveFor(actor).click();
-      }
-    } catch (StaleElementReferenceException ignore) {
+    if (neuron.getLabel().startsWith("click ")) {
+      String selector = neuron.getLabel().substring("click ".length());
+      Target.the(selector).locatedBy(selector).resolveFor(actor).click();
     }
   }
 
