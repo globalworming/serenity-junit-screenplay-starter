@@ -13,8 +13,8 @@
         {id: 'tile-2', name: 'danger'}
     ];
     let score = 0;
-    let size = tweened(0, {
-        duration: 100,
+    let widthPercentage = tweened(0, {
+        duration: 300,
         easing: cubicOut
     });
     let difficulty = 1;
@@ -62,7 +62,7 @@
         nextHealth(tiles);
         nextPoints(tiles);
         tiles = nextTiles(tiles);
-        size.set($size < 50 ? 100 : 0)
+        widthPercentage.set($widthPercentage < 50 ? 100 : 0)
     };
 
     onMount(() => {
@@ -96,7 +96,7 @@
   {#each tiles as { id, name }, i}
       <div class="tile {id} {name}" on:click="{e => tiles[i].name = ''}"></div>
   {/each}
-  <div class="bar" style="width: {$size}px"></div>
+  <div class="bar" style="width: {$widthPercentage}%"></div>
 {/if}
 
 
