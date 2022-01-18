@@ -25,6 +25,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Narrative(text = "let an actor use a browser. use a neural net to drive decisions")
 @RunWith(SerenityRunner.class)
@@ -47,31 +48,23 @@ public class GameIT {
   }
 
   @SneakyThrows
-  @Test(timeout = 600000)
+  @Test()
   public void play() {
     while (true) {
-      train();
       try {
         restartGameIfNecessary();
         feedNeuralNetWithGameState();
         performRecommendedAction();
-
       } catch (StaleElementReferenceException
           | NoSuchElementException
           | ElementShouldBeEnabledException ignore) {
         log.error("", ignore);
       }
-      if (currentHighScore() >= 100) {
+      if (currentHighScore() >= 20) {
         return;
       }
+      train();
     }
-  }
-
-  private void train() {
-    for (int i = 0; i < 100; i++) {
-      neuralNet.trainOnFacts();
-    }
-    log.info("current error: " + neuralNet.calculateCurrentError());
   }
 
   private void restartGameIfNecessary() {
@@ -99,6 +92,11 @@ public class GameIT {
                 feedDifficulty(neuron);
               }
             });
+    val inputs =
+        neuralNet.getInputNeurons().stream()
+            .map(it -> it.getSignals().get(0))
+            .collect(Collectors.toList());
+    log.info("inputs {}", inputs);
     neuralNet.feedForward();
   }
 
@@ -120,6 +118,13 @@ public class GameIT {
       return 0;
     }
     return Integer.parseInt(highscore);
+  }
+
+  private void train() {
+    for (int i = 0; i < 100; i++) {
+      neuralNet.trainOnFacts();
+    }
+    log.info("current error: " + neuralNet.calculateCurrentError());
   }
 
   private void feedTileDanger(String selector, Neuron neuron) {

@@ -19,6 +19,22 @@ public class NeuralNetFactory {
   }
 
   public static NeuralNet buildGamePlayingNeuralNetThatTrainedSomeRounds() {
+    NeuralNet neuralNet = buildGamePlayingNeuralNet();
+
+    neuralNet.addFact(List.of(1., 1., 1., 5.), List.of(0., 0., 0., 0., 1.));
+    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 0.));
+    neuralNet.addFact(List.of(1., 1., 1., 1.), List.of(1., 1., 1., 0., 0.));
+    neuralNet.addFact(List.of(0., 1., 1., 1.), List.of(0., 1., 1., 0., 0.));
+    neuralNet.addFact(List.of(1., 0., 1., 1.), List.of(1., 0., 1., 0., 0.));
+    neuralNet.addFact(List.of(1., 1., 0., 1.), List.of(1., 1., 0., 0., 0.));
+    neuralNet.addFact(List.of(1., 0., 0., 0.), List.of(1., 0., 0., .0, 0.));
+    neuralNet.addFact(List.of(0., 1., 0., 0.), List.of(0., 1., 0., .0, 0.));
+    neuralNet.addFact(List.of(0., 0., 1., 0.), List.of(0., 0., 1., .0, 0.));
+    trainSomeRounds(neuralNet);
+    return neuralNet;
+  }
+
+  private static NeuralNet buildGamePlayingNeuralNet() {
     val neuralNet = new NeuralNet();
     neuralNet.addInputNeuron(new Neuron("tile-0 danger"));
     neuralNet.addInputNeuron(new Neuron("tile-1 danger"));
@@ -31,19 +47,12 @@ public class NeuralNetFactory {
     neuralNet.addOutputNeuron(new Neuron("click .decrease-difficulty"));
     neuralNet.getNeurons().forEach(neuron -> neuron.setActivationFunction(ActivationFunction.ReLU));
     neuralNet.wire();
-
-    neuralNet.addFact(List.of(1., 1., 1., 5.), List.of(0., 0., 0., 0., 1.));
-    neuralNet.addFact(List.of(0., 0., 0., 0.), List.of(0., 0., 0., 1., 0.));
-    neuralNet.addFact(List.of(1., 1., 1., 1.), List.of(1., 1., 1., 0., 0.));
-    neuralNet.addFact(List.of(0., 1., 1., 1.), List.of(0., 1., 1., 0., 0.));
-    neuralNet.addFact(List.of(1., 0., 1., 1.), List.of(1., 0., 1., 0., 0.));
-    neuralNet.addFact(List.of(1., 1., 0., 1.), List.of(1., 1., 0., 0., 0.));
-    neuralNet.addFact(List.of(1., 0., 0., 0.), List.of(1., 0., 0., .0, 0.));
-    neuralNet.addFact(List.of(0., 1., 0., 0.), List.of(0., 1., 0., .0, 0.));
-    neuralNet.addFact(List.of(0., 0., 1., 0.), List.of(0., 0., 1., .0, 0.));
-    for (int i = 0; i < 200_000; i++) {
-      neuralNet.trainOnFacts();
-    }
     return neuralNet;
+  }
+
+  private static void trainSomeRounds(NeuralNet neuralnet) {
+    for (int i = 0; i < 100_000; i++) {
+      neuralnet.trainOnFacts();
+    }
   }
 }
