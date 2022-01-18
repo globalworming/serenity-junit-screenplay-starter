@@ -24,6 +24,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -54,13 +55,12 @@ public class GameIT {
       try {
         restartGameIfNecessary();
         feedNeuralNetWithGameState();
-        performRecommendedAction();
+        performRecommendedActions();
       } catch (StaleElementReferenceException
           | NoSuchElementException
           | ElementShouldBeEnabledException ignore) {
-        log.error("", ignore);
       }
-      if (currentHighScore() >= 20) {
+      if (currentHighScore() >= 5) {
         return;
       }
       train();
@@ -96,11 +96,12 @@ public class GameIT {
         neuralNet.getInputNeurons().stream()
             .map(it -> it.getSignals().get(0))
             .collect(Collectors.toList());
-    log.info("inputs {}", inputs);
+
+    warnIfNoFactForThat();
     neuralNet.feedForward();
   }
 
-  private void performRecommendedAction() {
+  private void performRecommendedActions() {
     Neuron neuron =
         neuralNet.getOutputNeurons().stream()
             .reduce((n1, n2) -> n1.getActivation() > n2.getActivation() ? n1 : n2)
@@ -113,7 +114,7 @@ public class GameIT {
   }
 
   private int currentHighScore() {
-    String highscore = Text.of(".high-score").answeredBy(actor);
+    String highscore = Text.of(".see-highscore").answeredBy(actor);
     if (highscore.length() == 0) {
       return 0;
     }
@@ -134,7 +135,7 @@ public class GameIT {
       return;
     }
     if (el.hasClass("ultradanger")) {
-      neuron.accept(.99);
+      neuron.accept(1.);
       return;
     }
     neuron.accept(0);
@@ -147,5 +148,25 @@ public class GameIT {
       return;
     }
     neuron.accept(Double.parseDouble(difficulty));
+  }
+
+  private void warnIfNoFactForThat() {
+    List<Double> inputs =
+        neuralNet.getInputNeurons().stream()
+            .map(inputNeuron -> inputNeuron.getSignals().get(0))
+            .collect(Collectors.toList());
+    if (neuralNet.getFacts().stream()
+        .filter(
+            fact -> {
+              boolean factMatchesInputPresent = true;
+              for (int i = 0; i < inputs.size(); i++) {
+                factMatchesInputPresent &= inputs.get(i).equals(fact.getInputs().get(i));
+              }
+              return factMatchesInputPresent;
+            })
+        .findFirst()
+        .isEmpty()) {
+      log.warn("no fact for inputs {}", inputs);
+    }
   }
 }
