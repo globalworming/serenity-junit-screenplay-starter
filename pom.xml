@@ -110,6 +110,14 @@
             <version>3.36.0.3</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+        <dependency>
+            <groupId>org.kohsuke</groupId>
+            <artifactId>github-api</artifactId>
+            <version>1.301</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
