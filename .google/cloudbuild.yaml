@@ -1,0 +1,24 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west3-docker.pkg.dev/world-340022/world-docker-repo/world-health:latest', '.' ]
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'cloudrunservice'
+      - '--image'
+      - 'europe-west3-docker.pkg.dev/world-340022/world-docker-repo/world-health:latest'
+      - '--region'
+      - 'europe-west3'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+images:
+  - 'europe-west3-docker.pkg.dev/world-340022/world-docker-repo/world-health:latest'
+
+
+
+
+
