@@ -26,24 +26,18 @@
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.css"><!-- JQuery -->
-<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
-<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
-<script src="chartist/dist/chartist.min.js"></script>
-<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
-<!-- Required Stylesheets -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
 <link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
-<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
 
 <script>
     jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
@@ -67,18 +61,25 @@
 </script>
 <link rel="stylesheet" href="css/core.css"/>
 <link rel="stylesheet" href="css/link.css"/>
-<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/>
+<!--CHART.JS-->
+<script src="chartjs/chart.js"></script>
+<script src="chartjs/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="chartjs/patternomaly.min.js"></script>
+<script>
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+</script>
+<!-- JQuery-UI -->
 <link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
 <script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
-<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
 
 <script>
     jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
@@ -114,10 +115,18 @@
                     search: ""
                 },
                 columnDefs: [
-                    { type: 'time-elapsed-dhms', targets: 4 }
+                    {type: 'time-elapsed-dhms', targets: 4}
                 ]
             });
 
+            $('.manual-scenario-result-table').DataTable({
+                "order": [[0, "asc",], [3, "asc",]],
+                "pageLength": 10,
+                "language": {
+                    searchPlaceholder: "Filter",
+                    search: ""
+                },
+            });
             // Results table
             $('#test-results-table').DataTable({
                 "order": [[0, "asc",], [3, "asc",]],
@@ -183,16 +192,13 @@
             <a href="capabilities.html"><i class="bi bi-journal-text"></i> Requirements</a>
         </li>
         <li >
-            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="bi bi-chat-text"></i> Capabilities</a>
-        </li>
-        <li >
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
         <li >
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="bi bi-chat-text"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 17-12-2021 00:20:05</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 14-02-2022 22:56:50</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -207,7 +213,7 @@
                         <td width="375px" valign="top">
                             <div class="test-count-summary">
                                 <div class="test-count-title">
-                                    35 test scenarios 
+                                    3 test cases 
                                     
 
                                 </div>
@@ -216,7 +222,8 @@
                             <div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a data-toggle="tab" href="#summary"><i class="bi bi-house-door"></i> Summary</a>
+                                        <a data-toggle="tab" href="#summary"><i class="bi bi-house-door"></i>
+                                            Summary</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tests"><i class="bi bi-speedometer"></i> Test
@@ -229,174 +236,118 @@
                                     <div class="tab-content" id="pills-tabContent">
                                         <div id="summary" class="tab-pane fade in active">
                                             <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                            <div style="width:300px;" class="chart-container automated-and-manual-results">
-                                                                <div class="ct-chart ct-square"></div>
+                                                <div class="dashboard-charts row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-9">
+                                                        <!-- PIE CHART -->
+                                                        <h4><i class="bi bi-pie-chart"></i> Overview</h4>
+                                                            <div class="chart-container">
+                                                                <canvas id="resultChart" height="200px"></canvas>
                                                             </div>
-                                                            <script>
-
-                                                                var labels = ['71%', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '26%', ' ', '3%', ' ', ' ', ' '];
-                                                                // Our series array that contains series objects or in this case series data arrays
-
-                                                                var series = [{meta: 'Passing tests (automated)', value: 25}, {meta: 'Passing tests (manual)', value: 0}, {meta: 'Pending tests (automated)', value: 0}, {meta: 'Pending tests (manual)', value: 0}, {meta: 'Ignored tests (automated)', value: 0}, {meta: 'Ignored tests (manual)', value: 0}, {meta: 'Skipped tests (automated)', value: 0}, {meta: 'Skipped tests (manual)', value: 0}, {meta: 'Aborted tests (automated)', value: 0}, {meta: 'Aborted tests (manual)', value: 0}, {meta: 'Failing tests (automated)', value: 9}, {meta: 'Failing tests (manual)', value: 0}, {meta: 'Broken tests (automated)', value: 1}, {meta: 'Broken tests (manual)', value: 0}, {meta: 'Compromised tests (automated)', value: 0}, {meta: 'Compromised tests (manual)', value: 0}];
-
-                                                                // As options we currently only set a static size of 300x200 px. We can also omit this and use aspect ratio containers
-                                                                // as you saw in the previous example
-                                                                var options = {
-                                                                    width: 350,
-                                                                    height: 300
-                                                                };
-
-
-                                                                new Chartist.Pie('.ct-chart', {
-                                                                    series: series,
-                                                                    labels: labels
-                                                                }, {
-                                                                    plugins: [Chartist.plugins.tooltip()],
-                                                                    donut: true,
-                                                                    donutWidth: 60,
-                                                                    donutSolid: true,
-                                                                    startAngle: 270,
-                                                                    showLabel: true
-                                                                }, options);
-
-
-                                                                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                                                                    new Chartist.Pie('.ct-chart', {
-                                                                        series: series,
-                                                                        labels: labels
-                                                                    }, {
-                                                                        plugins: [Chartist.plugins.tooltip()],
-                                                                        donut: true,
-                                                                        donutWidth: 60,
-                                                                        donutSolid: true,
-                                                                        startAngle: 270,
-                                                                        showLabel: true
-                                                                    }, options);
-                                                                });
-
-
-                                                            </script>
                                                     </div>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-lg-4 col-md-6 col-sm-9">
+                                                        <h4><i class="bi bi-check-square"></i> Test Outcomes</h4>
+                                                        <!-- Severity bar chart -->
+                                                        <div class="chart-container">
+                                                            <canvas id="severityChart" height="200px"></canvas>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-9">
+                                                        <h4><i class="bi bi-graph-up"></i> Test Performance</h4>
 
-                                                        <table class="table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th scope="col">Scenario Results (including rows of test
-                                                                    data)
-                                                                </th>
-                                                                <th scope="col" colspan="2" class="automated-stats">
-                                                                    Automated
-                                                                </th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count">
-                                                                        <a href="01f5288b80adbd3af52a8ed68a4a616d3164f750229f80da1ef344382d948835.html"><i
-                                                                                    class='bi bi-check-circle-fill success-icon'></i>&nbsp;Passing</a>
-                                                                    </td>
-                                                                <td class="automated-stats">25</td>
-                                                                <td class="automated-stats">71%</td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count"><i
-                                                                                class='bi bi-hourglass-top pending-icon'></i>&nbsp;Pending
-                                                                    </td>
-                                                                <td class="automated-stats">0</td>
-                                                                <td class="automated-stats"> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count"><i
-                                                                                class='bi bi-slash-circle ignored-icon'></i>&nbsp;Ignored
-                                                                    </td>
-                                                                <td class="automated-stats">0</td>
-                                                                <td class="automated-stats"> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count"><i
-                                                                                class='bi bi-skip-forward skip-icon'></i>&nbsp;Skipped
-                                                                    </td>
-                                                                <td class="automated-stats">0</td>
-                                                                <td class="automated-stats"> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count"><i
-                                                                                class='bi bi-exclamation-octagon-fill aborted-icon'></i>&nbsp;Aborted
-                                                                    </td>
-                                                                <td class="automated-stats">0</td>
-                                                                <td class="automated-stats"> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                        <td colspan="3"><a
-                                                                                    href="b964a040ccee2192880812cc5de2c4d0075e3288c1b298b7dda0839367bb26be.html"><i
-                                                                                        class='bi bi-x-circle failure-icon'></i>&nbsp;<em>Unsuccessful</em></a>
-                                                                        </td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count indented-error-category">
-                                                                        <a href="da5b0c51b332adf0ef993a9f086d6a1b51a3d800248ec6ae281212092f35bd37.html"><i class='bi bi-x-circle-fill failure-icon'></i>&nbsp;Failed</a>
-                                                                    </td>
-                                                                <td class="automated-stats">9</td>
-                                                                <td class="automated-stats">26%</td>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count indented-error-category">
-                                                                        <a href="c8a926210aeff57f8aa7ea799262d4b730915a909cd5ecd6a705b1fa13bc7aa8.html"><i
-                                                                                    class='bi bi-exclamation-triangle-fill error-icon'></i>&nbsp;Broken</a>
-                                                                    </td>
-                                                                <td class="automated-stats">1</td>
-                                                                <td class="automated-stats">3%</td>
-                                                            <tr>
-                                                                    <td class="aggregate-result-count indented-error-category">
-                                                                        <i
-                                                                                class='bi bi-slash-circle-fill compromised-icon'></i>&nbsp;Compromised
-                                                                    </td>
-                                                                <td class="automated-stats">0</td>
-                                                                <td class="automated-stats"> </td>
-                                                            </tr>
-                                                            <tr class="summary-stats">
-                                                                <td class="aggregate-result-count">Total</td>
-                                                                <td class="automated-stats">35</td>
-                                                                <td class="automated-stats"></td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
+                                                        <!-- Duration bar chart -->
+                                                        <div class="chart-container">
+                                                            <canvas id="durationChart" height="200px"></canvas>
+                                                        </div>
                                                     </div>
                                                 </div>
-
+                                            </div>
+                                            <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <table class="table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Tests Started</th>
-                                                                <th>Tests Finished</th>
-                                                                <th>Total Duration</th>
-                                                                <th>Fastest Test</th>
-                                                                <th>Slowest Test</th>
-                                                                <th>Average Execution Time</th>
-                                                                <th>Total Execution Time</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td>16-12-2021 23:13:13 +0100</td>
-                                                                <td>16-12-2021 23:36:10 +0100</td>
-                                                                <td> 22m 56s</td>
-                                                                <td>7ms</td>
-                                                                <td>51s</td>
-                                                                <td>5s</td>
-                                                                <td> 3m 17s</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
+                                                        <div class="col-lg-8 col-md-8 col-sm-9">
+                                                            <!-- High level coverage bar chart -->
+                                                            <div class="chart-container">
+                                                                <h3><i class="bi bi-reception-3"></i> Functional Coverage Overview</h3>
+                                                                <h4>Features</h4>
+                                                                <canvas id="coverageChart"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                                        <div>
+                                                            <h3><i class="bi bi-speedometer2"></i> Key Statistics</h3>
+                                                            <div>
+                                                                <table class="table table-striped table-hover">
+                                                                    <tbody>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-card-checklist"></i> Number of Test Cases
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-caret-right"></i> Number of Scenarios
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-flag-fill"></i> Tests
+                                                                            Started
+                                                                        </td>
+                                                                        <td>Feb 14, 2022 22:56:33</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-stop-circle"></i> Tests
+                                                                            Finished
+                                                                        </td>
+                                                                        <td>Feb 14, 2022 22:56:46</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-stopwatch"></i> Total
+                                                                            Duration
+                                                                        </td>
+                                                                        <td>13s</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-trophy"></i> Fastest Test
+                                                                        </td>
+                                                                        <td>356ms</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-skip-start"></i> Slowest
+                                                                            Test
+                                                                        </td>
+                                                                        <td>13s</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-stopwatch"></i> Average
+                                                                            Execution Time
+                                                                        </td>
+                                                                        <td>6s</td>
+                                                                    </tr>
+                                                                    <tr scope="row">
+                                                                        <td>
+                                                                            <i class="bi bi-stopwatch-fill"></i> Total
+                                                                            Execution Time
+                                                                        </td>
+                                                                        <td>20s</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="container-fluid">
                                                     <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <h3>Functional Coverage Overview</h3>
+                                                        <div class="col-sm-11">
+                                                            <h3>Functional Coverage Details</h3>
 
 
                                                                     <h4>Features</h4>
@@ -405,18 +356,20 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Feature</th>
-                                                                            <th style="width:7.5em;">Scenarios</th>
-                                                                            <th style="width:7.5em;">% Pass</th>
-                                                                            <th style="width:7.5em;">Result</th>
+                                                                            <th style="width:1em;">Test&nbsp;Cases</th>
+                                                                            <th style="width:1em;">Scenarios</th>
+                                                                            <th style="width:1em;">%&nbsp;Pass</th>
+                                                                            <th style="width:1em;">Result</th>
                                                                             <th>Coverage</th>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>
-                                                                                        <a href="526ec48d3af357085d572218793e001630201cc963f5d65a1ca4b6576f3d56b8.html">Report navigator IT</a>
+                                                                                        <a href="64d8df93ecd4d6d18059efeaaea5c3768cae9b9516a1f918230e8c907a7612bf.html" > Api</a>
                                                                                 </td>
-                                                                                <td>1</td>
+                                                                                <td>2</td>
+                                                                                <td>2</td>
                                                                                 <td>100%</td>
                                                                                 <td>
                                                                                         <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
@@ -425,8 +378,8 @@
                                                                                     <div class="progress">
                                                                                             <div class="progress-bar"
                                                                                                  role="progressbar"
-                                                                                                 style="width: 100%; background-color: #99cc33"
-                                                                                                 aria-valuenow="1"
+                                                                                                 style="width: 100%; background-color: #b0cf73"
+                                                                                                 aria-valuenow="2"
                                                                                                  title="100% success"
                                                                                                  aria-valuemin="0"
                                                                                                  aria-valuemax="100">
@@ -436,58 +389,21 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
-                                                                                        <a href="b288637c37a7df68293a87781a536f72159140b414f1b976de9690e65ad15144.html">Gui</a>
+                                                                                        <a href="efa95bdb6e311fc537b593fc9d470fa1ea1adc6e564c9590a2c48bf2d3396e29.html" > Browser</a>
                                                                                 </td>
-                                                                                <td>4</td>
-                                                                                <td>0%</td>
+                                                                                <td>1</td>
+                                                                                <td>1</td>
+                                                                                <td>100%</td>
                                                                                 <td>
-                                                                                        <a href='##beforetable'><i class='bi bi-exclamation-triangle-fill error-icon ' title='ERROR'></i></a>
+                                                                                        <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
                                                                                 </td>
                                                                                 <td>
                                                                                     <div class="progress">
                                                                                             <div class="progress-bar"
                                                                                                  role="progressbar"
-                                                                                                 style="width: 75%; background-color: #ff1631"
-                                                                                                 aria-valuenow="3"
-                                                                                                 title="75% failure"
-                                                                                                 aria-valuemin="0"
-                                                                                                 aria-valuemax="100">
-                                                                                            </div>
-                                                                                            <div class="progress-bar"
-                                                                                                 role="progressbar"
-                                                                                                 style="width: 25%; background-color: #ff6108"
+                                                                                                 style="width: 100%; background-color: #b0cf73"
                                                                                                  aria-valuenow="1"
-                                                                                                 title="25% error"
-                                                                                                 aria-valuemin="0"
-                                                                                                 aria-valuemax="100">
-                                                                                            </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                        <a href="0d58029b4224d79ce6908633074c56d98345ad790ac4d741502df213225e2a81.html">Integration</a>
-                                                                                </td>
-                                                                                <td>30</td>
-                                                                                <td>80%</td>
-                                                                                <td>
-                                                                                        <a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <div class="progress">
-                                                                                            <div class="progress-bar"
-                                                                                                 role="progressbar"
-                                                                                                 style="width: 80%; background-color: #99cc33"
-                                                                                                 aria-valuenow="24"
-                                                                                                 title="80% success"
-                                                                                                 aria-valuemin="0"
-                                                                                                 aria-valuemax="100">
-                                                                                            </div>
-                                                                                            <div class="progress-bar"
-                                                                                                 role="progressbar"
-                                                                                                 style="width: 20%; background-color: #ff1631"
-                                                                                                 aria-valuenow="6"
-                                                                                                 title="20% failure"
+                                                                                                 title="100% success"
                                                                                                  aria-valuemin="0"
                                                                                                  aria-valuemax="100">
                                                                                             </div>
@@ -499,76 +415,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <h3>Test Failure Overview</h3>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <h4>Most Frequent Failures</h4>
-                                                            <table class="table">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="failure-color top-list-title">
-                                                                            <a href="a0ace456df350117335ad374e8d62c0d8c978db868ea1469e0c5ba32aac965ea.html"><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> Assertion error</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">6</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="failure-color top-list-title">
-                                                                            <a href="af346bdb77858e8b9dd8bd5bfe57888793cf79caf5c16bf7fa2e267a71b7c409.html"><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> Element should be present exception</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">3</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="error-color top-list-title">
-                                                                            <a href="2b56b574d89834f6aa192f59fa6627b776a6c288e09dbc7d06c356f5bad5b3c0.html"><a href='##beforetable'><i class='bi bi-exclamation-triangle-fill error-icon ' title='ERROR'></i></a> No such element exception</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">1</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <h4>Most Unstable Features</h4>
-                                                            <table class="table">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="failure-color top-list-title"><a
-                                                                                    href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">100%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="failure-color top-list-title"><a
-                                                                                    href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">62%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="failure-color top-list-title"><a
-                                                                                    href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                    class="badge failure-badge">16%</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-
+                                            </div>
+                                            <div class="container-fluid">
                                             </div>
                                         </div>
                                         <div id="tests" class="tab-pane fade">
@@ -577,7 +425,7 @@
                                                     <div class="col-sm-12">
                                                         <h3><i class="bi bi-gear"></i> Automated Tests</h3>
 
-                                                            <table class="scenario-result-table table"
+                                                            <table class="manual-scenario-result-table table"
                                                                    id="scenario-results">
                                                                 <thead>
                                                                 <tr>
@@ -592,492 +440,41 @@
                                                                 <tbody>
                                                                     <tr class="scenario-result SUCCESS">
                                                                         <td>
-                                                                                <a href="526ec48d3af357085d572218793e001630201cc963f5d65a1ca4b6576f3d56b8.html">Report navigator IT</a>
+                                                                                <a href="c5622f7c32e5a067a7163b486b2cdb63a186b91e2b5d06c65522ea8fb060be26.html">Json place holder IT</a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="89133152e76cad4256855352851e364a3586ed7c21fec54792eef07b5180a536.html">When posting</a>
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                        <td>22:56:33</td>
+                                                                        <td>6s 847ms</td>
+                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="c5622f7c32e5a067a7163b486b2cdb63a186b91e2b5d06c65522ea8fb060be26.html">Json place holder IT</a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="2b7cb77cb84830f04488a404739c6a4a5c15aab13336a8621cafa761b9105c1d.html">When there are many posts</a>
+                                                                        </td>
+                                                                        <td>2</td>
+                                                                        <td>22:56:40</td>
+                                                                        <td>356ms</td>
+                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="6f89f644829e8906bcc682c2bf8f3110601bd6af86be6a98e2138bd4ac2a20e3.html">Report navigator IT</a>
                                                                         </td>
                                                                         <td>
                                                                             <a href="afb3ba59ff84a016f2ac039f43156ed5e7684a3445a20ee3e6f5a05ee6b8db1f.html">When tracing errors</a>
                                                                         </td>
                                                                         <td>3</td>
-                                                                        <td>23:13:13</td>
-                                                                        <td>5s 356ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="97cb241c1b629efa92df915bcf6f1993baa650b08aa49716a0dce812ea6b55db.html">When training on two facts</a>
-                                                                        </td>
-                                                                        <td>3</td>
-                                                                        <td>23:13:20</td>
-                                                                        <td>7s 962ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="6eca5083b8527b177f815f42c0469d8fd6fccfad7122b37a504187a8d013634f.html">Actor can see facts and error</a>
-                                                                        </td>
-                                                                        <td>3</td>
-                                                                        <td>23:13:28</td>
-                                                                        <td>7s 841ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result ERROR">
-                                                                        <td>
-                                                                                <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="1e7ac8d6f5abb1df1d64d20e53a741e727a9a22024b6d1eb4087a58d88e79515.html">Actor trains neural net</a>
-                                                                        </td>
-                                                                        <td>2</td>
-                                                                        <td>23:13:36</td>
-                                                                        <td>3s 203ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-exclamation-triangle-fill error-icon ' title='ERROR'></i></a> <span
-                                                                                    style="display:none">ERROR</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="5b3541875882a752436ede3dc35a07c0d80de44bdf46c26ed78dea51e62bcc2a.html">Neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="2de70e115bb9b12323fb4d97d62aa6aab2ba876ac9ca893d32a2357150e1eb5a.html">When training on three facts</a>
-                                                                        </td>
-                                                                        <td>3</td>
-                                                                        <td>23:13:39</td>
-                                                                        <td>7s 533ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="6463b22f155ba1ff416ea1cf724045640f73df0e5e2778b7d7b7bf3ed98ae20a.html">Where one beneficial change should reduce the error</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>041ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="82bacc788984c216a89fc446ea7a5bd96bcfba0057039722fb0901f04151a9dc.html">Where conflicting facts find beneficial change</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>015ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="6539ca3ea5537fc13f6e3b311d12125c7221d3f3e3a474875589943c148205ce.html">Where we keep track of the number of training rounds</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>053ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="1caf7b4b7cc6991a5e0821ae2fce89014da683faae2351b788aab216eba941ab.html">Where small neural net is trained on single fact</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>024ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="67764f4a7e066b780a2dcc97cf0871f690157564631475bbe409c046ef987929.html">Where training logs show error going down</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>038ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="02ca84aec7b39bc73a6c57acae952037b6b29c1c3048ae743be2d2dc42b55e1d.html">Train simple neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="5cb3b7a9f1a00ca6ab04e4a6e6531ae6636fb23e47afe3d6ff5bd302a8045ea2.html">Where conflicting facts limit the decrease in error</a>
-                                                                        </td>
-                                                                        <td>6</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>029ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="37f5cd2b1a28067439d71448fa7ff0d7d070d01e946db5a0f83b33100b664a0e.html">Linking neurons IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="cd26c911c14ef32256fa6ca677ea2bc2e3efe416785a0bd95031878e15a62e3f.html">The output of one neuron is used as input</a>
-                                                                        </td>
-                                                                        <td>2</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>067ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="2cb92fa9496b534cafa9649407c6e177831c8affe8ec37c62376177058fdac58.html">Color detecting neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="9db86a9248a8ec81edb311b0fe99226b26d31454724efe48da3eb1aa481b7e23.html">When training on specific output the confidence gets very high</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:47</td>
-                                                                        <td>1s 132ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="2cb92fa9496b534cafa9649407c6e177831c8affe8ec37c62376177058fdac58.html">Color detecting neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="7344a5a29ac847e3eaf611f547b5e4ef521ae480efb7380592280328537b5af5.html">Actor trains neural net</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:48</td>
-                                                                        <td>435ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="2cb92fa9496b534cafa9649407c6e177831c8affe8ec37c62376177058fdac58.html">Color detecting neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="f542f30c58cd7127509728f8eda0b09aa4e19650088b51d232f5826fe19a13c7.html">Actor can ask neural net</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>008ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="ab33e6e60d335f229d5cadc4db79618d82b0812e43140217f0a16836ce142dbe.html">Neurons accept input</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>007ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="4151480721605831a6f7ea0e7df351d2834fe3069529df2901fa057f2be2bf2e.html">Output from multiple inputs is taken into account</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>020ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="4637d3ddba448cf9b0f4680b2f5ed2afbd91400f36a526e848ea6281aad4fb29.html">Neurons keep track of multiple inputs</a>
-                                                                        </td>
-                                                                        <td>3</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>017ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="6123538be5f5566c2888f5f198dc56c1fb4ccc71b57599932643d0996bd67eba.html">Neurons send out value between zero and one</a>
-                                                                        </td>
-                                                                        <td>3</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>020ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="9102734a8ad36144cf9500ba8ef8ad0b4c545bc12826bbf7dc21f79404fc054f.html">When accepting an input the sigmoid function is applied and sent to the output</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>173ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="19a27dcfdf5daa857677aa8a629f9acb8bf762ca0766628c39f65bce639d64c4.html">Neurons have bias</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>008ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="7f23e609cd112fc60e477355daa986c1724f267748912eb87d59426cd0ed6c6c.html">Neuron IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="4d64ad94f5d0a0784284e0fb2ccfc54a418f361ca2683741bfc0f10b9efabf16.html">Neurons have sigmoid function</a>
-                                                                        </td>
-                                                                        <td>1</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>007ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="c67b45d8d9d13def00bc6c8c7c8bdd9196a60867406f00ee7e6c1ca546b307ad.html">Building custom neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="aefa5d7a0b29e5e31dce2ef864e7f6e04af72de5972df534b77ca132a146f212.html">Where one input and one output is wired</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>017ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="c67b45d8d9d13def00bc6c8c7c8bdd9196a60867406f00ee7e6c1ca546b307ad.html">Building custom neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="e1b7747081aa3601171596a4eb10bdcb675af7a4f63cce84af2b438cc5119db0.html">Where two input and two output neurons are wired</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>011ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="c67b45d8d9d13def00bc6c8c7c8bdd9196a60867406f00ee7e6c1ca546b307ad.html">Building custom neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="60fecb3738719ce3d1a0d44a295c38ec982f4090470c3271c9d9ad7f90d2deb5.html">Where there are hidden layers wired</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>012ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="c67b45d8d9d13def00bc6c8c7c8bdd9196a60867406f00ee7e6c1ca546b307ad.html">Building custom neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="aa12cac2bf4365e504923f5ab32f002dea1374f42bbab48f32cec83e217000aa.html">Where the default is inspected</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>015ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="c67b45d8d9d13def00bc6c8c7c8bdd9196a60867406f00ee7e6c1ca546b307ad.html">Building custom neural net IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="036a210970849b4e54051bf4f3de275803a1162930efe8087bb5672cc7b0a0bb.html">Where it has one input and one output neuron</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:13:49</td>
-                                                                        <td>014ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="b5fb2c244e0642bb0c21ff8a123438eadb68011ad18d1757c6b85214309d6288.html">No hidden neurons all re lu</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:33:26</td>
-                                                                        <td>4s 324ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="e59ce98f987d3b1b48b04a2426bb708a85a6deb55c3cea8ed665eb0977e1e003.html">No hidden neurons all sigmoid</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:33:30</td>
-                                                                        <td>3s 634ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="86f5eb772e8e623cad3ed410d7bb2c7cf4f7fbb205ba35dab0938d2239165da8.html">One hidden layer of six relu neurons</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:33:34</td>
-                                                                        <td>19s 422ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="6986976d79bd7433694cb135846fc7b66aca0b76817bcb12b526c1a933cb9e1b.html">One hidden layer of six sigmoids</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:33:53</td>
-                                                                        <td>20s 989ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="d7f7003cb0ed89f71204cde6aba10dce952bf2ca3e2c5ec1601eee2bcab38daf.html">One hidden layer of two neurons</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:34:14</td>
-                                                                        <td>6s 874ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result FAILURE">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="647257bb07e71642f364a60e4ef55b78373ab8fd7670fbac4b870ed161bde911.html">One hidden layer of two relu neurons</a>
-                                                                        </td>
-                                                                        <td>4</td>
-                                                                        <td>23:34:21</td>
-                                                                        <td>6s 307ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> <span
-                                                                                    style="display:none">FAILURE</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="c080c42188dcbad3f026c866aff732a6eea2a178bec05b8b96e7bb7c0ed34054.html">Two hidden layers of four relu neurons each</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:34:28</td>
-                                                                        <td>50s 847ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="scenario-result SUCCESS">
-                                                                        <td>
-                                                                                <a href="b8aa3ac02905f29977555537731968709627364b36180dd74dba8b9649a712fe.html">Comparing black white gray detecting neural networks IT</a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="683e945ea1f56042c0bd06570d68df1e991a729658c9fc5abb25488423c866a9.html">Two hidden layers of four sigmoid neurons each</a>
-                                                                        </td>
-                                                                        <td>5</td>
-                                                                        <td>23:35:19</td>
-                                                                        <td>51s 263ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
+                                                                        <td>22:56:33</td>
+                                                                        <td>13s 480ms</td>
+                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1112,11 +509,382 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 3.0.5</span>
+            <span class="version">Serenity BDD version 3.2.0</span>
         </div>
     </div>
 </div>
 
+<!-- Chart data -->
+    <!-- PIE CHART -->
+    <script>
+
+        // The results pie chart
+        const outcomeChartCtx = document.getElementById('resultChart');
+
+        // Options define for display value on top of bars
+        const outcomeDetailsReports = [
+            { title: 'Passing Scenarios', link: "01f5288b80adbd3af52a8ed68a4a616d3164f750229f80da1ef344382d948835.html" },
+            { title: 'Pending Scenarios', link: "bde4fca42ca8baa0fe2eac76a241c84327dfe4ca903a1daa7cae83a1035d4745.html" },
+            { title: 'Ignored Scenarios', link: "c1b352893c3d69e59317fd825f20a75f987a859afe98fb4434f47dce70c48fd4.html" },
+            { title: 'Skipped Scenarios', link: "7409dbb9985b960343780b303d8028480bd55e9aebd855c90eff0a000e21ccc8.html" },
+            { title: 'Aborted Scenarios',  link: "91152e032be7fe762aa6823d6424278e2c72efeb7622a5e63c7bf5980b4fd8a0.html"},
+            { title: 'Failed Scenarios', link: "da5b0c51b332adf0ef993a9f086d6a1b51a3d800248ec6ae281212092f35bd37.html"  },
+            { title: 'Broken Scenarios', link: "c8a926210aeff57f8aa7ea799262d4b730915a909cd5ecd6a705b1fa13bc7aa8.html"    },
+            { title: 'Compromised Scenarios',  link: "02dd8f8ada4c10b8ebb5c1f309605a6f7c147adc21bcf5c55829855ba045ff03.html" },
+        ]
+        const outcomeData = {
+            labels: ['Passing', 'Pending', 'Ignored', 'Skipped', 'Aborted', 'Failed', 'Broken', 'Compromised'],
+            datasets: [{
+                label: 'Test Results',
+                fill: false,
+                data: [3,0,0,0,0,0,0,0],
+                backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)'],
+                borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)'],
+                borderWidth: 1,
+            }]
+        }
+        const outcomeOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                },
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#444444',
+                    'font.weight': 'bold',
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(0) + "%";
+                        if (percentage === '0%') {
+                            return '';
+                        } else {
+                            return percentage;
+                        }
+                    },
+                },
+            }
+        }
+
+        const outcomeChart = new Chart(outcomeChartCtx, {
+            type: 'doughnut',
+            data: outcomeData,
+            options: outcomeOptions,
+            plugins: [
+                {
+                    id: 'text',
+                    beforeDraw: function (chart, a, b) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 200).toFixed(1);
+                        ctx.font = fontSize + "em sans-serif";
+                        ctx.textBaseline = "middle";
+
+                        var text = "100%"
+                        textX = 10 + Math.round((width - ctx.measureText(text).width) / 2);
+                        textY = (height / 2) - 40;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+        });
+
+        function clickHandler(click) {
+            const points = outcomeChart.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+            if (points.length) {
+                const firstPoint = points[0];
+                window.open(outcomeDetailsReports[firstPoint.index].link, "_self")
+
+            }
+        }
+        outcomeChartCtx.onclick = clickHandler;
+    </script>
+    <!-- END PIE CHART -->
+
+    <!-- SUMMARY BAR CHART -->
+    <script>
+
+        // The Severity bar chart
+        const severityChartCtx = document.getElementById('severityChart');
+
+        // Options define for display value on top of bars
+
+        const severityDetailsReports = [
+            { title: 'Passing Scenarios', link: "01f5288b80adbd3af52a8ed68a4a616d3164f750229f80da1ef344382d948835.html" },
+            { title: 'Pending Scenarios', link: "bde4fca42ca8baa0fe2eac76a241c84327dfe4ca903a1daa7cae83a1035d4745.html" },
+            { title: 'Ignored Scenarios', link: "c1b352893c3d69e59317fd825f20a75f987a859afe98fb4434f47dce70c48fd4.html" },
+            { title: 'Skipped Scenarios', link: "7409dbb9985b960343780b303d8028480bd55e9aebd855c90eff0a000e21ccc8.html" },
+            { title: 'Aborted Scenarios',  link: "91152e032be7fe762aa6823d6424278e2c72efeb7622a5e63c7bf5980b4fd8a0.html"},
+            { title: 'Failed Scenarios', link: "da5b0c51b332adf0ef993a9f086d6a1b51a3d800248ec6ae281212092f35bd37.html"  },
+            { title: 'Broken Scenarios', link: "c8a926210aeff57f8aa7ea799262d4b730915a909cd5ecd6a705b1fa13bc7aa8.html"    },
+            { title: 'Compromised Scenarios',  link: "02dd8f8ada4c10b8ebb5c1f309605a6f7c147adc21bcf5c55829855ba045ff03.html" },
+        ]
+        const severityData = {
+            labels: ['Passing', 'Pending', 'Ignored', 'Skipped', 'Aborted', 'Failed', 'Broken', 'Compromised'],
+            datasets: [
+                {
+                    label: 'Automated',
+                    data: [3,0,0,0,0,0,0,0],
+                    backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)'],
+                    borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)'],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Manual',
+                    data: [0,0,0,0,0,0,0,0],
+                    backgroundColor: ['rgba(153,204,51,0.25)','rgba(165, 199, 238, 0.25)','rgba(168, 168, 168, 0.25)','rgba(238, 224, 152, 0.375)','rgba(255, 153, 102, 0.25)','rgba(255, 22, 49, 0.25)','rgba(255, 97, 8, 0.25)','rgba(255, 104, 255, 0.25)'],
+                    borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)'],
+                    borderWidth: 1
+                },
+
+            ]
+        }
+        const severityOptions = {
+            responsive: true,
+            skipNull: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true,
+                }
+            },
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#444444',
+                    'font.weight': 'bold',
+                    formatter: (value, ctx) => {
+                        if (value === 0) {
+                            return '';
+                        } else {
+                            return value;
+                        }
+                    },
+                }
+            }
+        }
+        const severityChart = new Chart(severityChartCtx, {
+            type: 'bar',
+            data: severityData,
+            options: severityOptions
+        });
+
+        function clickHandler(click) {
+            const points = severityChart.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+            if (points.length) {
+                const firstPoint = points[0];
+                window.open(severityDetailsReports[firstPoint.index].link, "_self")
+
+            }
+        }
+        severityChartCtx.onclick = clickHandler;
+    </script>
+    <!-- END SUMMARY CHART -->
+
+    <!-- DURATION CHART -->
+    <script>
+
+        // Options define for display value on top of bars
+        const durationDetailsReports = [
+                {title: "Under 1 second", link: "2a5b6a7be0f08df02d8ab0b4d4c68648c2695c6c7ef0658c71de4d42b1415b18.html"},
+                {title: "1 to 10 seconds", link: "6c5512236937b92cd7a296b24edb966c2bd94be46b8910f8b129a42d6150eb25.html"},
+                {title: "10 to 30 seconds", link: "34658a1663fcf042bd7acb3325affbe4e647c8acd84d0228be2f52e1381e61b9.html"},
+                {title: "30 to 60 seconds", link: "5698da923f295f46ce5ab64ced2311fc60caa4e36b32112606d3adcfdce3f60b.html"},
+                {title: "1 to 2 minutes", link: "c68fd6639ab29c4b0ac02a78bc39f4e22557bcaa40ef14c903ac0e584626edfe.html"},
+                {title: "2 to 5 minutes", link: "3ce388ea8511800032930896a3e5ba2c4f80e46f1a10b143b67009baf212c6a0.html"},
+                {title: "5 to 10 minutes", link: "376e1536bb68812a880e84ca7a0c6d104d541788793f22a36b4462a6a9aaa344.html"},
+                {title: "10 minutes or over", link: "24bba6f5cf4f06c7d46bf8990b86c4fbc1ce4ce201644ddf42661c84031e1c90.html"},
+        ]
+        // The Severity bar chart
+        const durationChartCtx = document.getElementById('durationChart');
+
+        // Options define for display value on top of bars
+
+        const durationData = {
+            labels: ['Under 1 second','1 to 10 seconds','10 to 30 seconds','30 to 60 seconds','1 to 2 minutes','2 to 5 minutes','5 to 10 minutes','10 minutes or over'],
+            datasets: [{
+                label: 'Number of tests per duration',
+                fill: false,
+                data: ['1','1','1','0','0','0','0','0'],
+                backgroundColor: 'rgba(83, 146, 255,0.5)',
+                borderColor: 'rgba(83, 146, 255, 1)',
+            }]
+        }
+        const durationOptions = {
+            responsive: true,
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#444444',
+                    'font.weight': 'bold',
+                    formatter: (value, ctx) => {
+                        if (value > 0) {
+                            return value;
+                        } else {
+                            return '';
+                        }
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    usePointStyle: true,
+                    callbacks: {
+                        label: (data) => {
+                            return data.parsed.y + ' tests'
+                        }
+                    },
+                },
+            },
+        }
+
+        const durationChart = new Chart(durationChartCtx, {
+            type: 'bar',
+            data: durationData,
+            options: durationOptions
+        });
+
+        function durationClickHandler(click) {
+            const points = durationChart.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+            if (points.length) {
+                const firstPoint = points[0];
+                window.open(durationDetailsReports[firstPoint.index].link, "_self")
+
+            }
+        }
+
+        durationChartCtx.onclick = durationClickHandler;
+    </script>
+    <!-- END DURATION CHART -->
+
+
+
+    <!-- COVERAGE BAR CHART -->
+    <script>
+
+        // The coverage bar chart
+        const coverageChartCtx = document.getElementById('coverageChart');
+
+        // Options define for display value on top of bars
+
+        const coverageReports = [
+            {
+                title: 'Api',
+                result: 'SUCCESS',
+                link: "64d8df93ecd4d6d18059efeaaea5c3768cae9b9516a1f918230e8c907a7612bf.html"
+            },
+            {
+                title: 'Browser',
+                result: 'SUCCESS',
+                link: "efa95bdb6e311fc537b593fc9d470fa1ea1adc6e564c9590a2c48bf2d3396e29.html"
+            },
+        ]
+        const coverageData = {
+            labels: [
+                'Api',
+                'Browser',
+            ],
+            datasets: [
+                {
+                    label: ['Passing Tests'],
+                    data: [2,1],
+                    backgroundColor: [ 'rgba(153,204,51,0.5)' ]
+                },
+                {
+                    label: ['Pending Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(165, 199, 238, 0.5)' ]
+                },
+                {
+                    label: ['Ignored Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(168, 168, 168, 0.5)' ]
+                },
+                {
+                    label: ['Skipped Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(238, 224, 152, 0.75)' ]
+                },
+                {
+                    label: ['Aborted Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(255, 153, 102, 0.5)' ]
+                },
+                {
+                    label: ['Failed Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(255, 22, 49, 0.5)' ]
+                },
+                {
+                    label: ['Errors'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(255, 97, 8, 0.5)' ]
+                },
+                {
+                    label: ['Compromised Tests'],
+                    data: [null,null],
+                    backgroundColor: [ 'rgba(255, 104, 255, 0.5)' ]
+                },
+            ]
+        }
+        const coverageOptions = {
+            responsive: true,
+            indexAxis: 'y',
+            // barPercentage: ,
+            barThickness: 'flex',
+            maxBarThickness: 30,
+            minBarLength: 2,
+            skipNull: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true,
+                }
+            },
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#444444',
+                    'font.weight': 'bold'
+                },
+                tooltip: {
+                    enabled: true,
+                    usePointStyle: true,
+                },
+            },
+        }
+
+        const coverageChart = new Chart(coverageChartCtx, {
+            type: 'bar',
+            data: coverageData,
+            options: coverageOptions
+        });
+
+        function coverageClickHandler(click) {
+            const points = coverageChart.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true);
+            if (points.length) {
+                const firstPoint = points[0];
+                if (coverageReports[firstPoint.index].link) {
+                    window.open(coverageReports[firstPoint.index].link, "_self")
+                }
+            }
+        }
+
+        coverageChartCtx.onclick = coverageClickHandler;
+    </script>
+    <!-- END COVERAGE CHART -->
 
 </body>
 </html>

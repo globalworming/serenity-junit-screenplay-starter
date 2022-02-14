@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="com.example.e2e.neuralnet.integration.ComparingBlackWhiteGrayDetectingNeuralNetworksIT" skipped="0" tests="1" time="276.06" timestamp="2021-12-16 11:26:35"><testcase classname="com.example.e2e.neuralnet.integration.ComparingBlackWhiteGrayDetectingNeuralNetworksIT" name="Two hidden layers of four relu neurons each"><failure message="&#10;Expected: is &quot;white&quot;&#10;     but: was &quot;black&quot;" type="java.lang.AssertionError">
-Expected: is "white"
-     but: was "black"</failure><system-err>
-Expected: is "white"
-     but: was "black"
-com.example.e2e.neuralnet.integration.ComparingBlackWhiteGrayDetectingNeuralNetworksIT.lambda$sanityCheckInferenceResults$2(ComparingBlackWhiteGrayDetectingNeuralNetworksIT.java:73)
-com.example.e2e.neuralnet.integration.ComparingBlackWhiteGrayDetectingNeuralNetworksIT.sanityCheckInferenceResults(ComparingBlackWhiteGrayDetectingNeuralNetworksIT.java:70)
-com.example.e2e.neuralnet.integration.ComparingBlackWhiteGrayDetectingNeuralNetworksIT.twoHiddenLayersOfFourReluNeuronsEach(ComparingBlackWhiteGrayDetectingNeuralNetworksIT.java:191)
-</system-err></testcase></testsuite>

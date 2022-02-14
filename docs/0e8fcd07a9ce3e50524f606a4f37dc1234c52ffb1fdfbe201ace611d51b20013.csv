@@ -1,4 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"Comparing black white gray detecting neural networks IT","One hidden layer of six relu neurons","SUCCESS","2021-12-16T23:33:34.56106+01:00[Europe/Berlin]","0.0","19.42"
-"Comparing black white gray detecting neural networks IT","Two hidden layers of four relu neurons each","SUCCESS","2021-12-16T23:34:28.160826+01:00[Europe/Berlin]","0.0","50.85"
-"Comparing black white gray detecting neural networks IT","Two hidden layers of four sigmoid neurons each","SUCCESS","2021-12-16T23:35:19.010464+01:00[Europe/Berlin]","0.0","51.26"

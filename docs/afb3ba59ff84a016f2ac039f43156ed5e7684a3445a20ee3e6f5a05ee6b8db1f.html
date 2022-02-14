@@ -20,24 +20,18 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff"><link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.css"><!-- JQuery -->
-<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
-<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
-<script src="chartist/dist/chartist.min.js"></script>
-<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
-<!-- Required Stylesheets -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
 <link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
-<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
 
 <script>
     jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
@@ -61,18 +55,25 @@
 </script>
 <link rel="stylesheet" href="css/core.css"/>
 <link rel="stylesheet" href="css/link.css"/>
-<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/>
+<!--CHART.JS-->
+<script src="chartjs/chart.js"></script>
+<script src="chartjs/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="chartjs/patternomaly.min.js"></script>
+<script>
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+</script>
+<!-- JQuery-UI -->
 <link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
 <script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
-<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
 
 <script>
     jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
@@ -119,8 +120,10 @@
         <span class="breadcrumbs">
             <a href="index.html" class="breadcrumbs">Home</a>
 
-            > <a href="9e8b2647373ea795e231f3d2d0b1d8a9e770a7b0010b904dd2d9584c836e6abc.html">Browser</a>
-            > <a href="526ec48d3af357085d572218793e001630201cc963f5d65a1ca4b6576f3d56b8.html">Report Navigator IT</a>
+ <!-- inflection.of(breadcrumb.displayName).asATitle()-->
+            > <a href="efa95bdb6e311fc537b593fc9d470fa1ea1adc6e564c9590a2c48bf2d3396e29.html">Browser</a>
+ <!-- inflection.of(breadcrumb.displayName).asATitle()-->
+            > <a href="6f89f644829e8906bcc682c2bf8f3110601bd6af86be6a98e2138bd4ac2a20e3.html">Report navigator IT</a>
         > When tracing errors
         </span>
         </div>
@@ -139,16 +142,13 @@
             <a href="capabilities.html"><i class="bi bi-journal-text"></i> Requirements</a>
         </li>
         <li >
-            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="bi bi-chat-text"></i> Capabilities</a>
-        </li>
-        <li >
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
         <li >
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="bi bi-chat-text"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 16-12-2021 23:13</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 14-02-2022 22:56</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -285,7 +285,7 @@
                     </td>
 
                     <td width="130"><span class="top-level-step">SUCCESS</span></td>
-                    <td width="100"><span class="top-level-step">3s 965ms</span></td>
+                    <td width="100"><span class="top-level-step">11s 132ms</span></td>
                 </tr>
                     <tr>
                         <td colspan="5">
@@ -310,7 +310,7 @@
                     </td>
 
                     <td width="130"><span class="nested-group-step">SUCCESS</span></td>
-                    <td width="100"><span class="nested-group-step">3s 731ms</span></td>
+                    <td width="100"><span class="nested-group-step">10s 951ms</span></td>
                 </tr>
                 <tr class="test-SUCCESS">
 
@@ -332,7 +332,7 @@
                     </td>
 
                     <td width="130"><span class="nested-group-step">SUCCESS</span></td>
-                    <td width="100"><span class="nested-group-step">153ms</span></td>
+                    <td width="100"><span class="nested-group-step">072ms</span></td>
                 </tr>
 
                             </table>
@@ -363,7 +363,7 @@
                     </td>
 
                     <td width="130"><span class="top-level-step">SUCCESS</span></td>
-                    <td width="100"><span class="top-level-step">739ms</span></td>
+                    <td width="100"><span class="top-level-step">726ms</span></td>
                 </tr>
                     <tr>
                         <td colspan="5">
@@ -388,7 +388,7 @@
                     </td>
 
                     <td width="130"><span class="nested-group-step">SUCCESS</span></td>
-                    <td width="100"><span class="nested-group-step">204ms</span></td>
+                    <td width="100"><span class="nested-group-step">195ms</span></td>
                 </tr>
                 <tr class="test-SUCCESS">
 
@@ -410,7 +410,7 @@
                     </td>
 
                     <td width="130"><span class="nested-group-step">SUCCESS</span></td>
-                    <td width="100"><span class="nested-group-step">520ms</span></td>
+                    <td width="100"><span class="nested-group-step">513ms</span></td>
                 </tr>
 
                             </table>
@@ -436,12 +436,12 @@
                     </td>
 
                     <td width="130"><span class="top-level-step">SUCCESS</span></td>
-                    <td width="100"><span class="top-level-step">027ms</span></td>
+                    <td width="100"><span class="top-level-step">018ms</span></td>
                 </tr>
             <tr class="test-SUCCESS">
                     <td colspan="2"></td>
                 <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
-                <td width="100"><span class="top-level-step"><em>5.36s</em></span></td>
+                <td width="100"><span class="top-level-step"><em>13.48s</em></span></td>
             </tr>
 
         </table>
@@ -454,7 +454,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 3.0.5</span>
+            <span class="version">Serenity BDD version 3.2.0</span>
         </div>
     </div>
 </div>
