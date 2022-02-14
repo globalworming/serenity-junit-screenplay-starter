@@ -1,11 +1,10 @@
 package com.example.screenplay.ability;
 
-import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.NoMatchingAbilityException;
 import okhttp3.OkHttpClient;
 
-public class PerformHttpsRequests implements Ability {
+public class PerformHttpsRequests extends Ability {
   private final OkHttpClient httpClient;
 
   public PerformHttpsRequests(OkHttpClient httpClient) {

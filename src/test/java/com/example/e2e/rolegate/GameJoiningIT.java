@@ -6,27 +6,27 @@ import com.example.screenplay.action.http.AuthenticateSuccessfully;
 import com.example.screenplay.action.http.CreateGame;
 import com.example.screenplay.question.rolegate.LatestCreatedGameName;
 import com.example.screenplay.question.rolegate.NumberOfPlayers;
-import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import net.serenitybdd.junit5.SerenityJUnit5Extension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
-@RunWith(SerenityRunner.class)
-public class GameJoingIT extends RolegateBase {
+@ExtendWith(SerenityJUnit5Extension.class)
+public class GameJoiningIT extends RolegateBase {
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() {
     super.setUp();
     gameMaster.attemptsTo(new AuthenticateSuccessfully());
   }
 
   @Test
-  @Ignore(
+  @Disabled(
       "this process doesnt work anymore. it may still serve as example how to build steps using a custom webclient")
   public void whenPlayersJoinCreatedGame() {
     gameMaster.wasAbleTo(new CreateGame());

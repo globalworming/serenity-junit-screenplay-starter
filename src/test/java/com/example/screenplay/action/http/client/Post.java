@@ -36,10 +36,9 @@ public class Post implements Performable {
   public <T extends Actor> void performAs(T actor) {
     val client = PerformHttpsRequests.as(actor);
     val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), content);
-    String csrfToken = actor.recall(Memory.CSRF_TOKEN);
     String accessToken = actor.recall(Memory.ACCESS_TOKEN);
 
-    Request request = buildRequest(csrfToken, body, accessToken);
+    Request request = buildRequest(body, accessToken);
     Response response = client.newCall(request).execute();
     actor.remember(Memory.LATEST_RESPONSE, response);
     String responseBody = response.body().string();
@@ -51,10 +50,9 @@ public class Post implements Performable {
 
   }
 
-  private Request buildRequest(String csrfToken, RequestBody body, String accessToken) {
+  private Request buildRequest(RequestBody body, String accessToken) {
     val builder = new Request.Builder()
         .url(url)
-        .header("cookie", "csrftoken=" + csrfToken)
         .header("referer", "https://www.rolegate.com/login")
         .header("origin", "https://www.rolegate.com")
         .post(body);
