@@ -8,6 +8,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.questions.CountQuestion;
 import net.thucydides.core.annotations.Narrative;
+import net.thucydides.core.annotations.Pending;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -23,6 +24,7 @@ public class ReportNavigatorIT {
   private OnlineCast cast = new OnlineCast();
 
   @Test
+  //@Pending
   public void whenTracingErrors() {
     Actor tester = cast.actorUsingBrowser("chrome").named("tester");
     tester.attemptsTo(new AccessTheLatestReport());

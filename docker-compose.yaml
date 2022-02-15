@@ -1,0 +1,13 @@
+services:
+  run-e2e-tests:
+    build:
+      context: .
+      dockerfile: docker/run-e2e-tests.dockerfile
+    depends_on:
+      - "local-grid"
+
+  local-grid:
+   image: selenium/standalone-chrome:98.0-chromedriver-98.0-grid-4.1.2-20220208
+   ports:
+     - "4444:4444"
+     - "7900:7900"
