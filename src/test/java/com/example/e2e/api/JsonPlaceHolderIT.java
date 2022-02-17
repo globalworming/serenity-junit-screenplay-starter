@@ -1,5 +1,6 @@
 package com.example.e2e.api;
 
+import com.epam.reportportal.junit5.ReportPortalExtension;
 import com.example.screenplay.action.GetAListOfAllPosts;
 import com.example.screenplay.action.UploadNewPost;
 import com.example.screenplay.question.api.NumberOfReturnedPosts;
@@ -18,6 +19,7 @@ import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeT
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 
+@ExtendWith(ReportPortalExtension.class)
 @ExtendWith(SerenityJUnit5Extension.class)
 @Narrative(title = "title for json placeholder tests", text = "FIXME description")
 public class JsonPlaceHolderIT {

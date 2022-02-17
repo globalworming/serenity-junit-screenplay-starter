@@ -7,6 +7,20 @@
         </encoder>
     </appender>
 
+
+    <appender name="RP" class="com.epam.reportportal.logback.appender.ReportPortalAppender">
+        <encoder>
+            <!--Best practice: don't put time and logging level to the final message. Appender do this for you-->
+            <pattern>[%t] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--'additivity' flag is important! Without it logback will double-log log messages-->
+    <logger name="binary_data_logger" level="TRACE" additivity="false">
+        <appender-ref ref="RP"/>
+    </logger>
+
+
     <logger name="root" level="INFO"/>
     <logger name="net.serenitybdd" level="INFO"/>
     <logger name="net.thucydides" level="INFO"/>
@@ -15,6 +29,7 @@
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="RP"/>
     </root>
 
 </configuration>
