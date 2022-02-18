@@ -1,5 +1,6 @@
 package com.example.e2e.browser;
 
+import com.epam.reportportal.junit5.ReportPortalExtension;
 import com.example.screenplay.action.AccessTheLatestReport;
 import com.example.screenplay.action.LookUpAllUnsuccessfulOutcomes;
 import com.example.screenplay.question.browser.OutcomesShown;
@@ -16,7 +17,7 @@ import static net.serenitybdd.screenplay.EventualConsequence.eventually;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
-
+@ExtendWith(ReportPortalExtension.class)
 @ExtendWith(SerenityJUnit5Extension.class)
 @Narrative(text = "describes the report behavior")
 public class ReportNavigatorIT {
