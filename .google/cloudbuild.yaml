@@ -1,4 +1,19 @@
 steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'grid'
+      - '--image'
+      - 'selenium/standalone-chrome:98.0-chromedriver-98.0-grid-4.1.2-20220208'
+      - '--region'
+      - 'europe-west3'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--max-instances'
+      - '1'
+
   - name: maven:3-jdk-8
     entrypoint: mvn
     args: ['compile']
