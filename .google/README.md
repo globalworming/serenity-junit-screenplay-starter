@@ -17,11 +17,7 @@ gcloud beta builds triggers create github \
         --repo-name=serenity-junit-screenplay-starter \
         --repo-owner="$GH_USER" \
         --name=example-trigger \
-        --branch-pattern='^main$' \
-        --require-approval 
-    
-        
-
+        --branch-pattern='^main$'        
 ```
 you should see `Operation [...] finished successfully.
 
