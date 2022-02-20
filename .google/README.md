@@ -21,6 +21,10 @@ gcloud beta builds triggers create github \
 ```
 you should see `Operation [...] finished successfully.
 
+create a bucket to store results... unfortunately no convenient CLI for that, so go to https://console.cloud.google.com/storage/create-bucket to create one like
+![here](./createbucket.png)
+and then change the artifacts: location in [the cloudbuild file](./cloudbuild.yaml)
+
 make a change and push it
 
 ```shell
@@ -29,4 +33,3 @@ git add .google/README.md
 git commit -m "whitespace commit to trigger build"
 git push origin main
 ```
- 
