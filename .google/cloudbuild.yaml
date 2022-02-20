@@ -1,15 +1,20 @@
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
-    args: ['mvn verify || touch /workspace/.fail']
-
+  args:
+    - '-c'
+    - |
+      mvn verify || touch .fail
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp','-r','./target/site/serenity','gs://example-3926-bucket']
 
   - id: check if failed
     name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
-    args: ["if [[ -f /workspace/.fail ]]; then exit 1 fi"]
+    args:
+      - '-c'
+      - |
+        if [[ -f .fail ]]; then exit 1 fi
 
 # different way of doing artifacts
 # artifacts:
