@@ -14,8 +14,10 @@ steps:
       - |
         mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
+
+# FIXME, upload takes ages, cam we make it so we upload html report dependencies only when serenity version changes?
   - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp','-r','./target/site/serenity','gs://example-3926-bucket']
+    args: ['cp','-r', '-J','./target/site/serenity','gs://example-3926-bucket']
 
   - id: check if failed
     name: 'gcr.io/cloud-builders/mvn'
