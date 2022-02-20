@@ -12,7 +12,7 @@ steps:
     args:
       - '-c'
       - |
-        mvn verify || touch .fail && if [[ -f target/site/serenity ]]; then exit 1 fi
+        mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp','-r','./target/site/serenity','gs://example-3926-bucket']
@@ -23,7 +23,7 @@ steps:
     args:
       - '-c'
       - |
-        if [[ -f .fail ]]; then exit 1 fi
+        if [[ -f .fail ]]; then exit 1; fi
 
 # different way of doing artifacts
 # artifacts:
