@@ -1,10 +1,19 @@
 steps:
+  - id: check files
+    name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        find .
+
   - name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        mvn verify || touch .fail
+        mvn verify || touch .fail && if [[ -f target/site/serenity ]]; then exit 1 fi
+
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp','-r','./target/site/serenity','gs://example-3926-bucket']
 
