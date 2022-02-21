@@ -7,7 +7,7 @@ steps:
   #      - |
   #        find .
 
-  - id: run minimal test
+  - id: run minimal test, remember result, fail fast if no serenity test ran
     name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
     args:
@@ -23,24 +23,29 @@ steps:
   #    - |
   #      mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
-  #- id: cleanup 2.8k files 🤯
-  #- name: 'gcr.io/cloud-builders/mvn'
-  #  entrypoint: 'bash'
-  #  args:
-  #    - '-c'
-  #    - |
-  #      rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
+  - id: cleanup 2.8k files 🤯
+    name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
 
-  - name: 'gcr.io/cloud-builders/gsutil'
+
+  # FIXME clean up old files
+  - id: copy report to bucket
+    name: 'gcr.io/cloud-builders/gsutil'
     args: [ '-m', 'cp','-r','./target/site/serenity','gs://example-3926-bucket' ]
 
-  - id: check if failed
+  - id: if failed exit with failure status
     name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         if [[ -f .fail ]]; then exit 1; fi
+
+# FIXME cache .m2 in a bucket
 
 # different way of doing artifacts
 # artifacts:
