@@ -1,30 +1,38 @@
 steps:
-  - id: check files
+  #  - id: list all files
+  #    name: 'gcr.io/cloud-builders/mvn'
+  #    entrypoint: 'bash'
+  #    args:
+  #      - '-c'
+  #      - |
+  #        find .
+
+  - id: run minimal test
     name: 'gcr.io/cloud-builders/mvn'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        find .
+        mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
-  - name: 'gcr.io/cloud-builders/mvn'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+  #- id: run full suite
+  #  name: 'gcr.io/cloud-builders/mvn'
+  #  entrypoint: 'bash'
+  #  args:
+  #    - '-c'
+  #    - |
+  #      mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
+  #- id: cleanup 2.8k files 🤯
+  #- name: 'gcr.io/cloud-builders/mvn'
+  #  entrypoint: 'bash'
+  #  args:
+  #    - '-c'
+  #    - |
+  #      rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
 
-  - name: 'gcr.io/cloud-builders/mvn'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
-
-# FIXME, upload takes ages, cam we make it so we upload html report dependencies only when serenity version changes?
   - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp','-r','./target/site/serenity','gs://example-3926-bucket']
+    args: [ '-m', 'cp','-r','./target/site/serenity','gs://example-3926-bucket' ]
 
   - id: check if failed
     name: 'gcr.io/cloud-builders/mvn'
