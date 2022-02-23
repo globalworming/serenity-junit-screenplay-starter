@@ -1,11 +1,11 @@
 steps:
-  - id: list all files
-    name: 'gcr.io/cloud-builders/mvn'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        find .
+  #- id: list all files
+  #  name: 'gcr.io/cloud-builders/mvn'
+  #  entrypoint: 'bash'
+  #  args:
+  #    - '-c'
+  #    - |
+  #      find .
 
   - id: run minimal test, remember result, fail fast if no serenity test ran
     name: 'gcr.io/cloud-builders/mvn'
@@ -13,8 +13,7 @@ steps:
     args:
       - '-c'
       - |
-        mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT
-  #|| touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+        mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
   #
   #  #- id: run full suite
@@ -38,14 +37,14 @@ steps:
   - id: copy report to bucket
     name: 'gcr.io/cloud-builders/gsutil'
     args: [ '-m', 'cp','-r','./target/site/serenity','gs://example-28052_serenity_report' ]
-#
-#  - id: if failed exit with failure status
-#    name: 'gcr.io/cloud-builders/mvn'
-#    entrypoint: 'bash'
-#    args:
-#      - '-c'
-#      - |
-#        if [[ -f .fail ]]; then exit 1; fi
+  #
+  - id: if failed exit with failure status
+    name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [[ -f .fail ]]; then exit 1; fi
 #
 # FIXME cache .m2 in a bucket
 
