@@ -1,0 +1,6 @@
+steps:
+  - id: create bucket
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: [ 'gsutil', 'mb', '-c', 'standard', 'gs://${PROJECT_ID}_serenity_report' ]
+
+# FIXME pass location as argument
