@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 @ExtendWith(SerenityJUnit5Extension.class)
 @Narrative(text = {"minimal test"})
 public class HelloWorldIT {
@@ -28,6 +30,7 @@ public class HelloWorldIT {
         () -> {
           greeter.attemptsTo(new GreetWorld());
           Serenity.recordReportData().asEvidence().withTitle("greeting").andContents(HELLO_WORLD);
+          fail();
         });
     Serenity.reportThat("all good", () -> {});
   }
