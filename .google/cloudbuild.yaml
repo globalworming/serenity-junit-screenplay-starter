@@ -6,14 +6,16 @@ steps:
       - '-c'
       - |
         find .
-#
-#  - id: run minimal test, remember result, fail fast if no serenity test ran
-#    name: 'gcr.io/cloud-builders/mvn'
-#    entrypoint: 'bash'
-#    args:
-#      - '-c'
-#      - |
-#        mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+
+  - id: run minimal test, remember result, fail fast if no serenity test ran
+    name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT
+#|| touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+
 #
 #  #- id: run full suite
 #  #  name: 'gcr.io/cloud-builders/mvn'
