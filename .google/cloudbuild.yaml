@@ -14,30 +14,30 @@ steps:
       - '-c'
       - |
         mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT
-#|| touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+  #|| touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
-#
-#  #- id: run full suite
-#  #  name: 'gcr.io/cloud-builders/mvn'
-#  #  entrypoint: 'bash'
-#  #  args:
-#  #    - '-c'
-#  #    - |
-#  #      mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
-#
-#  - id: cleanup 2.8k files 🤯
-#    name: 'gcr.io/cloud-builders/mvn'
-#    entrypoint: 'bash'
-#    args:
-#      - '-c'
-#      - |
-#        rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
-#
-#
-#  # FIXME clean up old files
-#  - id: copy report to bucket
-#    name: 'gcr.io/cloud-builders/gsutil'
-#    args: [ '-m', 'cp','-r','./target/site/serenity','gs://example-3926-bucket' ]
+  #
+  #  #- id: run full suite
+  #  #  name: 'gcr.io/cloud-builders/mvn'
+  #  #  entrypoint: 'bash'
+  #  #  args:
+  #  #    - '-c'
+  #  #    - |
+  #  #      mvn verify || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
+  #
+  #  - id: cleanup 2.8k files 🤯
+  #    name: 'gcr.io/cloud-builders/mvn'
+  #    entrypoint: 'bash'
+  #    args:
+  #      - '-c'
+  #      - |
+  #        rm -rf target/site/serenity/icons target/site/serenity/bootstrap-icons
+  #
+  #
+  # FIXME clean up old files
+  - id: copy report to bucket
+    name: 'gcr.io/cloud-builders/gsutil'
+    args: [ '-m', 'cp','-r','./target/site/serenity','gs://example-28052_serenity_report' ]
 #
 #  - id: if failed exit with failure status
 #    name: 'gcr.io/cloud-builders/mvn'
