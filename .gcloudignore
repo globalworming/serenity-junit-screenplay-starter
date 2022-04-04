@@ -1,1 +1,8 @@
-docs
+# Ignore everything
+/[!.]*
+/.?*
+
+# but what we need to run tests
+!/src
+!/pom.xml
+!/serenity.remote.properties
