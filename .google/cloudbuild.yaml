@@ -18,7 +18,7 @@ steps:
       - |
         mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT || touch .fail && if test ! -e target/site/serenity; then exit 1; fi
 
-  #
+  # FIXME selenium grid setup
   #  #- id: run full suite
   #  #  name: 'gcr.io/cloud-builders/mvn'
   #  #  entrypoint: 'bash'
