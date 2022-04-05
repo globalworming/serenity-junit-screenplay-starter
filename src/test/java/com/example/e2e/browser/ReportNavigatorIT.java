@@ -2,6 +2,8 @@ package com.example.e2e.browser;
 
 import com.example.screenplay.action.AccessTheLatestReport;
 import com.example.screenplay.action.LookUpAllUnsuccessfulOutcomes;
+import com.example.screenplay.action.browser.CaptureDurationDistributionAsEvidence;
+import com.example.screenplay.action.browser.EnsureButtonTitles;
 import com.example.screenplay.question.browser.OutcomesShown;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.serenitybdd.screenplay.Actor;
@@ -28,5 +30,21 @@ public class ReportNavigatorIT {
     tester.attemptsTo(new AccessTheLatestReport());
     tester.attemptsTo(new LookUpAllUnsuccessfulOutcomes());
     tester.should(eventually(seeThat(new CountQuestion(new OutcomesShown()), is(9))));
+  }
+
+  @Test
+  // @Pending
+  public void selenium4screenshotExample() {
+    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    tester.attemptsTo(new AccessTheLatestReport());
+    tester.attemptsTo(new CaptureDurationDistributionAsEvidence());
+  }
+
+  @Test
+  // @Pending
+  public void selenium4relativeLocatorsExample() {
+    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    tester.attemptsTo(new AccessTheLatestReport());
+    tester.attemptsTo(new EnsureButtonTitles());
   }
 }
