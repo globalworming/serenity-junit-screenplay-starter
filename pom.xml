@@ -9,7 +9,7 @@
     <name>Sample Serenity BDD project using JUnit and Screenplay, no cucumber, no step libraries</name>
 
     <properties>
-        <serenity.version>3.2.3</serenity.version>
+        <serenity.version>3.2.4</serenity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
@@ -44,6 +44,13 @@
             <artifactId>serenity-screenplay-rest</artifactId>
             <version>${serenity.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-ensure -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-ensure</artifactId>
+            <version>${serenity.version}</version>
         </dependency>
 
         <dependency>
