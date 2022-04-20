@@ -1,6 +1,9 @@
 package com.example.screenplay.question.browser;
 
 import com.example.screenplay.question.QuestionWithDefaultSubject;
+import com.google.cloud.bigquery.BigQueryOptions;
+import com.google.cloud.bigquery.InsertAllRequest;
+import com.google.cloud.bigquery.TableId;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Click;
@@ -31,6 +34,14 @@ public class RepositoryMapping extends QuestionWithDefaultSubject<Map<String, In
             String repoName = findRepositoryName(item);
             String stars = getRepositoryStars(item);
             repositoryToStars.put(repoName, Integer.valueOf(stars));
+            BigQueryOptions.getDefaultInstance()
+                .getService()
+                .insertAll(
+                    InsertAllRequest.newBuilder(TableId.of("github", "dependent projects"))
+                        .addRow(
+                            InsertAllRequest.RowToInsert.of(
+                                Map.of("repo", repoName, "stars", stars)))
+                        .build());
           });
       actor.attemptsTo(
           Check.whether(Presence.of(nextPageButton)).andIfSo(Click.on(nextPageButton)));
