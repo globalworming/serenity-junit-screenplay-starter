@@ -12,11 +12,17 @@ import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.questions.CountQuestion;
 import net.thucydides.core.annotations.Narrative;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v99.network.Network;
+import org.openqa.selenium.remote.http.HttpResponse;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static net.serenitybdd.screenplay.EventualConsequence.eventually;
@@ -52,7 +58,7 @@ public class ReportNavigatorIT {
   }
 
   @Test
-  public void selenium4devToolsExample() {
+  public void selenium4devToolsLogRequestsExample() {
     Actor tester = cast.actorUsingBrowser("chrome").named("tester");
     DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
     devTools.createSessionIfThereIsNotOne();
@@ -60,9 +66,6 @@ public class ReportNavigatorIT {
     devTools.addListener(
         Network.responseReceived(),
         entry -> {
-          if (entry.getResponse().getStatus() != 200) {
-            throw new RuntimeException("TODO");
-          }
           System.out.println(
               "Response (Req id) URL : ("
                   + entry.getRequestId()
@@ -73,6 +76,41 @@ public class ReportNavigatorIT {
                   + ")");
         });
     tester.attemptsTo(new AccessTheLatestReport());
+    tester.attemptsTo(Open.url("https://example.com/"));
+    // tester.attemptsTo(EnsureNoStatus500.in(responses));
+  }
+
+  @Test
+  public void selenium4devToolsInterceptRequests() {
+    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
+    devTools.createSessionIfThereIsNotOne();
+    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+    devTools
+        .getDomains()
+        .network()
+        .interceptTrafficWith(
+            httpHandler ->
+                req -> {
+                  if (req.getUri().contains("example")) {
+                    Call call =
+                        new OkHttpClient()
+                            .newCall(
+                                new Request.Builder()
+                                    .url("https://placekitten.com/g/200/300")
+                                    .get()
+                                    .build());
+                    try {
+                      Response response = call.execute();
+                      HttpResponse httpResponse = new HttpResponse();
+                      httpResponse.setContent(() -> response.body().byteStream());
+                      return httpResponse;
+                    } catch (IOException e) {
+                      throw new RuntimeException(e);
+                    }
+                  }
+                  return httpHandler.execute(req);
+                });
     tester.attemptsTo(Open.url("https://example.com/"));
   }
 }
