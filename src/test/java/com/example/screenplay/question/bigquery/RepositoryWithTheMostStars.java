@@ -13,10 +13,10 @@ public class RepositoryWithTheMostStars extends QuestionWithDefaultSubject<Strin
   public String answeredBy(Actor actor) {
     QueryJobConfiguration queryConfig =
         QueryJobConfiguration.newBuilder(
-                "SELECT repo, stars FROM `example-13825.github.dependent projects` ORDER BY stars DESC LIMIT 1")
+                "SELECT name, stars FROM `example-13825.github.dependent projects` ORDER BY stars DESC LIMIT 1")
             .build();
 
     TableResult query = AccessBigQuery.as(actor).query(queryConfig);
-    return query.iterateAll().iterator().next().get("repo").getStringValue();
+    return query.iterateAll().iterator().next().get("name").getStringValue();
   }
 }

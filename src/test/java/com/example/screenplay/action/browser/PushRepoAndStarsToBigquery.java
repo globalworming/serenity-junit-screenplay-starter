@@ -22,7 +22,7 @@ public class PushRepoAndStarsToBigquery implements Performable {
     AccessBigQuery.as(actor)
         .insertAll(
             InsertAllRequest.newBuilder(TableId.of("github", "dependent projects"))
-                .addRow(InsertAllRequest.RowToInsert.of(Map.of("repo", repoName, "stars", stars)))
+                .addRow(InsertAllRequest.RowToInsert.of(Map.of("name", repoName, "stars", stars)))
                 .build());
   }
 }

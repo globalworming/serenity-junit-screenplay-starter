@@ -9,7 +9,8 @@ public class DoesAnyHaveAStar extends QuestionWithDefaultSubject<Boolean> {
   @Override
   public Boolean answeredBy(Actor actor) {
     return Target.the("stars")
-        .locatedBy("[data-test-id=\"dg-repo-pkg-dependent\"] div span").resolveAllFor(actor)
+        .locatedBy("[data-test-id=\"dg-repo-pkg-dependent\"] div span:first-child")
+        .resolveAllFor(actor)
         .stream()
         .anyMatch(it -> !it.getText().contains("0"));
   }
