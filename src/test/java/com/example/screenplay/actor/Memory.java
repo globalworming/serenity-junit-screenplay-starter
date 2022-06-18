@@ -8,6 +8,5 @@ public class Memory {
   public static final String ACCESS_TOKEN = "access token";
   public static final String LATEST_RESPONSE = "latest response";
   public static final String LATEST_RESPONSE_BODY = "latest response body";
-  public static final String LATEST_NEURON_OUTPUT = "latest neuron output";
-  public static final String NUMBER_OF_TRAINING_ROUNDS = "number of training rounds";
+  public static String GAME_SLUG = "game slug memory key";
 }

@@ -12,6 +12,7 @@ import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import net.thucydides.core.annotations.Narrative;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.util.SystemEnvironmentVariables;
 import org.junit.jupiter.api.Disabled;
@@ -22,6 +23,7 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
 @ExtendWith(SerenityJUnit5Extension.class)
+@Narrative(text = "scraping github and persisting in google bigquery")
 public class GithubAutomationIT {
 
   private OnlineCast cast = new OnlineCast();
@@ -43,16 +45,6 @@ public class GithubAutomationIT {
     scraper.should(seeThat(new DoesAnyHaveAStar(), is(false)));
   }
 
-  @Test
-  void debug2() {
-    val actor = new Actor("scraper");
-    actor.can(AccessBigQuery.with(BigQueryOptions.getDefaultInstance().getService()));
-    actor.should(
-        seeThat(
-            new RepositoryWithTheMostStars(),
-            is("https://github.com/Revaldie/QE_Revaldi-Ergiyansyach-Ramadhan")));
-  }
-
   @SneakyThrows
   @Test
   @Disabled
@@ -65,13 +57,5 @@ public class GithubAutomationIT {
         seeThat(
             new RepositoryWithTheMostStars(),
             is("https://github.com/Revaldie/QE_Revaldi-Ergiyansyach-Ramadhan")));
-    // String s = scraper.asksFor(new RepositoryWithTheMostStars());
-
-    // String githubAccessToken = environmentVariables.getValue("GITHUB_ACCESS_TOKEN");
-    // assertThat(githubAccessToken, notNullValue());
-    // GitHub github = new GitHubBuilder().withOAuthToken(githubAccessToken).build();
-    // Map<String, GHBranch> branches =
-    //    github.getRepository("serenity-bdd/serenity-core").getBranches();
-    // assertThat(branches.keySet().isEmpty(), is(false));
   }
 }
