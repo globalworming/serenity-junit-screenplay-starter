@@ -26,7 +26,7 @@ public class AgGridIT {
     WebDriver driver = BrowseTheWeb.as(tester).getDriver();
     driver.findElement(By.cssSelector(".ag-center-cols-container .ag-cell[col-id=\"name\"]") ).click();
     Actions actions = new Actions(driver);
-    actions.keyDown(Keys.SHIFT).sendKeys(Keys.END).build().perform();
+    actions.sendKeys(Keys.END).build().perform();
 
     //actions.sendKeys(Keys.ARROW_RIGHT, Keys.ARROW_RIGHT, Keys.ARROW_RIGHT, Keys.ARROW_RIGHT,Keys.ARROW_RIGHT, Keys.ARROW_RIGHT, Keys.ARROW_RIGHT).build().perform();
 
