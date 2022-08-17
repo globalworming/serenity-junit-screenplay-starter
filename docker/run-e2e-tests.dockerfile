@@ -21,7 +21,5 @@ RUN mvn verify -Dit.test=com.example.e2e.hello.HelloWorldIT || true
 
 # this should result in a running server serving the test results, but i haven't made it work yet
 FROM lipanski/docker-static-website:latest as serve-report
-COPY --from=run /workspace/target/site/serenity /home/static
-#CMD ["ls", "-al", "/home/static"]
-CMD ["/thttpd", "-D", "-h", "0.0.0.0", "-p", "3000", "-d", "/home/static", "-u", "static", "-l", "-", "-M", "60"]
-# TODO 
+COPY --from=run /workspace/target/site/serenity .
+CMD ["/busybox", "httpd", "-f", "-v", "-p", "3000", "-c", "httpd.conf"]
