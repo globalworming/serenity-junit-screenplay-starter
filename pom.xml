@@ -9,7 +9,7 @@
     <name>Sample Serenity BDD project using JUnit and Screenplay, no cucumber, no step libraries</name>
 
     <properties>
-        <serenity.version>3.2.4</serenity.version>
+        <serenity.version>3.3.7</serenity.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
-            <version>1.301</version>
+            <version>1.308</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
