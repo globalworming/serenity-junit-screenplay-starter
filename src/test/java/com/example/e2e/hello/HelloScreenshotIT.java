@@ -1,12 +1,16 @@
 package com.example.e2e.hello;
 
 import com.example.screenplay.action.browser.TakeScreenshot;
+import net.serenitybdd.core.Reportable;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.hamcrest.CoreMatchers.is;
 
 @ExtendWith(SerenityJUnit5Extension.class)
 public class HelloScreenshotIT {

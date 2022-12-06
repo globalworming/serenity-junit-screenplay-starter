@@ -2,19 +2,18 @@ package com.example.e2e.browser;
 
 import com.example.screenplay.ability.AccessBigQuery;
 import com.example.screenplay.action.browser.ScrapeDependentsWithStars;
-import com.example.screenplay.action.browser.SelectSerenityCorePackage;
+import com.example.screenplay.action.browser.SelectCache2kPackage;
 import com.example.screenplay.question.bigquery.RepositoryWithTheMostStars;
 import com.example.screenplay.question.browser.DoesAnyHaveAStar;
 import com.google.cloud.bigquery.BigQueryOptions;
 import lombok.SneakyThrows;
-import lombok.val;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.annotations.Narrative;
+import net.thucydides.core.environment.SystemEnvironmentVariables;
 import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.util.SystemEnvironmentVariables;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,8 +49,13 @@ public class GithubAutomationIT {
   @Disabled
   public void whenFindingMostStars() {
     Actor scraper = cast.actorUsingBrowser("chrome").named("scraper");
-    scraper.can(AccessBigQuery.with(BigQueryOptions.getDefaultInstance().getService()));
-    scraper.attemptsTo(new SelectSerenityCorePackage());
+    scraper.can(
+        AccessBigQuery.with(
+            BigQueryOptions.newBuilder()
+                .setLocation(" europe-west3")
+                .setProjectId("example-13825")
+                .build().getService()));
+    scraper.attemptsTo(new SelectCache2kPackage());
     scraper.attemptsTo(new ScrapeDependentsWithStars());
     scraper.should(
         seeThat(

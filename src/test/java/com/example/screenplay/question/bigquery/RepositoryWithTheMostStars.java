@@ -5,7 +5,12 @@ import com.example.screenplay.question.QuestionWithDefaultSubject;
 import com.google.cloud.bigquery.QueryJobConfiguration;
 import com.google.cloud.bigquery.TableResult;
 import lombok.SneakyThrows;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.model.TestOutcome;
+import net.thucydides.core.steps.BaseStepListener;
+import org.openqa.selenium.By;
 
 public class RepositoryWithTheMostStars extends QuestionWithDefaultSubject<String> {
   @SneakyThrows

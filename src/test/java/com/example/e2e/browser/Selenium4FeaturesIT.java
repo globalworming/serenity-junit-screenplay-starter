@@ -13,7 +13,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v99.network.Network;
+import org.openqa.selenium.devtools.v107.network.Network;
 import org.openqa.selenium.remote.http.HttpResponse;
 
 import java.io.IOException;
@@ -92,5 +92,23 @@ public class Selenium4FeaturesIT {
                   return httpHandler.execute(req);
                 });
     tester.attemptsTo(Open.url("https://example.com/"));
+  }
+
+  @Test
+  public void selenium4devToolsModifyRequestHeader() {
+    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
+    devTools.createSessionIfThereIsNotOne();
+    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+    devTools
+        .getDomains()
+        .network()
+        .interceptTrafficWith(
+            httpHandler ->
+                req -> {
+                  req.addHeader("X-MAGIC", "MAGIC-VALUE");
+                  return httpHandler.execute(req);
+                });
+    tester.attemptsTo(Open.url("https://www.whatismybrowser.com/detect/what-http-headers-is-my-browser-sending"));
   }
 }
