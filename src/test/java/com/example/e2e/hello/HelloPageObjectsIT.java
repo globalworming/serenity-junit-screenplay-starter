@@ -20,7 +20,7 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 @ExtendWith(SerenityJUnit5Extension.class)
 public class HelloPageObjectsIT {
 
-  Actor tester = new OnlineCast().actorUsingBrowser("chrome").named("actor");
+  Actor tester = new OnlineCast().actorNamed("actor");
 
   @Test
   void navigate() {

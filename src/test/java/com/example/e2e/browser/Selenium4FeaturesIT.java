@@ -25,21 +25,21 @@ public class Selenium4FeaturesIT {
 
   @Test
   public void selenium4screenshotExample() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     tester.attemptsTo(new AccessTheLatestReport());
     tester.attemptsTo(new CaptureDurationDistributionAsEvidence());
   }
 
   @Test
   public void selenium4relativeLocatorsExample() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     tester.attemptsTo(new AccessTheLatestReport());
     tester.attemptsTo(new EnsureButtonTitles());
   }
 
   @Test
   public void selenium4devToolsLogRequestsExample() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
     devTools.createSessionIfThereIsNotOne();
     devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
@@ -62,7 +62,7 @@ public class Selenium4FeaturesIT {
 
   @Test
   public void selenium4devToolsInterceptRequests() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
     devTools.createSessionIfThereIsNotOne();
     devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
@@ -96,7 +96,7 @@ public class Selenium4FeaturesIT {
 
   @Test
   public void selenium4devToolsModifyRequestHeader() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     DevTools devTools = BrowseTheWeb.as(tester).getDevTools();
     devTools.createSessionIfThereIsNotOne();
     devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));

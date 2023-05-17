@@ -20,7 +20,7 @@ public class AgGridIT {
 
   @Test
   public void whenJumpingRight() {
-    Actor tester = cast.actorUsingBrowser("chrome").named("tester");
+    Actor tester = cast.actorNamed("tester");
     tester.attemptsTo(Open.url("https://www.ag-grid.com/example/"));
 
     WebDriver driver = BrowseTheWeb.as(tester).getDriver();

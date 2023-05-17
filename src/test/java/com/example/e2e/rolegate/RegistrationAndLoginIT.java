@@ -26,7 +26,7 @@ public class RegistrationAndLoginIT {
   EnvironmentVariables environmentVariables = SystemEnvironmentVariables.createEnvironmentVariables();
   Actor user;
 
-  @Managed(driver = "chrome")
+  @Managed(driver = "provided")
   private WebDriver aBrowser;
 
   @Test
